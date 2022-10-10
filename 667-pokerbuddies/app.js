@@ -4,9 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+
+
 if(process.env.NODE_ENV === 'development') {
+  console.log("HEELLELEE");
   require("dotenv").config();
+  console.log("Ran the dot");
 }
+
 var testRouter = require('./routes/tests');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
