@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
 
 <head>
     <meta charset="UTF-8">
@@ -24,3 +25,152 @@
 
 
 </html>
+=======
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../CSS/Game.css" />
+    <link href="../../dist/output.css" rel="stylesheet" />
+    <title>Games</title>
+  </head>
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      /* background-image: url("../poker-casino-chips-border-background-112366723.jpg"); */
+      /* background-size: 100% 155%;  */
+      background-image: url("../pngwing.com.png");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center center;
+      background-size: 70%;
+
+      background-color: rgb(51, 51, 214);
+    }
+
+    button {
+      color: white;
+      font-size: 1.5rem;
+      margin: auto;
+
+      height: 2em;
+    }
+    button:hover {
+      color: black;
+    }
+
+    .button_layout {
+      text-align: center;
+      /* margin-top: 38%; */
+
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 0.25em;
+    }
+    .left_buttons{
+        display: grid;
+        grid-template-rows: 1f 1f;
+        grid-gap: 0.25em;
+    }
+
+    .game{
+        display: grid;
+        grid-template-rows:  1fr 1fr 1fr 1fr 1fr;
+    }
+    .top_player{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    .top_player_cards{
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+    }
+
+    .middle{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+  </style>
+  <!-- card layout on board -->
+
+  <div class = "game">
+    <div>then</div>
+    <!-- top player cards -->
+    <div class= "top_player">
+        <div>
+        </div>
+        <div class="top_player_cards">
+            
+            <div style="text-align:center">
+                <!-- <rect width="500" height="100" style="fill:rgb(255, 255, 255);stroke-width:3;stroke:rgb(0,0,0)" />
+                <rect width="300" height="100" style="fill:rgb(254, 254, 254);stroke-width:3;stroke:rgb(0,0,0)" />-->
+                <button>card1</button>
+                <button>card2</button>
+            </div>
+            <div></div>
+
+        </div>
+        <div></div>
+    </div>
+    <!-- the middle where river and 2 other players are -->
+    <div class = "middle">
+        <div style="margin-left: 60%;">
+            <button>card1</button>
+            <button>card2</button>
+        </div>
+        <div style="text-align:center;">
+            <button>card1</button>
+            <button>card2</button>
+            <button>card1</button>
+            <button>card2</button>
+            <button>card1</button>
+        </div>
+        <div>
+            <button>card1</button>
+            <button>card2</button>
+        </div>
+    </div>
+    <!-- my cards -->
+    <div style="text-align:center;">
+        <button>card1</button>
+        <button>card2</button>
+    </div>
+    <div>
+        <div class="button_layout">
+
+            <div class="left_buttons">
+                <button style="width: 10%;">Call</button>
+                <div>
+                    <button style="">Check</button>
+                    <button style="width: 10%;">Fold</button>                
+                </div>
+    
+            </div>
+            <div class="left_buttons">
+                <button style="">Enter Custom Bet</button>
+                <div>
+                    <button style="width: 15%">Bet</button>
+                    <button style="width: 15%;">Raise</button>                
+                </div>
+    
+            </div>
+    
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  
+  
+
+  
+  
+</html>
+>>>>>>> d2e95951c4c5c3c7cbad9fa0be71a33e0dbed5f1
