@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/FrontEnd/CSS/Account.css">
+    <title>Account Page</title>
+</head>
+
+<style>
+    /* #test{
+            width: 1000px;
+            color: aqua;
+        } */
+    #grid-container {
+        display: grid;
+        background-color: #FFE8BF;
+        grid-template-columns: minmax(100px, auto);
+        grid-auto-rows: minmax(100px, auto);
+        grid-template-areas:
+            "images images held held held won won won"
+            "images images held held held won won won"
+            "images images held held held won won won"
+            "images images held held held won won won"
+            "edit edit held held held won won won"
+            "chat chat held held held won won won"
+            "joinsession joinsession amount amount amount amount amount amount"
+            "joinsession joinsession amount amount amount amount amount amount"
+            "joinsession joinsession amount amount amount amount amount amount"
+            "joinsession joinsession cashout cashout cashout buy buy buy"
+            "joinsession joinsession cashout cashout cashout buy buy buy"
+            "signout signout cashout cashout cashout buy buy buy";
+        border-style: solid;
+        border-width: 5px;
+        border-radius: 10px;
+    }
+
+    #image-area{
+        grid-area: images;
+        background-image: url("https://media.istockphoto.com/vectors/cute-black-cat-in-halloween-pumpkin-vector-id1180800328?k=20&m=1180800328&s=170667a&w=0&h=wLsnvvM9TNhUyu8CjQZD0dCdqoTBg9WIvbkB_Ov_tZs=");
+        background-size: cover;
+    }
+
+
+    #held{
+        grid-area: held;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-style: solid;
+        border-width: 3px;
+    }
+
+
+    #won{
+        grid-area: won;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-style: solid;
+        border-width: 3px;
+    }
+
+    #amount{
+        grid-area: amount;
+        background-color: #FFE8BF;
+        border-style: solid;
+        border-width: 3px;
+    }
+
+    #cash-out{
+        grid-area: cashout;
+        background-color: #FFE8BF;
+        border-style: solid;
+        border-width: 3px;
+    }
+
+    #buy{
+        grid-area: buy;
+        background-color: #FFE8BF;
+        border-style: solid;
+        border-width: 3px;
+    }
+
+    #edit-profile{
+        grid-area: edit;
+        border-style: solid;
+        border-width: 3px;
+    }
+
+    #chat{
+        grid-area: chat;
+        border-style: solid;
+        border-width: 3px;
+    }
+
+    #join-session{
+        grid-area: joinsession;
+        max-height: 20%;
+        border-style: solid;
+        border-width: 3px;
+    }
+
+    #sign-out{
+        grid-area: signout;
+        border-style: solid;
+        border-width: 3px;
+    }
+</style>
+
+<body>
+    <div id="grid-container">
+        <div id="image-area"> </div>
+
+        <div id="held">
+            <h1>Held Chips<br>
+                500</h1>
+        </div>
+
+        <div id="won">
+            <h1>Won Chips<br>
+                250</h1>
+        </div>
+
+        <input type="text" id="amount" placeholder="Enter The Amount">
+
+        <button id="cash-out"><h1>Cash Out</h1></button>
+        <button id="buy"><h1>Buy</h1></button>
+
+        <button id="edit-profile">Edit Profile</button>
+        <button id="chat">Chat</button>
+        <button id="join-session">Join Session</button>
+        <button id="sign-out">Sign Out</button>
+    </div>
+</body>
+
+</html>
