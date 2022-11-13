@@ -1,0 +1,15 @@
+var express = require('express');
+var router = express.Router();
+var path = require('path');
+
+
+let reqPath = path.join(__dirname, '../');
+router.get('/', function(req, res, next) {
+  res.sendFile(reqPath+'/FrontEnd/HTML/Games.html');
+});
+//routes to home page
+router.get('/home', function(req, res) {
+  res.sendFile(path.join(reqPath, '/FrontEnd/HTML/Home.html'));
+});
+
+module.exports = router;
