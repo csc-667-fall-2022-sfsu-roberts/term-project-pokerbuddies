@@ -6,29 +6,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../CSS/JoinSession.css">
+    <link rel="stylesheet" href="../CSS/SessionNavbar.css">
+  
     <title>Join Session</title>
-    
+
 </head>
 
 <body>
+    <div class="menubutton">
+        <button class="glow-on-hover" onclick="openCloseFunction()" style="width:fit-content;">=</button>
+    </div>
+    <div class="navbar" style="display:none" id="sidebar">
+        <button class="glow-on-hover navbutton" onclick="openCloseFunction()"
+            style="width: fit-content; height: fit-content; float: right; top: 0;">x</button>
+        <img class="profileimg" src="" style="width:100px">
+        <button class="glow-on-hover navbutton" type="button">Account</button><br>
+        <button class="glow-on-hover navbutton" type="button">Chat</button><br>
+        <button class="glow-on-hover navbutton" type="button">Total Chips</button><br>
+
+        <button class="glow-on-hover signoutbutton navbutton" type="button" style="width: 225px; height: 10%;">Sign
+            Out</button>
+    </div>
     <div class="container">
         <div class="card" id="card1">
-            <h1>Session 1</h5>
-            <hr/>
+            <h2 id="session1">Session 1</h2>
+            <hr />
             <ol>
                 <li>Player 1</li>
                 <li>Player 2</li>
                 <li>Player 3</li>
                 <li>Player 4</li>
             </ol>
-            
+
             <div class="card-footer">
-                
+
                 <div class="playerCount">
                     <p id="players">0/4</p>
                 </div>
                 <div class="join">
-                    <button type="button" class="joinButton">Join</button>
+                    <button type="button" class="glow-on-hover joinButton">Join</button>
                 </div>
             </div>
         </div>
@@ -36,4 +52,6 @@
 </body>
 
 <script src="../JoinSession.js"></script>
+<script src="../FrontEnd.js"></script>
+
 </html>

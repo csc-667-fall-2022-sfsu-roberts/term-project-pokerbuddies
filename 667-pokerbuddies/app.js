@@ -12,7 +12,9 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var homeRouter = require('./routes/home');
+var gameRouter = require('./routes/games');
 var registrationRouter = require('./routes/registration');
+var joinSession = require('./routes/session');
 var app = express();
 
 // view engine setup
@@ -30,6 +32,7 @@ app.use('/users', usersRouter);
 app.use('/tests', testRouter);
 app.use('/login', loginRouter);
 app.use('/home', homeRouter);
+app.use('/games', gameRouter);
 app.use('/registration', registrationRouter);
 
 // catch 404 and forward to error handler
