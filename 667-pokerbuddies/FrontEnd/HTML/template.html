@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>template</title>
+</head>
+
+<script>
+  function openCloseFunction() {
+var navbutton = document.getElementById("navbutton");
+var x = document.getElementById("sidebar");
+if (x.style.display === "none") {
+x.style.display = "block";
+navbutton.style.display = "none";
+
+} else {
+x.style.display = "none";
+navbutton.style.display = "";
+
+    }
+}
+  </script>
+
+<style>
+  button {
+    color: white;
+    font-size: 1.5rem;
+    margin: auto;
+
+    height: 2em;
+  }
+  button:hover {
+    color: black;
+  }
+
+
+
+  * {
+    box-sizing: border-box; 
+  }
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: row;
+    margin: 0;
+    background-color: rgb(51, 51, 214);
+
+  }
+  .col-1 {
+    background: black;
+    flex: 1;
+  }
+  .col-2 {
+    display: flex;
+    flex-direction: column;
+    flex: 5;
+    background-color: rgb(51, 51, 214);
+  }
+  
+   nav {
+    padding: 1em;
+  }
+
+
+
+.menubutton{
+
+float: right;
+}
+
+button{
+  background-color: #1d4ed8;
+  font-size: 1rem;
+  width: 225px;
+  height: 10%;
+  text-align: center;
+  text-decoration: none;
+  position: relative;
+  top: 100px;
+  right: 0;    
+  margin-bottom:5px;
+  
+}
+
+.signoutbutton{
+  position: relative;
+  top:200px;
+  right: 0;
+
+  
+}
+.profileimg {
+  border-style:solid;
+  background-color: black;
+  border-color: white;
+  border-width: 0.2px;
+  border-radius: 50%;
+  height: 100px;
+  position: relative;
+  display:block;
+  margin:auto;
+  top: 70px;
+  right: -25px;
+}
+#login{
+position: relative;
+top: 7px;
+}
+
+h1{
+  transition: all 0.5s;
+  -webkit-text-stroke: 2px #d6f4f4;
+  font-variation-settings: "wght" 900, "ital" 1;
+  font-size: 5rem;
+  text-align: center;
+  color: transparent;
+  font-family: "Meta", sans-serif;
+  text-shadow: 1.5px 1.5px 0px #07bccc,
+      3px 3px 0px #e601c0,
+      5px 5px 0px #e9019a,
+      7px 7px 0px #f40468,
+      15px 15px 10px #482896;
+  cursor: pointer;
+
+}
+h1:hover{
+  -webkit-text-stroke: 3px #d6f4f4;
+  color: black;
+  font-variation-settings: "wght" 100, "ital" 0;
+  text-shadow: none;
+}
+
+.glow-on-hover {
+
+  padding: 0.6em 2em;
+border: none;
+outline: none;
+color: rgb(255, 255, 255);
+background: #111;
+cursor: pointer;
+position: relative;
+z-index: 0;
+border-radius: 10px;
+user-select: none;
+-webkit-user-select: none;
+touch-action: manipulation;
+}
+
+.glow-on-hover:before {
+  content: "";
+background: linear-gradient(
+  45deg,
+  #ff0000,
+  #ff7300,
+  #fffb00,
+  #48ff00,
+  #00ffd5,
+  #002bff,
+  #7a00ff,
+  #ff00c8,
+  #ff0000
+);
+position: absolute;
+top: -2px;
+left: -2px;
+background-size: 400%;
+z-index: -1;
+filter: blur(5px);
+-webkit-filter: blur(5px);
+width: calc(100% + 4px);
+height: calc(100% + 4px);
+animation: glowing-button-85 20s linear infinite;
+transition: opacity 0.3s ease-in-out;
+border-radius: 10px;
+}
+
+
+
+.glow-on-hover:active {
+  color: #000
+}
+
+.glow-on-hover:active:after {
+  background: transparent;
+}
+
+.glow-on-hover:hover:before {
+  opacity: 1;
+}
+
+.glow-on-hover:hover:after {
+  opacity: 0;
+
+}
+
+.glow-on-hover:after {
+  z-index: -1;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+@keyframes glowing {
+  0% { background-position: 0 0; }
+  50% { background-position: 400% 0; }
+  100% { background-position: 0 0; }
+}
+
+@keyframes glowing-button-85 {
+0% {
+  background-position: 0 0;
+}
+50% {
+  background-position: 400% 0;
+}
+100% {
+  background-position: 0 0;
+}
+
+}
+
+
+
+
+
+</style>
+<body>
+  <!-- Sidebar -->
+  <nav class="col-1" style="display:none" id="sidebar">
+    <div style="position: relative;">
+    <button class = "glow-on-hover" onclick="openCloseFunction()" style="width: fit-content; height: fit-content; float: right; top: 0;">x</button>
+    <img class = "profileimg" src="" style="width:100px">
+    <button class = "glow-on-hover" type = "button">Edit Profile</button><br><br>
+    <button class = "glow-on-hover" type = "button">Chat</button><br><br>
+    <button  class = "glow-on-hover" type = "button">Join Session</button><br><br>
+    <a href="/home">
+    <button class = "glow-on-hover signoutbutton" type = "button" style="width: 225px; height: 10%; position: relative;">Sign Out</button>
+    </a>
+</div>
+  </nav>
+<!-- center of page -->
+  <div class="col-2">
+    <div style="float: left;">
+      <button class = "glow-on-hover" onclick="openCloseFunction()" style="width:fit-content; top: 0px; height: fit-content;" id="navbutton">=</button>
+      </div>
+  </div>
+</body>
+
+  </html>
