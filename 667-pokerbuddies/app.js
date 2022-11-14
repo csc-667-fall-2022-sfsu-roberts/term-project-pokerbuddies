@@ -13,6 +13,7 @@ var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var homeRouter = require('./routes/home');
 var registrationRouter = require('./routes/registration');
+var joinSession = require('./routes/session');
 var app = express();
 
 // view engine setup

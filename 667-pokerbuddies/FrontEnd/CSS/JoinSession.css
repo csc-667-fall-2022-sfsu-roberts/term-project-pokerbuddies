@@ -1,4 +1,8 @@
-
+body{
+    background-image: url("../christmas-poker-532125561-577a3b493df78cb62cd2fb20.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}   
 ol {
     text-align: center;
     list-style-position: inside;
@@ -7,8 +11,8 @@ ol {
     padding-bottom: 20px;
 }
 .container{
-    display: flex;
-    top: 50%;
+    padding-top: 5%;
+    display: flex; 
     flex-wrap: wrap;
     width: 45%;
     margin: auto;
@@ -18,7 +22,8 @@ ol {
     text-align: center;
     display: block;
     margin: auto;
-    width: 300px;
+    margin-top: 5%;
+    width: 500px;
     height: auto;
     background-color: bisque;
     border-radius: 10px;
@@ -26,7 +31,6 @@ ol {
 }
 
 .card-footer{
-  
     display:flex;
     border: 3px;
     
@@ -34,13 +38,16 @@ ol {
 .playerCount{
     width:50%
 }
+
 .join{
     top: 50%;
     width: 50%;
+    
 }
 .joinButton{
     width: 100%;
     height: 100%;
     border-radius: 10px;
+    background-color:crimson;    
 }
 
