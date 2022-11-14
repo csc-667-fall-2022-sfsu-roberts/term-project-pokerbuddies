@@ -1,5 +1,5 @@
 function openCloseFunction() {
-    console.log("clicked navbar");
+    var x = document.getElementById("sidebar");
     if (x.style.display === "none") {
         x.style.display = "block";
     } else {
