@@ -17,6 +17,7 @@ var accountRouter = require('./routes/account');
 var joinSessionRouter = require('./routes/joinSession');
 
 var registrationRouter = require('./routes/registration');
+var joinSession = require('./routes/session');
 var app = express();
 
 // view engine setup
