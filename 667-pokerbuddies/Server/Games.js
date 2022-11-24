@@ -60,6 +60,8 @@ const Games = function (id, name){
 
     };
 
+    //this is used to see if they folded and the cant make new moves untill the next round
+    //used also for any other state where they shouldnt move any more
     this.allowedMoves = (socket) =>{
 
     };
@@ -70,22 +72,27 @@ const Games = function (id, name){
         return player;
     };
 
+    //this can be used as our database storeage function
     this.storeData = () =>{
 
     };
 
+    //assignes big blind and little blind to players
     this.assignBlinds = () =>{
 
     };
 
+    //call this function to begin a new round
     this.newRound = () =>{
 
     };
 
+    //this is like flop, 4th card then 5th card
     this.stages = () =>{
 
     };
 
+    // this is flipping cards
     this.display = () =>{
 
     };
@@ -106,14 +113,17 @@ const Games = function (id, name){
 
     };
 
+    //this desides which player can go first
     this.getFirstTurn = () => {
 
     };
 
+    //this updates the stages such as flopp, 4th card and 5th card shown
     this.updateStages = () =>{
 
     };
 
+    //moves on to the next player after prev goes
     this.nextPlayerTurn = () =>{
 
     };
@@ -122,6 +132,7 @@ const Games = function (id, name){
 
     };
 
+    //this is the logic for the players cards to determine which hand won
     this.checkHand = () =>{
 
     };
