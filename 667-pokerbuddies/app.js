@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const socket = require('socket.io');
+const http = require('http');
 
 if(process.env.NODE_ENV === 'development') {
   require("dotenv").config();
@@ -12,7 +14,12 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var homeRouter = require('./routes/home');
+var gameRouter = require('./routes/games');
+var accountRouter = require('./routes/account');
+var joinSessionRouter = require('./routes/joinSession');
+
 var registrationRouter = require('./routes/registration');
+var joinSession = require('./routes/session');
 var app = express();
 
 // view engine setup
@@ -25,12 +32,27 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const server = http.createServer(app);
+
+const io = socket(server);
+
+server.on('error',(err) => {
+  console.log(err);
+});
+
+
+
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/tests', testRouter);
 app.use('/login', loginRouter);
 app.use('/home', homeRouter);
+app.use('/games', gameRouter);
 app.use('/registration', registrationRouter);
+app.use('/joinSession', joinSessionRouter);
+app.use('/account', accountRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

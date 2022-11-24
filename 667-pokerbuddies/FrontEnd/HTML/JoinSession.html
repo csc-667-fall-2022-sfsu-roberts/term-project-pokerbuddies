@@ -5,23 +5,53 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="CSS/JoinSession.css">
-    <link href="../../dist/output.css" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/JoinSession.css">
+    <link rel="stylesheet" href="../CSS/SessionNavbar.css">
+  
     <title>Join Session</title>
+
 </head>
 
 <body>
-    <div class="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-        <a href="#">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
-        </a>
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
-        <a href="#" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            Read more
-            <svg aria-hidden="true" class="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-        </a>
+    <div class="menubutton">
+        <button class="glow-on-hover" onclick="openCloseFunction()" style="width:fit-content;">=</button>
+    </div>
+    <div class="navbar" style="display:none" id="sidebar">
+        <button class="glow-on-hover navbutton" onclick="openCloseFunction()"
+            style="width: fit-content; height: fit-content; float: right; top: 0;">x</button>
+        <img class="profileimg" src="" style="width:100px">
+        <button class="glow-on-hover navbutton" type="button">Account</button><br>
+        <button class="glow-on-hover navbutton" type="button">Chat</button><br>
+        <button class="glow-on-hover navbutton" type="button">Total Chips</button><br>
+
+        <button class="glow-on-hover signoutbutton navbutton" type="button" style="width: 225px; height: 10%;">Sign
+            Out</button>
+    </div>
+    <div class="container">
+        <div class="card" id="card1">
+            <h2 id="session1">Session 1</h2>
+            <hr />
+            <ol>
+                <li>Player 1</li>
+                <li>Player 2</li>
+                <li>Player 3</li>
+                <li>Player 4</li>
+            </ol>
+
+            <div class="card-footer">
+
+                <div class="playerCount">
+                    <p id="players">0/4</p>
+                </div>
+                <div class="join">
+                    <button type="button" class="glow-on-hover joinButton">Join</button>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
-<script src="joinSession.js"></script>
+
+<script src="../JoinSession.js"></script>
+<script src="../FrontEnd.js"></script>
 
 </html>
