@@ -128,15 +128,18 @@ button:after {
 <h1 style="text-align: center; margin-top: -3%;"  >Registration</h1>
 
 <div style="background-color: white;" class = "TextFields">
-    <label style = "font-size: large;">User Name</label><br>
-    <input style = "font-size:large;" type="text" id="fname" name="fname"><br>
-    <label style = "font-size:large;">Password</label><br>
-    <input style = "font-size:large;" type="password" id="Password" name="Password"><br>
-    <label style = "font-size:large;">Confirm Password</label><br>
-    <input style = "font-size:large;" type="password" id="Password" name="Password"><br>
-    <label style = "font-size:large;">Email</label><br>
-    <input style = "font-size:large;" type="email" id="fname" name="fname"><br>
-    <a href="/joinSession">
-        <button style= "font-size:large; margin-top: 5%;" class="loginButton">Create Account</button>
-</a>
+    <form action="/registration/insertUser" method="POST">
+        <label style = "font-size: large;">User Name</label><br>
+        <input style = "font-size:large;" type="text" name="user_name"><br>
+        <label style = "font-size:large;">Password</label><br>
+         <input style = "font-size:large;" type="password" name="user_password"><br>
+        <label style = "font-size:large;">Confirm Password</label><br>
+        <input style = "font-size:large;" type="password"><br>
+        <label style = "font-size:large;">Email</label><br>
+        <input style = "font-size:large;" type="email" ><br>
+        <a href="/joinSession">
+            <button style= "font-size:large; margin-top: 5%;" class="loginButton">Create Account</button>
+    </a>
+    
+    </form>
 </div>

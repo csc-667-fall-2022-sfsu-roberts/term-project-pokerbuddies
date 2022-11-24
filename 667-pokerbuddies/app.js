@@ -13,7 +13,7 @@ var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var homeRouter = require('./routes/home');
 var gameRouter = require('./routes/games');
-var accountRouter = require('./routes/account');
+var accountRouter = require('./routes/Accounts');
 var joinSessionRouter = require('./routes/joinSession');
 
 var registrationRouter = require('./routes/registration');
@@ -38,7 +38,7 @@ app.use('/home', homeRouter);
 app.use('/games', gameRouter);
 app.use('/registration', registrationRouter);
 app.use('/joinSession', joinSessionRouter);
-app.use('/account', accountRouter);
+app.use('/Accounts', accountRouter);
 
 
 // catch 404 and forward to error handler
