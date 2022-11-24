@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const socket = require('socket.io');
+const http = require('http');
 
 if(process.env.NODE_ENV === 'development') {
   require("dotenv").config();
@@ -28,6 +30,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+const server = http.createServer(app);
+
+const io = socket(server);
+
+server.on('error',(err) => {
+  console.log(err);
+});
+
+
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
