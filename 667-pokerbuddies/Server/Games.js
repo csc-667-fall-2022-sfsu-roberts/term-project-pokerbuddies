@@ -25,6 +25,129 @@ const Games = function (id, name){
 
     const constructor = (function () {})(this);
 
-    
+    this.startGame = () =>{
+
+    };
+
+    this.dealCards = () =>{
+        this.deck.shuffle();
+        for(let i =0; i < this.players.length; i++){
+            this.players.cards =[];
+            for(let j = 0; j<2; j++){
+                this.players.addCard(this.deck.deal());
+            }
+        }
+
+    };
+
+    this.fold = (socket) =>{
+
+    };
+
+    this.call = (socket) =>{
+
+    };
+
+    this.bet = (socket, bet) =>{
+
+    };
+
+    this.check = (socket) =>{
+
+    };
+
+    this.raise = (socket, bet) =>{
+
+    };
+
+    //this is used to see if they folded and the cant make new moves untill the next round
+    //used also for any other state where they shouldnt move any more
+    this.allowedMoves = (socket) =>{
+
+    };
+
+    this.addNewPlayer = (playerName, socket) =>{
+        const player = new Player(playerName, socket);
+        this.players.push(player);
+        return player;
+    };
+
+    //this can be used as our database storeage function
+    this.storeData = () =>{
+
+    };
+
+    //assignes big blind and little blind to players
+    this.assignBlinds = () =>{
+
+    };
+
+    //call this function to begin a new round
+    this.newRound = () =>{
+
+    };
+
+    //this is like flop, 4th card then 5th card
+    this.stages = () =>{
+
+    };
+
+    // this is flipping cards
+    this.display = () =>{
+
+    };
+
+    this.getPot = () =>{
+
+    };
+
+    this.getPlayerBet = () =>{
+
+    };
+
+    this.getMaxBet = () =>{
+
+    };
+
+    this.isPlayerChecked = () =>{
+
+    };
+
+    //this desides which player can go first
+    this.getFirstTurn = () => {
+
+    };
+
+    //this updates the stages such as flopp, 4th card and 5th card shown
+    this.updateStages = () =>{
+
+    };
+
+    //moves on to the next player after prev goes
+    this.nextPlayerTurn = () =>{
+
+    };
+
+    this.getWinnings = () =>{
+
+    };
+
+    //this is the logic for the players cards to determine which hand won
+    this.checkHand = () =>{
+
+    };
+
+    this.revealHands = () =>{
+
+    };
+
+    this.setPlayerCards = (one_card) =>{
+
+    };
+
+
+
 
 }
+
+module.exports = Games;
