@@ -26,6 +26,7 @@ const Games = function (id, name){
     const constructor = (function () {})(this);
 
     this.startGame = () =>{
+        this.deck.shuffle();
 
     };
 
@@ -98,11 +99,22 @@ const Games = function (id, name){
     };
 
     this.getPot = () =>{
+        if(this.roundInfo.bets.length == 0){
+            return 0;
+        }
+        else{
+            let total = 0;
+            for(let i =0; i < this.roundInfo.bets.length; i++){
+                total+= this.roundInfo.bets[i];
+            }
+            return total;
+        }
+
 
     };
 
-    this.getPlayerBet = () =>{
-
+    this.getPlayerBet = (player) =>{
+        
     };
 
     this.getMaxBet = () =>{
@@ -144,6 +156,15 @@ const Games = function (id, name){
     this.setPlayerCards = (one_card) =>{
 
     };
+
+    this.findPlayer = (socketID) =>{
+        for (const element of this.players) {
+            if (element.socket.id === socketID) {
+              return element;
+            }
+          }
+          return { socket: { id: 0 } };
+    }
 
 
 
