@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const socket = require('socket.io');
+const http = require('http');
 
 if(process.env.NODE_ENV === 'development') {
   require("dotenv").config();
@@ -13,7 +15,7 @@ var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
 var homeRouter = require('./routes/home');
 var gameRouter = require('./routes/games');
-var accountRouter = require('./routes/account');
+var accountRouter = require('./routes/Accounts');
 var joinSessionRouter = require('./routes/joinSession');
 
 var registrationRouter = require('./routes/registration');
@@ -30,6 +32,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const server = http.createServer(app);
+
+const io = socket(server);
+
+server.on('error',(err) => {
+  console.log(err);
+});
+
+
+
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/tests', testRouter);
@@ -38,7 +51,7 @@ app.use('/home', homeRouter);
 app.use('/games', gameRouter);
 app.use('/registration', registrationRouter);
 app.use('/joinSession', joinSessionRouter);
-app.use('/account', accountRouter);
+app.use('/Accounts', accountRouter);
 
 
 // catch 404 and forward to error handler
