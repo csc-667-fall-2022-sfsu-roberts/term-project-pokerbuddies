@@ -9,6 +9,8 @@ for (let i = 1; i < 6; i++) {
     card.after(cardCopy);
 }
 
+
+
 //Displays each individual session
 const cards = document.querySelectorAll('.card');
 cards.forEach((card, index) => {
@@ -41,7 +43,7 @@ const updatePlayerList = (e) => {
     var parentCard = e.target.parentNode.parentNode.parentNode;
     var playerList = parentCard.children[1].children[1].children;
     for(let i = 0; i < 4; i++){
-        players[i] = playerList[i]
+        players[i] = playerList[i];
     }
     addPlayer();
 }
