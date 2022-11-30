@@ -1,13 +1,5 @@
-class card {
-    constructor(suit, value, deckId, cardImage) {
-        this.suit = suit;
-        this.value = value;
-        this.deckId = deckId;
-        this.cardImage = cardImage;
-    }
-}
 
-var deck = [];
+
 //from hand
 function checkHighestCard()
     //find highest value card in hand
@@ -33,7 +25,7 @@ function checkStraightFlush()
     //call checkStraight and then checkFlush
 function checkRoyalFlush()
     //check all cards for a value of 10,11,12,13,14 and the same suit
-
+function 
 //create a checkRiver to check how many total cards are in play
     //pass in player hand
         //compare all combination options
