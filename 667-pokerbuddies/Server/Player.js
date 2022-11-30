@@ -6,9 +6,64 @@ const Player = function (name, socket){
     this.chips = 100;
     this.buyIn = 0;
     this.status = '';
-    this.blind = '';
     this.allIn = false;
     this.against = false;
+    this.out = false;
+    this.turn = 0;
+    this.checked = false;
+    this.bet = 0;
+    this.fold = false;
+
+    this.emit =(name , stuff) =>{
+        this.socket.emit(name, stuff);
+    };
+
+    this.newRound = () =>{
+        this.bet =0;
+        this.checked = false;
+        this.status = '';
+        this.currentCard = '';
+        this.cards = [];
+        this.fold = false;
+    };
+
+    this.setFold = (val) => {
+        this.fold = val;
+    }
+
+    this.isFolded = () =>{
+        return this.fold;
+    };
+
+    this.setBet = (val) =>{
+        if(this.chips > val){
+            this.chips -= val;
+            this.bet = val;  
+        }else{
+            return -1;
+        }
+        
+    };
+
+    this.getChips = () =>{
+        return this.chips;
+    };
+
+    this.getBet= () =>{
+        return this.bet;
+    };
+
+    this.getSocket = () =>{
+        return socket;
+    };
+
+    this.setTurn = (num) =>{
+        this.turn = num;
+    };
+
+    this.getTurn = () =>{
+        return this.turn;
+    };
 
 
     this.addCard = (card) =>{
@@ -19,10 +74,6 @@ const Player = function (name, socket){
         this.status = data;
     }
 
-    this.setBlind = (data) =>{
-        this.blind = data;
-    }
-
     this.getName = () =>{
         return this.name;
     }
@@ -31,13 +82,18 @@ const Player = function (name, socket){
         return this.status;
     };
 
-    this.getBlind = () =>{
-        return this.blind;
-    }
 
     this.emit = (event, pay) => {
         this.socket.emit(event,pay);
     }
+
+    this.setIsChecked = (val) =>{
+        this.checked = val;
+    };
+
+    this.getIsChecked = () =>{
+        return this.checked;
+    };
 
 };
 
