@@ -49,6 +49,10 @@ const Player = function (name, socket){
         return this.chips;
     };
 
+    this.setChips = (val) =>{
+        this.chips+= val;
+    }
+
     this.getBet= () =>{
         return this.bet;
     };

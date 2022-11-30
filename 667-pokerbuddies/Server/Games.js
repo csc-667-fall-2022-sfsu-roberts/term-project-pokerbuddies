@@ -178,6 +178,48 @@ const Games = function (id, name){
 
     //this is like flop, 4th card then 5th card
     this.stages = () =>{
+        let roundDone = false;
+        if(this.isStageComplete()){
+            //add all in logic
+
+            //checks if only one player didnt fold
+            const [nonFoldPlayerNumber, nonFoldPlayers] = this.getNonFoldedPlayers();
+            if(nonFoldPlayerNumber == 1){
+                nonFoldPlayers.setChips(this.pot);
+
+            }
+        }
+
+    };
+
+    this.allFolded = (name) =>{
+
+        this.roundInProgress = false;
+        let cardData =[];
+        for(const p of this.players){
+            cardData.push({
+                userName: p.getName(),
+                chips: p.getChips(),
+                text: p.getStatus(),
+            });
+        };
+
+        for(const p of this.players){
+            p.emit('Done',)
+        }
+
+    };
+
+    this.getNonFoldedPlayers = () =>{
+        let count =0;
+        let player;
+        for(const p of this.players){
+            if(p.getStatus() != 'Fold'){
+                count++;
+                player = p;
+            }
+        }
+        return [count, player];
 
     };
 
