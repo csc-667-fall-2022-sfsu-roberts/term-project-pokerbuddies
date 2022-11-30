@@ -24,6 +24,7 @@ class Deck {
         for(let suit in suits){
             for(let value in nums){
                 this.deck.push(nums[value] + " of " + suits[suit]);
+                console.log(deck);
             }
         }
     }

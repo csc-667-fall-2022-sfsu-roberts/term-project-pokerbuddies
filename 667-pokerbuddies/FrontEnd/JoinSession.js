@@ -1,5 +1,6 @@
 //holds list of displayed players
 const players = [];
+
 //creates 6 cards and gives them individual ids
 for (let i = 1; i < 6; i++) {
     let cardid = 'card' + i;
@@ -10,20 +11,18 @@ for (let i = 1; i < 6; i++) {
 }
 
 
-
 //Displays each individual session
 const cards = document.querySelectorAll('.card');
 cards.forEach((card, index) => {
     card.children[0].innerText = `Session ${index + 1}`;
 
 });
-const pCount = document.querySelectorAll('.playerCount');
-pCount.forEach((numPlayers) => {
-    pCount.children[0].innerText = `${playerCount}/4`;
-});
+// const pCount = document.querySelectorAll('.playerCount');
+// pCount.forEach((numPlayers) => {
+//     pCount.children[0].innerText = `${playerCount}/4`;
+// });
 //adds account player's username to session
 function addPlayer() {
-
     let playerNames = players.map((player) => player.innerText);
     let index = playerNames.findIndex((p) => p == '-');
     //returns index of first element that is '-'
@@ -33,10 +32,7 @@ function addPlayer() {
     else {
         players[index].innerText = "test";
         //account name
-
-      
     }
-
 }
 //targets parent card of button 
 const updatePlayerList = (e) => {
