@@ -1,26 +1,26 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const socket = require('socket.io');
 const http = require('http');
 
 if(process.env.NODE_ENV === 'development') {
   require("dotenv").config();
 }
-var testRouter = require('./routes/tests');
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var loginRouter = require('./routes/login');
-var homeRouter = require('./routes/home');
-var gameRouter = require('./routes/games');
-var accountRouter = require('./routes/Accounts');
-var joinSessionRouter = require('./routes/joinSession');
+const testRouter = require('./routes/tests');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const loginRouter = require('./routes/login');
+const homeRouter = require('./routes/home');
+const gameRouter = require('./routes/games');
+const accountRouter = require('./routes/Accounts');
+const joinSessionRouter = require('./routes/joinSession');
 
-var registrationRouter = require('./routes/registration');
-var joinSession = require('./routes/session');
-var app = express();
+const registrationRouter = require('./routes/registration');
+const joinSession = require('./routes/session');
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -40,6 +40,10 @@ server.on('error',(err) => {
   console.log(err);
 });
 
+function getAppInfo() {
+  return[server,io,app];
+}
+
 
 
 
@@ -54,10 +58,10 @@ app.use('/joinSession', joinSessionRouter);
 app.use('/Accounts', accountRouter);
 
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+// // catch 404 and forward to error handler
+// app.use(function(req, res, next) {
+//   next(createError(404));
+// });
 
 // error handler
 app.use(function(err, req, res, next) {

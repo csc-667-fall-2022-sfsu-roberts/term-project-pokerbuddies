@@ -381,13 +381,17 @@ const Games = function (id, name) {
     }
   };
 
+  //TODO
   this.getWinnings = (socket) => {
     const player = this.findPlayer(socket.id);
   };
 
   //this is the logic for the players cards to determine which hand won
-  this.checkHand = () => {};
+  this.checkHand = (river, cards) => {
 
+  };
+
+  //TODO
   this.revealHands = () => {};
 
   this.setPlayerCards = (one_card) => {};
