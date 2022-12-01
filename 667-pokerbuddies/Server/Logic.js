@@ -1,4 +1,5 @@
 //NOTE: SPADES > HEARTS > CLOVER > DIAMONDS
+//NOTE: K > Q > J > T > 9 > 8 > 7 > 6 > 5 > 4 > 3 > 2 > 1
 
 //Will probably return this object instead of just the integers in case we need
 //to check face or suit later on.
@@ -10,8 +11,16 @@ class combinationObject {
     }
 }
 
+//All of the check functions below will either return a 0 or 1, false or
+//true respectively. This will indicate whether the combination exists or
+//not. The suits, and faces can be checked later on via the combination
+//object if there is a case that two or more players have the same
+//combination.
+
 //from hand
-function checkHighestCard() //0
+function checkHighestCard(cards){
+
+} //0
 //find highest value card in hand
 function checkSecondHighestCard() //1
 //select 2nd card
