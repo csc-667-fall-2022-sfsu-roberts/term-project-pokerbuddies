@@ -17,6 +17,8 @@ const homeRouter = require('./routes/home');
 const gameRouter = require('./routes/games');
 const accountRouter = require('./routes/Accounts');
 const joinSessionRouter = require('./routes/joinSession');
+const userDoesntExistRouter = require('./routes/userDoesntExist');
+
 
 const registrationRouter = require('./routes/registration');
 const joinSession = require('./routes/session');
@@ -56,6 +58,8 @@ app.use('/games', gameRouter);
 app.use('/registration', registrationRouter);
 app.use('/joinSession', joinSessionRouter);
 app.use('/Accounts', accountRouter);
+app.use('/userDoesntExist', userDoesntExistRouter);
+
 
 
 // // catch 404 and forward to error handler
