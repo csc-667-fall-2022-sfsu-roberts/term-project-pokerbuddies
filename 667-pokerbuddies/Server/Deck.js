@@ -1,4 +1,4 @@
-class Deck {
+export class Deck {
   constructor() {
     this.deck = [];
     this.reset();
@@ -17,12 +17,12 @@ class Deck {
 
   reset() {
     this.deck = [];
-    const nums = ["Ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "Jack", "Queen", "King"];
-    const suits = ["Hearts", "Diamonds", "Clubs", "Spades"];
+    const nums = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"];
+    const suits = ["H", "D", "C", "S"];
 
     for (let suit in suits) {
       for (let value in nums) {
-        this.deck.push(nums[value] + " of " + suits[suit]);
+        this.deck.push(suits[suit] + "_" + nums[value]);
       }
     }
   }
@@ -39,3 +39,4 @@ class Deck {
     return this.deck.length;
   }
 }
+export default Deck;

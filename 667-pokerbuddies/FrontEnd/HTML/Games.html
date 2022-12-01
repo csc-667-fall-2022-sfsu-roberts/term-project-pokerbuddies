@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../CSS/Game.css" />
+    <!-- <script type="module" src="../../Server/gameToFront.js"></script> -->
 
     <title>Games</title>
   </head>
@@ -69,8 +70,8 @@
           <div class="top-cards">
             <div class="card">
               <div class="card-inner">
-                <div class="card-front">
-                  <img src="../Cards/C_10.png" alt="" class="card-img" />
+                <div class="card-front" onclick="changeCard()">
+                  <img id="card-1" src="../Cards/C_10.png" alt="" class="card-img" />
                 </div>
                 <div class="card-back">
                   <img
@@ -84,7 +85,7 @@
             <div class="card">
               <div class="card-inner">
                 <div class="card-front">
-                  <img src="../Cards/C_10.png" alt="" class="card-img" />
+                  <img id="card-2" src="../Cards/C_10.png" alt="" class="card-img" />
                 </div>
                 <div class="card-back">
                   <img
@@ -101,7 +102,7 @@
               <div id="rotate-card" class="card">
                 <div class="card-inner">
                   <div class="card-front">
-                    <img src="../Cards/C_10.png" alt="" class="card-img" />
+                    <img id="card-3" src="../Cards/C_10.png" alt="" class="card-img" />
                   </div>
                   <div class="card-back">
                     <img
@@ -115,7 +116,7 @@
               <div id="rotate-card" class="card">
                 <div class="card-inner">
                   <div class="card-front">
-                    <img src="../Cards/C_10.png" alt="" class="card-img" />
+                    <img id="card-4" src="../Cards/C_10.png" alt="" class="card-img" />
                   </div>
                   <div class="card-back">
                     <img
@@ -131,7 +132,7 @@
               <div class="card">
                 <div class="card-inner">
                   <div class="card-front">
-                    <img src="../Cards/C_10.png" alt="" class="card-img" />
+                    <img id="card-9" src="../Cards/C_10.png" alt="" class="card-img" />
                   </div>
                   <div class="card-back">
                     <img
@@ -145,7 +146,7 @@
               <div class="card">
                 <div class="card-inner">
                   <div class="card-front">
-                    <img src="../Cards/C_10.png" alt="" class="card-img" />
+                    <img id="card-10" src="../Cards/C_10.png" alt="" class="card-img" />
                   </div>
                   <div class="card-back">
                     <img
@@ -159,7 +160,7 @@
               <div class="card">
                 <div class="card-inner">
                   <div class="card-front">
-                    <img src="../Cards/C_10.png" alt="" class="card-img" />
+                    <img id="card-11" src="../Cards/C_10.png" alt="" class="card-img" />
                   </div>
                   <div class="card-back">
                     <img
@@ -173,7 +174,7 @@
               <div class="card">
                 <div class="card-inner">
                   <div class="card-front">
-                    <img src="../Cards/C_10.png" alt="" class="card-img" />
+                    <img id="card-12" src="../Cards/C_10.png" alt="" class="card-img" />
                   </div>
                   <div class="card-back">
                     <img
@@ -187,7 +188,7 @@
               <div class="card">
                 <div class="card-inner">
                   <div class="card-front">
-                    <img src="../Cards/C_10.png" alt="" class="card-img" />
+                    <img id="card-13" src="../Cards/C_10.png" alt="" class="card-img" />
                   </div>
                   <div class="card-back">
                     <img
@@ -203,7 +204,7 @@
               <div id="rotate-card" class="card">
                 <div class="card-inner">
                   <div class="card-front">
-                    <img src="../Cards/C_10.png" alt="" class="card-img" />
+                    <img id="card-5" src="../Cards/C_10.png" alt="" class="card-img" />
                   </div>
                   <div class="card-back">
                     <img
@@ -217,7 +218,7 @@
               <div id="rotate-card" class="card">
                 <div class="card-inner">
                   <div class="card-front">
-                    <img src="../Cards/C_10.png" alt="" class="card-img" />
+                    <img id="card-6" src="../Cards/C_10.png" alt="" class="card-img" />
                   </div>
                   <div class="card-back">
                     <img
@@ -234,7 +235,7 @@
             <div class="card">
               <div class="card-inner">
                 <div class="card-front">
-                  <img src="../Cards/C_10.png" alt="" class="card-img" />
+                  <img id="card-7" src="../Cards/C_10.png" alt="" class="card-img" />
                 </div>
                 <div class="card-back">
                   <img
@@ -248,7 +249,7 @@
             <div class="card">
               <div class="card-inner">
                 <div class="card-front">
-                  <img src="../Cards/C_10.png" alt="" class="card-img" />
+                  <img id="card-8" src="../Cards/C_10.png" alt="" class="card-img" />
                 </div>
                 <div class="card-back">
                   <img

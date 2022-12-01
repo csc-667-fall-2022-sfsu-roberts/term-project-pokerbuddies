@@ -72,6 +72,10 @@ const Player = function (name, socket) {
     this.cards.push(card);
   };
 
+  this.getCards = () =>{
+    return this.cards;
+  }
+
   this.setStatus = (data) => {
     this.status = data;
   };
@@ -97,4 +101,4 @@ const Player = function (name, socket) {
   };
 };
 
-module.exports = Player;
+export default Player;
