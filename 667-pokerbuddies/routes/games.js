@@ -5,6 +5,9 @@ var path = require('path');
 
 let reqPath = path.join(__dirname, '../');
 router.get('/', function(req, res, next) {
+
+
+  //create a game 
   res.sendFile(reqPath+'/FrontEnd/HTML/Games.html');
 });
 //routes to joinSession page

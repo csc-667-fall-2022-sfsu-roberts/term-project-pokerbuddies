@@ -7,19 +7,23 @@ let reqPath = path.join(__dirname, '../');
 router.get('/', function(req, res, next) {
   res.sendFile(reqPath+'/FrontEnd/HTML/Registration.html');
 });
-router.post('/insertUser',function(req, res, next) {
+
+router.post('/insertUser',async function(req, res, next) {
   var user_name = req.body.user_name; 
   var user_password = req.body.user_password;
-users.createUser(user_name, user_password);
-
-
+  const createUser = await users.createUser(user_name, user_password);
+  const userId = Object.values(createUser);
+  users.createPlayer(parseInt(userId[0]));
+  console.log(userId);
+  
 //redirects to JoinSession page after inserting user into database
 res.redirect('/joinSession');
 
 
 });
 
- router.get('/joinSession', function(req, res) {
+
+ router.get('/joinSession', async function(req, res) {
   res.sendFile(path.join(reqPath, '/FrontEnd/HTML/JoinSession.html'));
 });
 

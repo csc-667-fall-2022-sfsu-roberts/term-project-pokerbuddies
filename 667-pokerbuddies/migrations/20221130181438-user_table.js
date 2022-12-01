@@ -24,3 +24,4 @@ module.exports = {
     return queryInterface.dropTable('user_table');
   }
 };
+
