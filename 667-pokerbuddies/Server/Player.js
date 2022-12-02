@@ -2,7 +2,6 @@ const Player = function (name, socket) {
   this.userName = name;
   this.cards = [];
   this.socket = socket;
-  this.currentCard = null;
   this.chips = 100;
   this.buyIn = 0;
   this.status = "";
@@ -13,6 +12,7 @@ const Player = function (name, socket) {
   this.checked = false;
   this.bet = 0;
   this.fold = false;
+  this.playerNumber = 0;
 
   this.emit = (name, stuff) => {
     this.socket.emit(name, stuff);
@@ -26,6 +26,15 @@ const Player = function (name, socket) {
     this.cards = [];
     this.fold = false;
   };
+
+  this.setPlayerNumber =(val) =>{
+    this.playerNumber = val;
+
+  }
+
+  this.getPlayerNumber = () =>{
+    return this.playerNumber;
+  }
 
   this.setFold = (val) => {
     this.fold = val;
@@ -81,7 +90,7 @@ const Player = function (name, socket) {
   };
 
   this.getName = () => {
-    return this.name;
+    return this.userName;
   };
 
   this.getStatus = () => {

@@ -286,7 +286,7 @@
     transform: rotateY(180deg);
   }
 
-.top-cards{
+.top-card-div{
   margin-left: 350px;
   display: grid;
   grid-template-columns: .1fr .1fr;
@@ -301,11 +301,20 @@
   
 }
 
-.river{
+.river-div{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
-.left-cards{
+
+.river{
+  display: grid;
+  grid-template-rows: .5fr .5fr;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.left-card-div{
 
   display: grid;
   grid-template-rows: 1fr 1fr;
@@ -336,10 +345,64 @@
   align-items: center;
 }
 
-.bottom-cards{
+.bottom-card-div{
   margin-left: 350px;
   display: grid;
   grid-template-columns: .1fr .1fr;
   justify-items: center;
+}
+
+.player-chips{
+  background-color: #111;
+  color: white;
+  border: 1px solid white;
+}
+.player-bet{
+  background-color: #111;
+  color: white;
+  border: 1px solid white;
+  
+}
+.player-name{
+  background-color: #111;
+  color: white; 
+  border: 1px solid white;
+}
+.player-info{
+  text-align: center;
+  width:fit-content;
+
+}
+
+.pot{
+  background-color: #111;
+  color: white; 
+  border: 1px solid white;
+  width:fit-content;
+  height: fit-content;
+}
+
+#player-1-info{
+  margin-left: 47%;
+  
+}
+#player-4-info{
+  margin-left: 47%;
+}
+
+.right-cards{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+}
+
+.left-cards{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+
 }
  

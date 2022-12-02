@@ -34,7 +34,7 @@ class Games {
     this.addNewPlayer('ryan2',2);
     this.addNewPlayer('ryan3',3);
     this.addNewPlayer('ryan4',4);
-    this.dealCards();
+    this.startGame();
 
   }
 
@@ -47,23 +47,34 @@ class Games {
     this.dealCards();
     this.assignAutoBid();
     this.roundNum++;
-    this.display();
+    this.flop();
+    this.turnFlop();
+    this.riverFlop();
+    // this.display();
+    
   }
 
   getNumPlayers() {
     return this.currentNumPlayers;
   }
-
-  changeCard(id, val) {
+  
+//player 1 [1,2] player 2 [3,4] player 3 [5,6] player4 [7,8]
+  changePlayerCard(id, val) {
     let count = 0;
     for(const card of val){
-      let v = (id*2 )+ count;//wtong index for card
+      let v = id <2 ? 1+count : (id*2 -1)+ count;
       let num = "card-"+v;
       let topCard1 = document.getElementById(num);
       topCard1.src = "../Cards/" + card + ".png";
       count++;
     }
     
+  }
+
+  changeRiverCard(id,val){
+    let riverCard = document.getElementById("card-"+id);
+    riverCard.src = '../Cards/'+val+".png";
+
   }
 
   dealCards() {
@@ -81,11 +92,12 @@ class Games {
         let c = this.deck.deal();
         p.addCard(c);
         cards.push(c);
+        
       }
-      this.changeCard(count,cards);
+      this.changePlayerCard(count,cards);
       count++;
     }
-    
+  
   }
 
   setMaxBet(bet) {
@@ -107,14 +119,16 @@ class Games {
     //add logic if max bet is to big so it will use all left over chips
   }
 
-  bet(socket, bet) {
-    const player = this.findPlayer(socket.id);
+  bet(player, bet) {
+    // const player = this.findPlayer(socket.id);
     player.setBet(bet);
     this.setMaxBet(bet);
     if (player.getBet == -1) {
       return "Not Enough Chips";
     }
+    this.updatePlayerOnBoard(player);
     this.pot += bet;
+    this.updatePot(this.pot);
   }
 
   check(socket) {
@@ -164,7 +178,24 @@ class Games {
     this.players.push(player);
     this.currentNumPlayers++;
     player.setTurn(this.currentNumPlayers);
+    player.setPlayerNumber(this.currentNumPlayers);
+    this.updatePlayerOnBoard(player);
     return player;
+  }
+
+  updatePlayerOnBoard(player){
+    let number = player.getPlayerNumber();
+    let playerNameDiv = document.getElementById("player-" + number +"-name");
+    playerNameDiv.textContent = player.getName();
+    let playerChipsDiv = document.getElementById("player-" + number +"-chips")
+    playerChipsDiv.textContent = "total: " + player.getChips();
+    let playerBetDiv= document.getElementById("player-" + number +"-bets");
+    playerBetDiv.textContent ="bet: "+ player.getBet();
+  }
+
+  updatePot(val){
+    let potDiv = document.getElementById("pot");
+    potDiv.textContent = "Pot: " + this.getPot();
   }
 
   //this can be used as our database storeage function
@@ -176,8 +207,8 @@ class Games {
       if (this.players.chipss > this.autoBid) {
         p.out = true;
       } else {
-        this.pot += this.autoBid;
-        p.chipss -= this.autoBid;
+        // p.chips -= this.autoBid;
+        this.bet(p,this.autoBid);
       }
     }
   }
@@ -267,18 +298,30 @@ class Games {
     return [isOne, player];
   }
 
+  //river cards 9,10,11,12,13
   flop() {
-    this.river.push(this.deck.deal());
-    this.river.push(this.deck.deal());
-    this.river.push(this.deck.deal());
+    const first = this.deck.deal();
+    this.river.push(first);
+    const second = this.deck.deal();
+    this.river.push(second);
+    const third = this.deck.deal();
+    this.river.push(third);
+    this.changeRiverCard(9,first);
+    this.changeRiverCard(10,second);
+    this.changeRiverCard(11,third);
+
   }
 
   turnFlop() {
-    this.river.push(this.deck.deal());
+    const turn = this.deck.deal();
+    this.river.push(turn);
+    this.changeRiverCard(12,turn);
   }
 
   riverFlop() {
-    this.river.push(this.deck.deal());
+    const turn = this.deck.deal();
+    this.river.push(turn);
+    this.changeRiverCard(13,turn);
   }
 
   getCurrentStage() {
@@ -324,15 +367,7 @@ class Games {
   }
 
   getPot() {
-    if (this.roundInfo.bets.length == 0) {
-      return 0;
-    } else {
-      let total = 0;
-      for (let i = 0; i < this.roundInfo.bets.length; i++) {
-        total += this.roundInfo.bets[i];
-      }
-      return total;
-    }
+    return this.pot;
   }
 
   getPlayerBet(player) {}
@@ -419,7 +454,6 @@ class Games {
   //TODO
   revealHands() {}
 
-  setPlayerCards(one_card) {}
 
   findPlayer(socketID) {
     for (const element of this.players) {

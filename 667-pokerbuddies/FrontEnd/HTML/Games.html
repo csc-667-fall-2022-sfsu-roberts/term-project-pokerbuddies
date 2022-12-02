@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../CSS/Game.css" />
-    <!-- <script type="module" src="../../Server/gameToFront.js"></script> -->
+    <script type="module" src="../../Server/gameToFront.js"></script>
 
     <title>Games</title>
   </head>
@@ -68,7 +68,13 @@
 
         <div class="cards-on-board">
           <div class="top-cards">
-            <div class="card">
+            <div id="player-1-info" class="player-info">
+              <div id="player-1-name" class="player-name">Ryan1</div>
+              <div id="player-1-chips" class="player-chips">total: 1000</div>
+              <div id="player-1-bets" class="player-bet">bet: 25</div>
+            </div>
+            <div class="top-card-div">
+              <div class="card">
               <div class="card-inner">
                 <div class="card-front" onclick="changeCard()">
                   <img id="card-1" src="../Cards/C_10.png" alt="" class="card-img" />
@@ -96,39 +102,53 @@
                 </div>
               </div>
             </div>
+            </div>
+            
           </div>
           <div class="center-cards">
             <div class="left-cards">
-              <div id="rotate-card" class="card">
-                <div class="card-inner">
-                  <div class="card-front">
-                    <img id="card-3" src="../Cards/C_10.png" alt="" class="card-img" />
-                  </div>
-                  <div class="card-back">
-                    <img
-                      src="../Cards/back-of-card.png"
-                      alt=""
-                      class="card-img"
-                    />
+              <div id="player-2-info" class="player-info">
+                <div id="player-2-name" class="player-name">Ryan1</div>
+                <div id="player-2-chips" class="player-chips">total: 1000</div>
+                <div id="player-2-bets" class="player-bet">bet: 25</div>
+              </div>
+                <div class="left-card-div">
+                  <div id="rotate-card" class="card">
+                  <div class="card-inner">
+                    <div class="card-front">
+                      <img id="card-3" src="../Cards/C_10.png" alt="" class="card-img" />
+                    </div>
+                    <div class="card-back">
+                      <img
+                        src="../Cards/back-of-card.png"
+                        alt=""
+                        class="card-img"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div id="rotate-card" class="card">
-                <div class="card-inner">
-                  <div class="card-front">
-                    <img id="card-4" src="../Cards/C_10.png" alt="" class="card-img" />
-                  </div>
-                  <div class="card-back">
-                    <img
-                      src="../Cards/back-of-card.png"
-                      alt=""
-                      class="card-img"
-                    />
+                <div id="rotate-card" class="card">
+                  <div class="card-inner">
+                    <div class="card-front">
+                      <img id="card-4" src="../Cards/C_10.png" alt="" class="card-img" />
+                    </div>
+                    <div class="card-back">
+                      <img
+                        src="../Cards/back-of-card.png"
+                        alt=""
+                        class="card-img"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
+                </div>
+              
             </div>
             <div class="river">
+              <div id="pot" class="pot">pot: 0000</div>
+              <div class="river-div">
+
+              
               <div class="card">
                 <div class="card-inner">
                   <div class="card-front">
@@ -200,8 +220,10 @@
                 </div>
               </div>
             </div>
+            </div>
             <div class="right-cards">
-              <div id="rotate-card" class="card">
+              <div class="right-card-div">
+                <div id="rotate-card" class="card">
                 <div class="card-inner">
                   <div class="card-front">
                     <img id="card-5" src="../Cards/C_10.png" alt="" class="card-img" />
@@ -229,37 +251,52 @@
                   </div>
                 </div>
               </div>
+              </div>
+              <div id="player-3-info" class="player-info">
+                <div id="player-3-name" class="player-name">Ryan1</div>
+                <div id="player-3-chips" class="player-chips">total: 1000</div>
+                <div id="player-3-bets" class="player-bet">bet: 25</div>
+              </div>
+              
             </div>
           </div>
           <div class="bottom-cards">
-            <div class="card">
-              <div class="card-inner">
-                <div class="card-front">
-                  <img id="card-7" src="../Cards/C_10.png" alt="" class="card-img" />
-                </div>
-                <div class="card-back">
-                  <img
-                    src="../Cards/back-of-card.png"
-                    alt=""
-                    class="card-img"
-                  />
-                </div>
-              </div>
+            <div class="bottom-card-div">
+                  <div class="card">
+                  <div class="card-inner">
+                    <div class="card-front">
+                      <img id="card-7" src="../Cards/C_10.png" alt="" class="card-img" />
+                    </div>
+                    <div class="card-back">
+                      <img
+                        src="../Cards/back-of-card.png"
+                        alt=""
+                        class="card-img"
+                      />
+                    </div>
+                  </div>
             </div>
-            <div class="card">
-              <div class="card-inner">
-                <div class="card-front">
-                  <img id="card-8" src="../Cards/C_10.png" alt="" class="card-img" />
+                <div class="card">
+                  <div class="card-inner">
+                    <div class="card-front">
+                      <img id="card-8" src="../Cards/C_10.png" alt="" class="card-img" />
+                    </div>
+                    <div class="card-back">
+                      <img
+                        src="../Cards/back-of-card.png"
+                        alt=""
+                        class="card-img"
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div class="card-back">
-                  <img
-                    src="../Cards/back-of-card.png"
-                    alt=""
-                    class="card-img"
-                  />
-                </div>
-              </div>
             </div>
+            <div id="player-4-info" class="player-info">
+              <div id="player-4-name" class="player-name">Ryan1</div>
+              <div id="player-4-chips" class="player-chips">total: 1000</div>
+              <div id="player-4-bets" class="player-bet">bet: 25</div>
+            </div>
+            
           </div>
         </div>
 
