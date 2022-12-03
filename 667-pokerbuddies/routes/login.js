@@ -4,14 +4,22 @@ var path = require('path');
 var users = require('../db/users');
 
 
+
 let reqPath = path.join(__dirname, '../');
-router.get('/', function(req, res, next) {
-  res.sendFile(reqPath+'/FrontEnd/HTML/Login.html');
+
+
+router.get("/", (_request, response) => {
+  response.render("public/login");
+  // response.sendFile(path.join(reqPath, '/FrontEnd/HTML/Login.html'));
 });
+
+// router.post('/login',(responce,redirect) => (err)=>{
+
+// })
 
  //route to Registration page
  router.get('/registration', function(req, res) {
-    res.sendFile(path.join(reqPath, '/FrontEnd/HTML/Registration.html'));
+      response.render("public/registration");
   });
   router.post('/doesUserExist',async function(req, res, next) {
     var login_username = req.body.login_username; 

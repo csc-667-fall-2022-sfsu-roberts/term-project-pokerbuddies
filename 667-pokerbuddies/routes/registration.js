@@ -4,8 +4,8 @@ var path = require('path');
 var users = require('../db/users');
 /* GET home page. */
 let reqPath = path.join(__dirname, '../');
-router.get('/', function(req, res, next) {
-  res.sendFile(reqPath+'/FrontEnd/HTML/Registration.html');
+router.get('/', function(req, response, next) {
+  response.render("public/registration");
 });
 
 router.post('/insertUser',async function(req, res, next) {

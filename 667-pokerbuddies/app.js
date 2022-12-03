@@ -3,6 +3,8 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+// const sessionInstance = require("./app-config/session");
+// const protect = require("./app-config/protect");
 const socket = require('socket.io');
 const http = require('http');
 
@@ -28,19 +30,22 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use(express.static(path.join(__dirname,'public')));
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// app.use(sessionInstance);
 
-const server = http.createServer(app);
+// const server = http.createServer(app);
 
-const io = socket(server);
+// const io = socket(server);
 
-server.on('error',(err) => {
-  console.log(err);
-});
+// server.on('error',(err) => {
+//   console.log(err);
+// });
 
 function getAppInfo() {
   return[server,io,app];
@@ -63,9 +68,9 @@ app.use('/userDoesntExist', userDoesntExistRouter);
 
 
 // // catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   next(createError(404));
-// });
+app.use(function(req, res, next) {
+  next(createError(404));
+});
 
 // error handler
 app.use(function(err, req, res, next) {
