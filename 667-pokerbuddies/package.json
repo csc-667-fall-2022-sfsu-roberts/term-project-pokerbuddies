@@ -10,6 +10,7 @@
     "db:rollback": "npx sequelize db:migrate:undo"
   },
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^16.0.3",
@@ -17,7 +18,11 @@
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
     "pg-promise": "^10.12.0",
+<<<<<<< HEAD
     "pug": "^3.0.2",
+=======
+    "pug": "^2.0.4",
+>>>>>>> 29f1450645bf6a11838ef576b59d0aaa6d57c927
     "sequelize": "^6.24.0",
     "sequelize-cli": "^6.5.1",
     "socket.io": "^4.5.4"
