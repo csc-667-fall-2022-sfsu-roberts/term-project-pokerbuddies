@@ -1,8 +1,10 @@
 import Deck from "./Deck.js";
+// const Deck = require('./Deck');
 import Player from "./Player.js";
+// const Player = require('./Player');
 
 
-class Games {
+ class Games {
   constructor(id, name) {
     this.deck = new Deck();
     this.players = [];
@@ -183,6 +185,10 @@ class Games {
       //add for all in
     }
     return moveList;
+  }
+
+  getLobySize(){
+    return this.players.length;
   }
 
   addNewPlayer(playerName, socket) {
@@ -497,3 +503,4 @@ class Games {
 }
 
 export default Games;
+// module.exports = Games;

@@ -1,4 +1,4 @@
-export class Deck {
+class Deck {
   constructor() {
     this.deck = [];
     this.reset();
@@ -40,3 +40,4 @@ export class Deck {
   }
 }
 export default Deck;
+// module.exports = Deck;

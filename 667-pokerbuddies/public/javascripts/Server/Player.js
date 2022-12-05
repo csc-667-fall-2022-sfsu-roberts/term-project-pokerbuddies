@@ -1,4 +1,4 @@
-const Player = function (name, socket) {
+const Player = function (name = "name", socket) {
   this.userName = name;
   this.cards = [];
   this.socket = socket;
@@ -111,3 +111,4 @@ const Player = function (name, socket) {
 };
 
 export default Player;
+// module.exports = Player;
