@@ -38,6 +38,7 @@
         text-align: center;
         padding-top: 1%;
         padding-bottom: 1%;
+        height: 220px;
     }
 
     button {
@@ -141,28 +142,41 @@
         }
     }
 
-    .buttons {
-        text-align: center;
-        margin-top: 5%;
-        justify-content: space-between;
+    .buttonLogin {
+      float: left;
+margin-left: 120px;
+position: relative;
+
+    }
+    .buttonSignup{
+     
+     float: left;
+   margin-left: 0px;
+   position: relative;
     }
 </style>
 
 <h1 class="Title">Poker Buddies Login</h1>
 
 <div style="background-color: white;" class="TextFields">
+    <form action="/login/doesUserExist" method="POST">
+
     <label style="font-size:xx-large;">User Name</label><br>
-    <input style="font-size:xx-large;" type="text" id="fname" name="fname"><br>
+    <input style="font-size:xx-large;" type="text" id="fname" name="login_username"><br>
     <label style="font-size:xx-large;">Password</label><br>
-    <input style="font-size:xx-large;" type="password" id="Password" name="Password"><br>
+    <input style="font-size:xx-large;" type="password" id="Password" name="login_password"><br>
 
-    <div class="buttons">
-
+       <dev class = "buttonLogin">
+        <a href="/joinSession">
         <button style="font-size:large;" class="loginButton">Login</button>
-
+        </a>
+       </dev>
+    </form>
+    <dev class = "buttonSignup">
         <a href="/registration">
             <button style="font-size:large;" class="signUpButton">Sign Up</button>
         </a>
-    </div>
+    </dev>
+  
 
 </div>

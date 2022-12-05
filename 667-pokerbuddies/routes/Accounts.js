@@ -13,5 +13,12 @@ router.get('/', function(req, res, next) {
   router.get('/Account', function(req, res) {
     res.sendFile(path.join(reqPath, '/FrontEnd/HTML/Account.html'));
   });
-  
+   //routes to joinSession page
+   router.get('/joinSession', function(req, res) {
+    res.sendFile(path.join(reqPath, '/FrontEnd/HTML/JoinSession.html'));
+  });
+  //routes to home page
+router.get('/home', function(req, res) {
+  res.sendFile(path.join(reqPath, '/FrontEnd/HTML/Home.html'));
+});
   module.exports = router;

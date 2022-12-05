@@ -1,0 +1,170 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='stylesheet' href='/stylesheets/Game.css')
+  script(type='module' src='/javascripts/Server/gameToFront.js')
+  title Games
+nav#sidebar.col-1(style='display: none')
+  div(style='position: relative')
+    button.glow-on-hover(onclick='openCloseFunction()' style='width: fit-content; height: fit-content; float: right; top: 0')
+      | x
+    img.profileimg(src='' style='width: 100px')
+    button.glow-on-hover(type='button') Edit Profile
+    br
+    br
+    a(href='/chat')
+      button.glow-on-hover(type='button') Chat
+      br
+      br
+    a(href='/joinSession')
+      button.glow-on-hover(type='button') Join Session
+      br
+      br
+    a(href='/home')
+      button.glow-on-hover.signoutbutton(type='button' style='width: 225px; height: 10%; position: relative')
+        | Sign Out
+// center of page
+.col-2
+  div(style='float: left')
+    button#navbutton.glow-on-hover(onclick='openCloseFunction()' style='width: fit-content; top: 10px; height: fit-content')
+      | =
+  // gameboard image
+  .board(style='\
+  background-image: url("/images/pngwing.com.png");\
+    background-repeat: no-repeat;\
+    padding-top: 5%;\
+    width: 45%;\
+    margin: auto;\
+  width: 800px;\
+  height: 500px;\
+  float: left;\
+  margin-left: 100px;\
+  position: fixed;\
+  ')
+    // <img src="../pngwing.com.png" style="width: 600px; height: 500px">
+    .cards-on-board
+      .top-cards
+        #player-1-info.player-info
+          #player-1-name.player-name #{player_1_name}
+          #player-1-chips.player-chips total: #{player_1_total}
+          #player-1-bets.player-bet bet: #{player_1_bet}
+        .top-card-div
+          .card
+            .card-inner
+              .card-front(onclick='changeCard()')
+                img#card-1.card-img(src='/images/Cards/C_10.png' alt='')
+              .card-back
+                img.card-img(src='/images/Cards/back-of-card.png' alt='')
+          .card
+            .card-inner
+              .card-front
+                img#card-2.card-img(src='/images/Cards/C_2.png' alt='')
+              .card-back
+                img.card-img(src='/images/Cards/back-of-card.png' alt='')
+      .center-cards
+        .left-cards
+        
+          #player-2-info.player-info 
+            #player-2-name.player-name #{player_2_name}
+            #player-2-chips.player-chips total: #{player_2_total}
+            #player-2-bets.player-bet bet: #{player_2_bet}
+          .left-card-div
+            #rotate-card.card
+              .card-inner
+                .card-front
+                  img#card-3.card-img(src='/images/Cards/C_2.png' alt='')
+                .card-back
+                  img.card-img(src='/images/Cards/back-of-card.png' alt='')
+            #rotate-card.card
+              .card-inner
+                .card-front
+                  img#card-4.card-img(src='/images/Cards/C_2.png' alt='')
+                .card-back
+                  img.card-img(src='/images/Cards/back-of-card.png' alt='')
+        .river
+          #pot.pot pot: #{pot}
+          .river-div
+            .card
+              .card-inner
+                .card-front
+                  img#card-9.card-img(src='/images/Cards/C_2.png' alt='')
+                .card-back
+                  img.card-img(src='/images/Cards/back-of-card.png' alt='')
+            .card
+              .card-inner
+                .card-front
+                  img#card-10.card-img(src='/images/Cards/C_2.png' alt='')
+                .card-back
+                  img.card-img(src='/images/Cards/back-of-card.png' alt='')
+            .card
+              .card-inner
+                .card-front
+                  img#card-11.card-img(src='/images/Cards/C_2.png' alt='')
+                .card-back
+                  img.card-img(src='/images/Cards/back-of-card.png' alt='')
+            .card
+              .card-inner
+                .card-front
+                  img#card-12.card-img(src='/images/Cards/C_2.png' alt='')
+                .card-back
+                  img.card-img(src='/images/Cards/back-of-card.png' alt='')
+            .card
+              .card-inner
+                .card-front
+                  img#card-13.card-img(src='/images/Cards/C_2.png' alt='')
+                .card-back
+                  img.card-img(src='/images/Cards/back-of-card.png' alt='')
+        .right-cards
+          .right-card-div
+            #rotate-card.card
+              .card-inner
+                .card-front
+                  img#card-5.card-img(src='/images/Cards/C_2.png' alt='')
+                .card-back
+                  img.card-img(src='/images/Cards/back-of-card.png' alt='')
+            #rotate-card.card
+              .card-inner
+                .card-front
+                  img#card-6.card-img(src='/images/Cards/C_2.png' alt='')
+                .card-back
+                  img.card-img(src='/images/Cards/back-of-card.png' alt='')
+          #player-3-info.player-info
+            #player-3-name.player-name #{player_3_name}
+            #player-3-chips.player-chips total: #{player_3_total}
+            #player-3-bets.player-bet bet: #{player_3_bet}
+      .bottom-cards
+        .bottom-card-div
+          .card
+            .card-inner
+              .card-front
+                img#card-7.card-img(src='/images/Cards/C_2.png' alt='')
+              .card-back
+                img.card-img(src='/images/Cards/back-of-card.png' alt='')
+          .card
+            .card-inner
+              .card-front
+                img#card-8.card-img(src='/images/Cards/C_2.png' alt='')
+              .card-back
+                img.card-img(src='/images/Cards/back-of-card.png' alt='')
+        #player-4-info.player-info
+          #player-4-name.player-name #{player_4_name}
+          #player-4-chips.player-chips total: #{player_4_total}
+          #player-4-bets.player-bet bet: #{player_4_bet}
+    .button-layout(style='display:flex; margin-left:15%; margin-top: -10%; ')
+      .left-side-buttons
+        button(onclick = '').glow-on-hover#call-button call
+        div
+          button(onclick = '').glow-on-hover#check-button check
+          button.glow-on-hover#fold-button fold
+      .right-side-buttons
+        input#betField.betInput(type='text' placeholder='Enter Bet')
+        div
+          button(onclick = '').glow-on-hover#bet-button bet
+          button(onclick = '').glow-on-hover#raise-button raise
+.chat(style='width: 220px; height: 300px; position: relative; margin-left: 800px; top:50px')
+  div(style='float: left; position:relative; top: 270px; display: flex;  align-items: center;')
+    textarea.messageBox(row='1' style='height: 30px; float: left; ')
+    button.glow-on-hover(style='width:53px; color: #fff; height: fit-content; font-size: x-small; top:0px;') Send
+  //

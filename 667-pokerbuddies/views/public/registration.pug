@@ -1,0 +1,28 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  link(rel='stylesheet' href='/stylesheets/registration.css' )
+  title Register
+h1.Title Poker Buddies
+h1(style='text-align: center; margin-top: -3%;') Registration
+.TextFields(style='background-color: white;')
+  form(action='/registration/insertUser' method='POST')
+    label(style='font-size: large;') User Name
+    br
+    input(style='font-size:large;' type='text' name='user_name')
+    br
+    label(style='font-size:large;') Password
+    br
+    input(style='font-size:large;' type='password' name='user_password')
+    br
+    label(style='font-size:large;') Confirm Password
+    br
+    input(style='font-size:large;' type='password')
+    br
+    label(style='font-size:large;') Email
+    br
+    input(style='font-size:large;' type='email')
+    br
+    a(href='/joinSession')
+      button.loginButton(style='font-size:large; margin-top: 5%;') Create Account

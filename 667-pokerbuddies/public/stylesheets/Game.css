@@ -1,0 +1,422 @@
+
+  .messageBox {
+    border: solid;
+    border-color: rgb(96, 96, 96);
+    border-width: .1px;
+    background-color: rgb(46, 46, 46);
+    color: white;
+    opacity: .5;
+  }
+
+  .chat {
+    background-color: black;
+    color: #fff;
+    opacity: .7;
+  }
+
+  .gameBoard {
+    /* background-image: url("/images/pngwing.com.png");
+    background-repeat: no-repeat;
+    padding-top: 5%;
+    width: 45%;
+    margin: auto; */
+  }
+
+  button {
+    color: white;
+    font-size: 1.5rem;
+    margin: auto;
+
+    height: 2em;
+  }
+
+  button:hover {
+    color: black;
+  }
+
+
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: row;
+    margin: 0;
+    background-color: rgb(51, 51, 214);
+
+  }
+
+  .col-1 {
+    background: black;
+    flex: 1;
+  }
+
+  .col-2 {
+    display: flex;
+    flex-direction: column;
+    flex: 5;
+    background-color: rgb(51, 51, 214);
+  }
+
+  nav {
+    padding: 1em;
+  }
+
+  .column {
+    float: left;
+  }
+
+
+  .menubutton {
+
+    float: right;
+  }
+
+  button {
+    background-color: #1d4ed8;
+    font-size: 1rem;
+    width: 225px;
+    /* height: 10%; */
+    text-align: center;
+    text-decoration: none;
+    position: relative;
+    top: 100px;
+    right: 0;
+    margin-bottom: 5px;
+
+  }
+
+  .signoutbutton {
+    position: relative;
+    top: 200px;
+    right: 0;
+
+
+  }
+
+  .profileimg {
+    border-style: solid;
+    background-color: black;
+    border-color: white;
+    border-width: 0.2px;
+    border-radius: 50%;
+    height: 100px;
+    position: relative;
+    display: block;
+    margin: auto;
+    top: 70px;
+    right: -25px;
+  }
+
+  #login {
+    position: relative;
+    top: 7px;
+  }
+
+  h1 {
+    transition: all 0.5s;
+    -webkit-text-stroke: 2px #d6f4f4;
+    font-variation-settings: "wght" 900, "ital" 1;
+    font-size: 5rem;
+    text-align: center;
+    color: transparent;
+    font-family: "Meta", sans-serif;
+    text-shadow: 1.5px 1.5px 0px #07bccc,
+      3px 3px 0px #e601c0,
+      5px 5px 0px #e9019a,
+      7px 7px 0px #f40468,
+      15px 15px 10px #482896;
+    cursor: pointer;
+
+  }
+
+  h1:hover {
+    -webkit-text-stroke: 3px #d6f4f4;
+    color: black;
+    font-variation-settings: "wght" 100, "ital" 0;
+    text-shadow: none;
+  }
+
+  .glow-on-hover {
+
+    padding: 0.6em 2em;
+    border: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+
+  .glow-on-hover:before {
+    content: "";
+    background: linear-gradient(45deg,
+        #ff0000,
+        #ff7300,
+        #fffb00,
+        #48ff00,
+        #00ffd5,
+        #002bff,
+        #7a00ff,
+        #ff00c8,
+        #ff0000);
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing-button-85 20s linear infinite;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px;
+  }
+
+
+
+  .glow-on-hover:active {
+    color: #000
+  }
+
+  .glow-on-hover:active:after {
+    background: transparent;
+  }
+
+  .glow-on-hover:hover:before {
+    opacity: 1;
+  }
+
+  .glow-on-hover:hover:after {
+    opacity: 0;
+
+  }
+
+  .glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+  }
+
+  @keyframes glowing {
+    0% {
+      background-position: 0 0;
+    }
+
+    50% {
+      background-position: 400% 0;
+    }
+
+    100% {
+      background-position: 0 0;
+    }
+  }
+
+  @keyframes glowing-button-85 {
+    0% {
+      background-position: 0 0;
+    }
+
+    50% {
+      background-position: 400% 0;
+    }
+
+    100% {
+      background-position: 0 0;
+    }
+
+  }
+  :root{
+    --card-width: 60px;
+    --card-hight: 60px;
+  }
+
+  .card{
+    position: relative ;
+    height:var(--card-hight) ;
+    width:var(--card-width);
+    perspective: 1000px;
+    cursor: pointer;
+
+
+  }
+
+  .card-inner{
+    position: relative;
+    width: 100%; 
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+
+  .card-front, .card-back{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+
+  }
+
+  .card-img{
+    height: 100%;
+  }
+
+  .card-front{
+    transform: rotateY(180deg);
+  }
+
+  .card-inner.flip-it{
+    transform: rotateY(180deg);
+  }
+
+.top-card-div{
+  margin-left: 350px;
+  display: grid;
+  grid-template-columns: .1fr .1fr;
+  justify-items: center;
+  
+}
+.board{
+  background-image: url(../pngwing.com.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  
+}
+
+.river-div{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.river{
+  display: grid;
+  grid-template-rows: .5fr .5fr;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.left-card-div{
+
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+
+
+}
+
+#rotate-card{
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.center-cards{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+}
+
+.cards-on-board{
+  margin-top: -50px;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottom-card-div{
+  margin-left: 350px;
+  display: grid;
+  grid-template-columns: .1fr .1fr;
+  justify-items: center;
+}
+
+.player-chips{
+  background-color: #111;
+  color: white;
+  border: 1px solid white;
+}
+.player-bet{
+  background-color: #111;
+  color: white;
+  border: 1px solid white;
+  
+}
+.player-name{
+  background-color: #111;
+  color: white; 
+  border: 1px solid white;
+}
+.player-info{
+  text-align: center;
+  width:fit-content;
+
+}
+
+.pot{
+  background-color: #111;
+  color: white; 
+  border: 1px solid white;
+  width:fit-content;
+  height: fit-content;
+}
+
+#player-1-info{
+  margin-left: 47%;
+  
+}
+#player-4-info{
+  margin-left: 47%;
+}
+
+.right-cards{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+}
+
+.left-cards{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+
+}
+
+.betInput{
+  background-color: white;
+  font-size: 1rem;
+  width: 225px;
+  /* height: 10%; */
+  text-align: center;
+  text-decoration: none;
+  position: relative;
+  top: 100px;
+  right: 0;
+  margin-bottom: 5px;
+}
+
+ 
