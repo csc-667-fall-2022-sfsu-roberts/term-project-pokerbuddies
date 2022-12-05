@@ -1,7 +1,8 @@
 body{
-    background-image: url("../christmas-poker-532125561-577a3b493df78cb62cd2fb20.png");
+    background-image: url("/images/christmas-poker-532125561-577a3b493df78cb62cd2fb20.png");
     background-repeat: no-repeat;
     background-size: cover;
+    
 }   
 ol {
     text-align: center;
