@@ -1,0 +1,39 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='stylesheet' href='../CSS/JoinSession.css')
+  link(rel='stylesheet' href='../CSS/SessionNavbar.css')
+  title Join Session
+.menubutton
+  button.glow-on-hover(onclick='openCloseFunction()' style='width:fit-content;') =
+#sidebar.navbar(style='display:none')
+  button.glow-on-hover.navbutton(onclick='openCloseFunction()' style='width: fit-content; height: fit-content; float: right; top: 0;') x
+  img.profileimg(src='' style='width:100px')
+  button.glow-on-hover.navbutton(type='button') Account
+  br
+  button.glow-on-hover.navbutton(type='button') Chat
+  br
+  button.glow-on-hover.navbutton(type='button') Total Chips
+  br
+  button.glow-on-hover.signoutbutton.navbutton(type='button' style='width: 225px; height: 10%;')
+    | Sign
+    | Out
+.container
+  #card1.card
+    h2 Session 1
+    .cardContent
+      hr
+      ol.players
+        li#p1 -
+        li#p2 -
+        li#p3 -
+        li#p4 -
+    .card-footer
+      .playerCount
+        p#pCount1 0/4
+      .join
+        button#join1.glow-on-hover.joinButton(type='button') Join
+script(src='../JoinSession.js')
+script(src='../FrontEnd.js')
