@@ -5,17 +5,19 @@ const path = require('path');
 
 let reqPath = path.join(__dirname, '../');
 router.get('/', function(req, res, next) {
+  res.render("public/userDoesntExist");
 
-    res.sendFile(path.join(reqPath, '/FrontEnd/HTML/UserDoesntExist.html'));
     
   });
   //routes to registration page
   router.get('/registration', function(req, res) {
-    res.sendFile(path.join(reqPath, '/FrontEnd/HTML/Registration.html'));
+    res.render("public/registration");
+
   });
    //routes to joinSession page
    router.get('/joinSession', function(req, res) {
-    res.sendFile(path.join(reqPath, '/FrontEnd/HTML/JoinSession.html'));
+    res.render("public/joinSession");
+
   });
   
   module.exports = router;

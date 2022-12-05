@@ -54,6 +54,6 @@ router.get("/", (_request, response) => {
   });
    //route to joinSession page
  router.get('/joinSession', function(req, res) {
-  res.sendFile(path.join(reqPath, '/FrontEnd/HTML/JoinSession.html'));
+  res.redirect('/joinSession');
 });
 module.exports = router;

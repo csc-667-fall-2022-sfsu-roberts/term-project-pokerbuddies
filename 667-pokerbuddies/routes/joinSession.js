@@ -5,18 +5,22 @@ var path = require('path');
 
 let reqPath = path.join(__dirname, '../');
 router.get('/', function(req, res, next) {
-  res.sendFile(reqPath+'/FrontEnd/HTML/JoinSession.html');
+  res.render("public/joinSession");
+
 });
 //routes to games page
 router.get('/games', function(req, res) {
-  res.sendFile(path.join(reqPath, '/FrontEnd/HTML/Games.html'));
+  res.render("protected/game");
+
 });
 //routes to home page
 router.get('/home', function(req, res) {
-  res.sendFile(path.join(reqPath, '/FrontEnd/HTML/Home.html'));
+  res.render("public/home");
+
 });
 //routes to account page
 router.get('/account', function(req, res) {
-  res.sendFile(path.join(reqPath, '/FrontEnd/HTML/Account.html'));
+  res.render("public/account");
+
 });
 module.exports = router;
