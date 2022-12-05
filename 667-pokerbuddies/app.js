@@ -24,7 +24,8 @@ const userDoesntExistRouter = require('./routes/userDoesntExist');
 
 const registrationRouter = require('./routes/registration');
 const joinSession = require('./routes/session');
-// const Games  = require('./public/javascripts/Server/Games');
+const Games  = require('./public/javascripts/Server/Games');
+
 const app = express();
 
 // view engine setup
@@ -45,8 +46,10 @@ const server = http.createServer(app);
 
 const io = socket(server);
 
+// console.log(io);
 
 let rooms = [];
+
 
 io.on('connection',(socket)=>{
   console.log("new connection ", socket.id);
@@ -182,5 +185,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;
