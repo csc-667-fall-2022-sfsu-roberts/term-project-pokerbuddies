@@ -39,5 +39,5 @@ class Deck {
     return this.deck.length;
   }
 }
-export default Deck;
-// module.exports = Deck;
+// export default Deck;
+module.exports = Deck;

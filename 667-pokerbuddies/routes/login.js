@@ -45,7 +45,8 @@ router.get("/", (_request, response) => {
         else{
           res.redirect('/login');
         }
-      });
+      }
+      );
     }else{
       res.redirect('/userDoesntExist');
     }}

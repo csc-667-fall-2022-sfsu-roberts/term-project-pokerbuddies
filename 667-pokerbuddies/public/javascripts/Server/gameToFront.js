@@ -1,5 +1,8 @@
-import Game from './Games.js';
-import Player from './Player.js';
+// import Game from './Games.js';
+// import Player from './Player.js';
+
+const Game = require('./Games.js');
+const Player = require('./Player.js');
 
 //testing for full game
 // let game = new Game();
