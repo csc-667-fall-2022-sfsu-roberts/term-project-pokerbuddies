@@ -40,6 +40,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use(sessionInstance);
 
+
 const server = http.createServer(app);
 
 const io = socket(server);
