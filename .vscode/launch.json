@@ -7,11 +7,9 @@
         {
             "type": "msedge",
             "request": "launch",
-            "runtimeArgs": ["run", "debug"],
-            "runtimeExecutable": "npm",
             "name": "Launch Edge against localhost",
             "url": "http://localhost:3000",
-            "webRoot": "${workspaceFolder}"
+            "webRoot": "${workspaceFolder}/public"
         }
     ]
 }

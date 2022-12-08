@@ -18,6 +18,7 @@ const Games = function() {
     this.maxCurrBet = 0;
     this.autoBid = 25;
     this.roundInProgress = true;
+    this.lasMove = {move: '' , player: ''}
     this.roundNum = 0;
     this.roundInfo = {
       turn: "",
@@ -35,14 +36,20 @@ const Games = function() {
 
   this.startNewGame = () => {
     this.addNewPlayer('ryan1',1);
-    this.addNewPlayer('ryan2',2);
-    this.addNewPlayer('ryan3',3);
-    this.addNewPlayer('ryan4',4);
+    // this.addNewPlayer('ryan2',2);
+    // this.addNewPlayer('ryan3',3);
+    // this.addNewPlayer('ryan4',4);
+    this.emitPlayers('startGame',{
+      players: this.players.map((p) =>{
+        return p.userName;
+      } )
+    });
     this.startGame();
 
   }
 
   this.startGame = () => {
+    this.lasMove = {move: '', player: ''};
     this.roundInProgress = true;
     this.river = [];
     this.pot = 0;
@@ -51,12 +58,21 @@ const Games = function() {
     this.dealCards();
     this.assignAutoBid();
     this.roundNum++;
+    this.display();
     this.flop();
     
     this.turnFlop();
     this.riverFlop();
-    // this.display();
+     this.display();
     
+  }
+
+  
+
+  this.emitPlayers = (event, data) => {
+    for(const p of this.players){
+      p.emit(event, data);
+    }
   }
 
   this.getNumPlayers = () => {
@@ -101,6 +117,7 @@ const Games = function() {
     
     let count = 1;
     for (const p of this.players) {
+      p.newRound();
       this.players.cards = [];
       let cards = [];
       for (let j = 0; j < 2; j++) {
@@ -188,6 +205,10 @@ const Games = function() {
     return moveList;
   }
 
+
+
+
+
   this.getLobySize = () => {
     return this.players.length;
   }
@@ -198,7 +219,7 @@ const Games = function() {
     this.currentNumPlayers++;
     player.setTurn(this.currentNumPlayers);
     player.setPlayerNumber(this.currentNumPlayers);
-    this.updatePlayerOnBoard(player);
+    // this.updatePlayerOnBoard(player);
     return player;
   }
 
@@ -385,14 +406,18 @@ const Games = function() {
         playerStatus: p.getStatus(),
         chipTotal: p.getChips(),
         isChecked: p.getIsChecked(),
+        bet: p.getBet(),
+        possition: p.getPlayerNumber(),
       });
     }
 
     for (const p of this.players) {
       p.emit("display", {
+        inProgress: this.roundInProgress,
         topBet: this.maxCurrBet,
         bets: this.roundInfo.bets,
         userName: p.getName(),
+        possition: p.getTurn(),
         round: this.roundNum,
         river: this.river,
         stage: this.getCurrentStage(),
@@ -490,7 +515,36 @@ const Games = function() {
   this.checkHand = (river, cards)=> {}
 
   //TODO
-  this.revealHands = () => {}
+  this.revealHands = (winner) => {
+    this.roundInProgress = false;
+    let cardData = [];
+    for(const p of this.players){
+      cardData.push(
+        {
+          userName: p.getName(),
+          cards: p.getCards(),
+          status: p.getStatus(),
+          folded : p.getStatus == 'fold',
+          chips: p.getChips(),
+          winnings: '',
+        }
+      );
+    }
+
+    for(const p of this.players){
+      p.emit('reveal',{
+        userName: p.getName(),
+        chips: p.getChips(),
+        cards: cardData,
+        bets: this.roundInfo.bets,
+        winner:winner.getName(),
+        status: p.getStatus,
+      });
+    }
+
+
+
+  }
 
 
   this.findPlayer = (socketID)=> {

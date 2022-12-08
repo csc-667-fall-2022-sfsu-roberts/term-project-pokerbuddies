@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('667-pokerbuddies:server');
 var http = require('http');
+const initSocketIo = require('../socket/initialize');
 
 /**
  * Get port from environment and store in Express.
@@ -20,6 +21,8 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+
+initSocketIo(server,app);
 
 /**
  * Listen on provided port, on all network interfaces.

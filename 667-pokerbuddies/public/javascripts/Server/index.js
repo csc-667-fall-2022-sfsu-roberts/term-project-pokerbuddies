@@ -1,0 +1,1 @@
+const Game = require('/javascripts/Server/Games.js');
