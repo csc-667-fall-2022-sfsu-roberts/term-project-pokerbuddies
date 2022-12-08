@@ -6,7 +6,7 @@ var path = require('path');
 
 let reqPath = path.join(__dirname, '../');
 
-let gameLoby = [];
+let rooms = [];
 
 router.get('/', function(req, res, next) {
 
