@@ -38,7 +38,7 @@ function addPlayer() {
 const updatePlayerList = (e) => {
     var parentCard = e.target.parentNode.parentNode.parentNode;
     var playerList = parentCard.children[1].children[1].children;
-    for(let i = 0; i < 4; i++){
+    for (let i = 0; i < 4; i++) {
         players[i] = playerList[i];
     }
     addPlayer();
