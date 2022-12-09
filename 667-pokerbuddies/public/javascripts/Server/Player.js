@@ -110,5 +110,5 @@ const Player = function (name = "name", socket) {
   };
 };
 
-export default Player;
-// module.exports = Player;
+// export default Player;
+module.exports = Player;

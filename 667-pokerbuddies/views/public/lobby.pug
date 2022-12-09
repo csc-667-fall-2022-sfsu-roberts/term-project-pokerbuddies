@@ -1,4 +1,11 @@
 extends layout
 
+block content
+    #chat
+        #messages
+        #send
+            input(type="text" id="message")
+
 block footer
-    script(src="/socket.io/socket.io.js") 
+    script(src="/socket.io/socket.io.js")
+    script(src="/javascripts/chat.js") 
