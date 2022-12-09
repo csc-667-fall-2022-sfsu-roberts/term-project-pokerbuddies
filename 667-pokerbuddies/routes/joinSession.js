@@ -5,7 +5,7 @@ var path = require('path');
 
 let reqPath = path.join(__dirname, '../');
 router.get('/', function(req, res, next) {
-  res.render("public/joinSession");
+  res.render("protected/JoinSession");
 
 });
 //routes to games page

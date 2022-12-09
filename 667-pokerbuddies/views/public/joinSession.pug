@@ -3,8 +3,8 @@ head
   meta(charset='UTF-8')
   meta(http-equiv='X-UA-Compatible' content='IE=edge')
   meta(name='viewport' content='width=device-width, initial-scale=1.0')
-  link(rel='stylesheet' href='../CSS/JoinSession.css')
-  link(rel='stylesheet' href='../CSS/SessionNavbar.css')
+  link(rel='stylesheet', href='../../stylesheets/JoinSession.css')
+  link(rel='stylesheet', href='../../stylesheets/SessionNavbar.css')
   title Join Session
 .menubutton
   button.glow-on-hover(onclick='openCloseFunction()' style='width:fit-content;') =
@@ -35,5 +35,5 @@ head
         p#pCount1 0/4
       .join
         button#join1.glow-on-hover.joinButton(type='button') Join
-script(src='../JoinSession.js')
-script(src='../FrontEnd.js')
+script(type ='module' src='/javascripts/Server/JoinSession.js')
+script(type ='module' src='/javascripts/Server/FrontEnd.js')
