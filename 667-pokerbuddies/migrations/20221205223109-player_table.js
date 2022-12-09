@@ -5,7 +5,8 @@ module.exports = {
       'player_table',
       {
         userid: { 
-          type: Sequelize.INTEGER
+          type: Sequelize.INTEGER,
+          defaultValue: 0
         },
        chips: {
           type: Sequelize.INTEGER,

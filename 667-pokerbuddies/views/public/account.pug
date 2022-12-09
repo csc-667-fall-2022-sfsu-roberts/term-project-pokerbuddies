@@ -12,6 +12,10 @@ style.
   margin: auto;
   height: 2em;
   }
+  p{
+  color: white;
+  font-size: 1.5rem;
+  }
   button:hover {
   color: black;
   }
@@ -245,19 +249,11 @@ style.
   nav#sidebar.col-1(style='display:none; z-index: 1;')
     div(style='position: relative;')
       button.button.glow-on-hover(onclick='openCloseFunction()' style='width: fit-content; height: fit-content; float: right; top: 0;') x
-      img.profileimg(src='' style='width:100px')
-      button.button.glow-on-hover(type='button') Edit Profile
-      br
-      br
-      a(href='./Chat.html')
-        button.button.glow-on-hover(type='button') Chat
-        br
-        br
-      a(href='./JoinSession.html')
+      a(href='/joinSession')
         button.button.glow-on-hover(type='button') Join Session
         br
         br
-      a(href='./Home.html')
+      a(href='/home')
         button.button.glow-on-hover.signoutbutton(type='button' style='width: 225px; height: 10%; position: relative;') Sign Out
   // center of page
   .col-2
@@ -266,21 +262,22 @@ style.
 .account-div
   // Main Content
   main
-    h2.name.glow-on-hover
-      | Ryan D. Luffy
+    h2.name.glow-on-hover #{userName}
     .header-flex-container
       // Total Chips Held Header
       h2.header1.glow-on-hover
-        | Chips Held: X
+        | Chips Held: #{totalChips}
+      
       // Total Chips Won Header
-      h2.header2.glow-on-hover
-        | Total Chips Won: X
+      h2.header2.glow-on-hover Total Chips Won: #{chipsWon}
     .button-flex-container
       // Content
+    form(action='/Accounts/updateChips' method='POST')
       label.glow-on-hover(for='amount') Amount
-      input.glow-on-hover.amount-text-box(type='text' name='amount')
-      button.glow-on-hover(style='margin-left: 50px;' type='button') Buy Chips
-      button.glow-on-hover(style='margin-left: 50px;' type='button') Cash Out
+      input(style='font-size:large;' type='text' name='updateChips')
+      a(href='/Accounts')
+        button.glow-on-hover(style='margin-left: 50px;') Buy Chips
+    button.glow-on-hover(style='margin-left: 50px;' type='button') Cash Out
 script.
   function openCloseFunction() {
   var x = document.getElementById("sidebar");
@@ -290,3 +287,4 @@ script.
   x.style.display = "none";
   }
   }
+ 
