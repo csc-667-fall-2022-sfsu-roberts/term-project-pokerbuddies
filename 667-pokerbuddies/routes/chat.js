@@ -1,18 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const LOBBY_ID = 0;
-
-
-const getMessageName = id =>{
-    if(id === LOBBY_ID){
-        return "chat:lobby";
-    }else{
-        return 'chat:game:'
-    }
-}
-
-router.get("/:id", (req,res) =>{
+router.post("/:id", (req,res) =>{
+    console.log("Maybe?");
     const { id } = req.params;
     const { message } = req.body;
     const { username } = req.session;
