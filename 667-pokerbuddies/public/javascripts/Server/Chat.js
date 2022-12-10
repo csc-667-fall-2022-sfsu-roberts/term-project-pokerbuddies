@@ -17,16 +17,12 @@ const messages = document.querySelector("#messages");
 socket.on("chat:0", ({ sender, message, timeStamp }) => {
     console.log({ sender, message, timeStamp });
 
-    const div = document.createElement("div");
-    const span = document.createElement("span");
-    span.innerText = sender;
+    const template = document.querySelector("message-content");
 
+    const content = template.content.cloneNode(true);
+    content.querySelector('.sender').innerText = sender;
+    content.querySelector('.content').innerText = message;
+    content.querySelector('.timestamp').innerText = timestamp;
 
-    const content = document.createElement("p");
-    content.innerText = message;
-
-    div.appendChild(span);
-    div.appendChild(content);
-
-    messages.appendChild(div);
+    messages.appendChild(content);
 });

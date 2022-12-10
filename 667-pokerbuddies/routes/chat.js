@@ -1,5 +1,4 @@
 const express = require("express");
-const { request } = require("../app");
 const router = express.Router();
 
 const LOBBY_ID = 0;
