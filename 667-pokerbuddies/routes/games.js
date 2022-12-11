@@ -62,7 +62,7 @@ router.get('/', function(req, res, next) {
 
 
   });
-  const game = new Game();
+  // const game = new Game();
 
 });
 
