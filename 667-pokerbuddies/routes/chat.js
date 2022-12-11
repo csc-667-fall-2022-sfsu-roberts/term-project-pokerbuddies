@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 router.post("/:id", (req,res) =>{
-    console.log("Maybe?");
+    console.log("Fetch Request went through, proceeding to fetch object.");
     const { id } = req.params;
     const { message } = req.body;
     const { username } = req.session;
@@ -13,6 +13,8 @@ router.post("/:id", (req,res) =>{
         message,
         timeStamp,
     });
+
+    console.log("Socket emit was successful");
 
     res.sendStatus(200);
 });
