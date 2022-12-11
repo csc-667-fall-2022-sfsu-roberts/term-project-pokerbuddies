@@ -1,18 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
+//Here we will accept any extensions with chat/id
+//id can be anything even a string.
 router.post("/:id", (req,res) =>{
+    //On detection of the extension we will create the object, and append
+    //the appropriate values to return
     console.log("Fetch Request went through, proceeding to fetch object.");
 
-    console.log(req.params);
-    console.log(req.body);
-    console.log(req.session);
-
     req.session.username = "Brendan"; //Account name from DB
-
-    console.log(req.session.username);
-    console.log(req.session);
-    
     var today = new Date();
 
     const { id } = req.params;
@@ -20,8 +16,9 @@ router.post("/:id", (req,res) =>{
     const { username } = req.session;
     const timeStamp = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-    //console.log(req.app ?? "null");
-
+    //Will emit this to all listeners, but only listeners with the appropriate
+    //id will be able to receive the corresponding object. In this case it will
+    //with the id 0. ie. chat:0
     req.app.io.emit(`chat:${id}`, {
         sender: username,
         message,
