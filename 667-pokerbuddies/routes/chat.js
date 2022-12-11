@@ -8,10 +8,17 @@ router.post("/:id", (req,res) =>{
     console.log(req.body);
     console.log(req.session);
 
+    req.session.username = "Brendan"; //Account name from DB
+
+    console.log(req.session.username);
+    console.log(req.session);
+    
+    var today = new Date();
+
     const { id } = req.params;
     const { message } = req.body;
     const { username } = req.session;
-    const timeStamp = Date.now();
+    const timeStamp = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
     //console.log(req.app ?? "null");
 

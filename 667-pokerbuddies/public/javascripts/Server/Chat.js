@@ -1,7 +1,7 @@
 const socket = io();
 
 document.querySelector("#message").addEventListener("keypress", (event) => {
-    if (window.event.keyCode === 13) {
+    if (window.event.keyCode === 13 && event.target.value !== "") {
         console.log("User pressed enter key initiating fetch request.");
         console.log(JSON.stringify({ message: event.target.value }));
 
@@ -39,11 +39,11 @@ socket.on("chat:0", ({ sender, message, timeStamp }) => {
     const template = document.querySelector("#message-content");
 
     const content = template.content.cloneNode(true);
-    content.querySelector('.sender').innerText = sender;
+    content.querySelector('.sender').innerText = sender + ": ";
 
     content.querySelector('.content').innerText = message;
 
-    content.querySelector('.timestamp').innerText = timeStamp;
+    content.querySelector('.timestamp').innerText = timeStamp + " ";
     content.querySelector('.newMessage').innerHTML = "<br>";
 
     messages.appendChild(content);

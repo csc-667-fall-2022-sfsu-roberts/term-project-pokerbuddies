@@ -3,7 +3,7 @@
 const session = require("express-session");
 
 const sessionInstance = session({
-    name: "Brendan",
+    username: "",
     secret: 'akhrglahdfklahdfglkhadflkg',
     cookie: {maxAge:24*60*60},
     resave:false,
