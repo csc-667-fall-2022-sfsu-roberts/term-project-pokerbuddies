@@ -13,8 +13,8 @@ router.get('/', function(req, res, next) {
   });
  
   //routes to login page
-  router.get('/Accounts', function(req, res) {
-    res.render("public/account");
+  router.get('/login', function(req, res) {
+    res.render("public/login");
 
   });
     
