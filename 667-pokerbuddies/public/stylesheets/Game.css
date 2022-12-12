@@ -425,4 +425,16 @@
   margin-bottom: 5px;
 }
 
+.hide {
+  visibility: hidden;
+}
+
+.seen {
+  visibility: visible;
+}
+
+.seenFold{
+  visibility: visible;
+  opacity: 0.5;
+}
  

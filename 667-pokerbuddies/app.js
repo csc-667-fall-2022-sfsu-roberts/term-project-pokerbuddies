@@ -3,6 +3,8 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const sessionInstance = require("./app-config/session");
+
 // const sessionInstance = require("./app-config/session");
 // const protect = require("./app-config/protect");
 const socket = require('socket.io');
@@ -21,6 +23,7 @@ const gameRouter = require('./routes/games');
 const accountRouter = require('./routes/Accounts');
 const joinSessionRouter = require('./routes/joinSession');
 const userDoesntExistRouter = require('./routes/userDoesntExist');
+const chatRouter = require("./routes/chat");
 
 
 const registrationRouter = require('./routes/registration');
@@ -40,6 +43,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(sessionInstance);
 // app.use(sessionInstance);
 // app.use(sessionInstance);
 
@@ -73,6 +77,7 @@ app.use('/registration', registrationRouter);
 app.use('/joinSession', joinSessionRouter);
 app.use('/Accounts', accountRouter);
 app.use('/userDoesntExist', userDoesntExistRouter);
+app.use('/chat', chatRouter);
 
 
 
