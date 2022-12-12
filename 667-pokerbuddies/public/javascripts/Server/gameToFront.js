@@ -289,3 +289,26 @@ document.querySelector("#bet-button").addEventListener("click", (event) => {
   }).catch(error => console.log(error));
 
 });
+
+
+fetch(window.location.pathname, { method: "post" })
+  .then((r) => r.json())
+  .then(({ game_id }) => {
+    socket.on(`game:${game_id}:player-joined`, ({ count, required_count }) => {
+      document.querySelector("#pot").innerHTML = count;
+      
+      if (count === required_count) {
+        // document.querySelector("p#waiting").classList.add("hidden");
+        // document.querySelector("#game-table").classList.remove("hidden");
+        // document
+        //   .querySelector("#game-table")
+        //   .classList.add(`player-count-${count}`);
+        document.querySelector("#pot").innerHTML = '0000';
+      }
+    });
+
+    socket.on(`game:${game_id}:update`, updateGame);
+  })
+  .then(() => {
+    fetch(`${window.location.pathname}/status`, { method: "post" });
+  });
