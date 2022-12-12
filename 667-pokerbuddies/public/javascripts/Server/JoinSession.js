@@ -1,3 +1,5 @@
+const socket = io.connect('http://localhost:3000/joinSession');
+
 //holds list of displayed players
 const players = [];
 
@@ -17,11 +19,18 @@ cards.forEach((card, index) => {
     card.children[0].innerText = `Session ${index + 1}`;
 
 });
-// const pCount = document.querySelectorAll('.playerCount');
-// pCount.forEach((numPlayers) => {
-//     pCount.children[0].innerText = `${playerCount}/4`;
-// });
-//adds account player's username to session
+
+//gives each button an individual id and updates list of players when clicked
+const buttons = document.querySelectorAll('.join');
+buttons.forEach((button, index) => {
+    button.children[0].id = `join${index + 1}`;
+    let inLobby = false;
+    button.addEventListener('click', () => {
+    
+    }
+    
+});
+
 function addPlayer() {
     let playerNames = players.map((player) => player.innerText);
     let index = playerNames.findIndex((p) => p == '-');
@@ -41,16 +50,19 @@ const updatePlayerList = (e) => {
     for (let i = 0; i < 4; i++) {
         players[i] = playerList[i];
     }
+
     addPlayer();
 }
-//gives each button an individual id and updates list of players when clicked
-const buttons = document.querySelectorAll('.join');
-buttons.forEach((button, index) => {
-    button.children[0].id = `join${index + 1}`;
 
-    button.addEventListener('click', updatePlayerList);
-});
 
+function openCloseFunction() {
+    var x = document.getElementById("sidebar");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
 
 
 
