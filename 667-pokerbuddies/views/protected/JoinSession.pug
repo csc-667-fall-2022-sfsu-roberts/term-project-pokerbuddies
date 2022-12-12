@@ -8,7 +8,7 @@ head
 
   title Join Session
 .menubutton
-  button.glow-on-hover(onclick='openCloseFunction()' style='width:fit-content;') =
+  button.glow-on-hover(type='button' onclick='openCloseFunction()' style='width:fit-content;') =
 #sidebar.navbar(style='display:none')
   button.glow-on-hover.navbutton(onclick='openCloseFunction()' style='width: fit-content; height: fit-content; float: right; top: 0;') x
   img.profileimg(src='' style='width:100px')
@@ -36,5 +36,8 @@ head
         p#pCount1 0/4
       .join
         button#join1.glow-on-hover.joinButton(type='button') Join
+        
 script(type="module" src='/javascripts/Server/JoinSession.js')
-script(type="module" src='/javascripts/Server/FrontEnd.js')
+script(type="module" src='/javascripts/Server/OpenNavbar.js')
+script(type="module" src='/socket.io/socket.io.js')
+script(type="module" src='/socket/JoinSessionSocket.js')
