@@ -1,31 +1,19 @@
 // import Game from '/javascripts/Server/Games.js';
 
-// document.querySelector(document).ready(function () {
-    document.querySelector('.player-1').classList.toggle('hide');
-    document.querySelector('.player-2').classList.toggle('hide');
-     document.querySelector('.river-div').classList.toggle('hide');
-    document.querySelector('.player-3').classList.toggle('hide');
-    document.querySelector('.player-4').classList.toggle('hide');
-//   $('.player-1').css({ visibility: 'hidden' });
-//   $('.player-2').css({ visibility: 'hidden' });
-//   $('.river-div').css({ visibility: 'hidden' });
-//   $('.player-3').css({ visibility: 'hidden' });
-//   $('.player-4').css({ visibility: 'hidden' });
-  // $('#player-1-info').css({ visibility: 'visible' });
-  // $('.modal-trigger').leanModal();
-  // $('.tooltipped').tooltip({ delay: 50 });
-// });
+
+
+    // document.querySelector('.player-1').classList.toggle('hide');
+    // document.querySelector('.player-2').classList.toggle('hide');
+    //  document.querySelector('.river-div').classList.toggle('hide');
+    // document.querySelector('.player-3').classList.toggle('hide');
+    // document.querySelector('.player-4').classList.toggle('hide');
 
 const socket = io();
-// const game = new Game();
+
 const gameInfo = null;
 
 socket.on("startGame", function (data) {
   const size = data.player.length;
-//   if (size >= 1) $(".top-cards").css({ visibility: "visible" });
-//   if (size >= 2) $(".left-cards").css({ visibility: "visible" });
-//   if (size >= 3) $("right-cards").css({ visibility: "visible" });
-//   if (size == 4) $(".bottom-cards").css({ visibility: "visible" });
         if (size >= 1) document.querySelector(".top-cards").classList.toggle('seen');
         if (size >= 2) document.querySelector(".left-cards").classList.toggle('seen');
         if (size >= 3) document.querySelector("right-cards").classList.toggle('seen');
@@ -224,3 +212,80 @@ socket.on('reveal', function(data){
     //flipp cards of those still in
 });
 
+socket.on('join',function(){
+    
+});
+
+socket.on("fold:0",function(){
+  console.log("HI");
+})
+
+document.querySelector("#fold-button").addEventListener("click", (event) => {
+
+  console.log("User pressed enter key initiating fetch request.");
+  fetch("/games/fold/:id", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: socket.id, Message: 'testing'})
+  }).then(() => {
+      console.log("Fetch request successful? Emptying text box.");
+      document.querySelector("#fold-button").value = "";
+  }).catch(error => console.log(error));
+
+});
+
+document.querySelector("#call-button").addEventListener("click", (event) => {
+
+  console.log("User pressed enter key initiating fetch request.");
+  fetch("/games/call/:id", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: socket.id})
+  }).then(() => {
+      console.log("Fetch request successful? Emptying text box.");
+      document.querySelector("#call-button").value = "";
+  }).catch(error => console.log(error));
+
+});
+
+document.querySelector("#check-button").addEventListener("click", (event) => {
+
+  console.log("User pressed enter key initiating fetch request.");
+  fetch("/games/check/:id", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: socket.id})
+  }).then(() => {
+      console.log("Fetch request successful? Emptying text box.");
+      document.querySelector("#check-button").value = "";
+  }).catch(error => console.log(error));
+
+});
+
+document.querySelector("#raise-button").addEventListener("click", (event) => {
+  const val = document.querySelector("#betField").value;
+  console.log("User pressed enter key initiating fetch request.");
+  fetch("/games/raise/:id", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: socket.id, value: val})
+  }).then(() => {
+      console.log("Fetch request successful? Emptying text box.");
+      document.querySelector("#betField").value = "";
+  }).catch(error => console.log(error));
+
+});
+
+document.querySelector("#bet-button").addEventListener("click", (event) => {
+  const val = document.querySelector("#betField").value;
+  console.log("User pressed enter key initiating fetch request.");
+  fetch("/games/bet/:id", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: socket.id, value: val})
+  }).then(() => {
+      console.log("Fetch request successful? Emptying text box.");
+      document.querySelector("#betField").value = "";
+  }).catch(error => console.log(error));
+
+});

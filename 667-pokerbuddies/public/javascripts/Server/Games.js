@@ -1,7 +1,7 @@
 // import Deck from "./Deck.js";
-const Deck = require('./Deck');
+const Deck = require('./Deck.js');
 // import Player from "./Player.js";
-const Player = require('./Player');
+const Player = require('./Player.js');
 
 
 const Games = function() {
@@ -555,6 +555,16 @@ const Games = function() {
     }
     return { socket: { id: 0 } };
   }
+
+
+  this.initialize = (game_id) => {
+    return Games.initDeck(game_id)
+      .then(() => Games.getPlayers(game_id))
+      .then(setSeats(game_id))
+      .then(drawInitialCards(game_id))
+      .then(assignCards(game_id));
+  };
+
 }
 
 // export default Games;

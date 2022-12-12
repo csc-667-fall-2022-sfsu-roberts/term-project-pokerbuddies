@@ -2,8 +2,11 @@ var express = require('express');
 const { appendFile } = require('fs');
 var router = express.Router();
 var path = require('path');
-// const Game = require('../public/javascripts/Server/Games');
+const Games = require('../db/games');
+const GameLogic = require('../public/javascripts/Server/gameLogic/index');
 //  let game = require('../../public/javascripts/Server/Games');
+const io =require('socket.io');
+const { error } = require('console');
 
 let reqPath = path.join(__dirname, '../');
 
@@ -11,7 +14,6 @@ let reqPath = path.join(__dirname, '../');
 
 
 router.get('/', function(req, res, next) {
-
   let player_1_Info = {
       id: 1,
       name: 'name_1',
@@ -62,7 +64,11 @@ router.get('/', function(req, res, next) {
 
 
   });
-  // const game = new Game();
+
+  req.app.io.emit(`join`, {
+
+  });
+  
 
 });
 
@@ -87,14 +93,166 @@ router.get('/home', function(req, res) {
 
 
 
+router.post("/:id",(req,res) =>{
+  const{id:game_id} = req.params;
+  const{userId} = req.session;
+  res.json({game_id, userId:userId});
+});
+
+router.post("/:id/status", (request, response) => {
+  const { id: game_id } = request.params;
+
+  GameLogic.status(game_id, request.app.io);
+
+  response.status(200).send();
+});
+
+
+
+router.post("/fold/:id",(req, res)=>{
+  console.log(req.params);
+  console.log(req.body);
+  const{userId} = req.session;
+  console.log(userId);
+  // const num = Games.getPlayerTurn;
+  req.app.io.emit(`fold:0`, {
+    username: "me"
+  });
+  res.sendStatus(200);
+});
+
+router.post("/call/:id",(req, res)=>{
+  console.log(req.params);
+  req.app.io.emit("moveMade", {
+    move: "check",
+    bet: "check",
+  });
+  res.sendStatus(200);
+});
+
+
+router.post("/raise/:id",(req, res)=>{
+  console.log(req.params);
+//   req.app.io.emit(`fold:${id}`, {
+//     sender: username,
+//     message,
+//     timeStamp,
+// });
+  res.sendStatus(200);
+});
+
+
+router.post("/bet/:id",(req, res)=>{
+  console.log(req.params);
+  console.log(req.body.value);
+//   req.app.io.emit(`fold:${id}`, {
+//     sender: username,
+//     message,
+//     timeStamp,
+// });
+  res.sendStatus(200);
+});
+
+
+router.post("/check/:id",(req, res)=>{
+  console.log(req.params);
+//   req.app.io.emit(`fold:${id}`, {
+//     sender: username,
+//     message,
+//     timeStamp,
+// });
+  res.sendStatus(200);
+});
 
 
 
 
+router.get("/:id", (request, response) => {
+  const { id } = request.params;
+
+  Promise.all([Games.userCount(id), Games.info(id)])
+    .then(([{ count }, { title }]) => {
+      response.render("protected/game", {
+        id,
+        title,
+        count,
+        required_count: 2,
+        ready: parseInt(count) === 2,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      response.status(500).send();
+    });
+});
+
+router.post("/:id/join", (request, response) => {
+  const { userId } = request.session;
+  const { id } = request.params;
+
+  Games.addUser(userId, id)
+    .then(() => Games.userCount(id))
+    .then(({ count }) => {
+      request.app.io.emit(`game:${id}:player-joined`, {
+        count: parseInt(count),
+        required_count: 2,
+      });
+
+      if (parseInt(count) === 2) {
+        GameLogic.init(id).then(() =>
+          GameLogic.status(id, request.app.io)
+        );
+      }
+
+      response.redirect(`/games/${id}`);
+    })
+    .catch((error) => {
+      console.log({ error });
+    });
+});
 
 
+router.post("/:id/play",(req,res)=>{
+  const{userId} = req.session;
+  const {id:game_id} = req.params;
+  const {card_id} = req.body;
+
+  Games.isInGame(game_id,userId)
+  .then((isInGame)=>{
+    if(isInGame){
+      return Promise.resolve();
+    }else{
+      return Promise.reject('${userId} not in game');
+    }
+  })
+  .then(()=> Games.isUserTurn(game_id,userId))
+  .then((isUserTurn)=>{
+    if(isUserTurn){
+      return Promise.resolve();
+    }else{
+      return Promise.reject('Not ${userId} turn');
+    }
+  })//something for checing user input
+  .then(()=>Games.isChecked(game_id,userId))
+  .then((isChecked)=>{
+    if(isChecked){
+      return Promise.resolve()
+    }else{
+      return Promise.reject();
+    }
+  })
+  //do for call, fold, raise and bett
 
 
+  //if all  is good then move to next player, update pot and take bet
+  .then(() => Games.setNextPlayer(game_id,userId))
+  .then(()=> GameLogic.status(game_id,req.app.io))
+  .catch((error)=>{
+    console.error({error});
+    res.status(200).send();
+  })
+
+});
 
 
 
@@ -127,28 +285,28 @@ let rooms = [];
 //     });
 //   });
   
-//   io.on('join', (data) => {
-//     const game = rooms.find((r) => r.getCode() === data.code);
-//     if (
-//       game == undefined ||
-//       game.getPlayersArray().some((p) => p == data.username) ||
-//       data.username == undefined ||
-//       data.username.length > 12
-//     ) {
-//       socket.emit('joinRoom', undefined);
-//     } else {
-//       game.addPlayer(data.username, socket);
-//       rooms = rooms.map((r) => (r.getCode() === data.code ? game : r));
-//       game.emitPlayers('joinRoom', {
-//         host: game.getHostName(),
-//         players: game.getPlayersArray(),
-//       });
-//       game.emitPlayers('hostRoom', {
-//         code: data.code,
-//         players: game.getPlayersArray(),
-//       });
-//     }
-//   });
+  // io.on('join', (data) => {
+  //   const game = rooms.find((r) => r.getCode() === data.code);
+  //   if (
+  //     game == undefined ||
+  //     game.getPlayersArray().some((p) => p == data.username) ||
+  //     data.username == undefined ||
+  //     data.username.length > 12
+  //   ) {
+  //     socket.emit('joinRoom', undefined);
+  //   } else {
+  //     game.addPlayer(data.username, socket);
+  //     rooms = rooms.map((r) => (r.getCode() === data.code ? game : r));
+  //     game.emitPlayers('joinRoom', {
+  //       host: game.getHostName(),
+  //       players: game.getPlayersArray(),
+  //     });
+  //     game.emitPlayers('hostRoom', {
+  //       code: data.code,
+  //       players: game.getPlayersArray(),
+  //     });
+  //   }
+  // });
   
 //   io.on('startGame', (data) => {
 //     const game = rooms.find((r) => r.getCode() == data.code);
