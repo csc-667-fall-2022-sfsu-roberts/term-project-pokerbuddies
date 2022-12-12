@@ -28,10 +28,12 @@ document.querySelector("#message").addEventListener("keypress", (event) => {
 document.querySelector("#chat-button").addEventListener("click", (event) => {
 
     console.log("User pressed enter key initiating fetch request.");
+    console.log(document.querySelector("#message").value);
+
     fetch("/chat/0", {
         method: "post",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: event.target.value })
+        body: JSON.stringify({ message: document.querySelector("#message").value })
     }).then(() => {
         console.log("Fetch request successful? Emptying text box.");
         document.querySelector("#message").value = "";
