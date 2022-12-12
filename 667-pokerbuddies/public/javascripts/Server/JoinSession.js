@@ -1,7 +1,9 @@
-const socket = io.connect('http://localhost:3000/joinSession');
+// const { getUser } = require("../../../db/users");
+
+// var socket = io.connect('http://localhost:3000/joinSession');
 
 //holds list of displayed players
-const players = [];
+var players = [];
 
 //creates 6 cards and gives them individual ids
 for (let i = 1; i < 6; i++) {
@@ -24,11 +26,19 @@ cards.forEach((card, index) => {
 const buttons = document.querySelectorAll('.join');
 buttons.forEach((button, index) => {
     button.children[0].id = `join${index + 1}`;
-    let inLobby = false;
-    button.addEventListener('click', () => {
-    
-    }
-    
+
+    button.addEventListener('click', (event) => {
+
+        fetch("/session/1", {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ join: event.target.value })
+        }).then(() => {
+            
+        }).catch(error => console.log(error));
+        
+        updatePlayerList();
+    });
 });
 
 function addPlayer() {
@@ -64,6 +74,8 @@ function openCloseFunction() {
     }
 }
 
+
+//Brendan's code for testing.
 
 
 
