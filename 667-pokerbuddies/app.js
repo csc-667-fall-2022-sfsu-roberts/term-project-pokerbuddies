@@ -24,6 +24,7 @@ const accountRouter = require('./routes/Accounts');
 const joinSessionRouter = require('./routes/joinSession');
 const userDoesntExistRouter = require('./routes/userDoesntExist');
 const chatRouter = require("./routes/chat");
+const joinSocket = require("./socket/JoinSessionSocket");
 
 
 const registrationRouter = require('./routes/registration');
@@ -78,6 +79,7 @@ app.use('/joinSession', joinSessionRouter);
 app.use('/Accounts', accountRouter);
 app.use('/userDoesntExist', userDoesntExistRouter);
 app.use('/chat', chatRouter);
+app.use('/joinSessionSocket', joinSocket);
 
 
 

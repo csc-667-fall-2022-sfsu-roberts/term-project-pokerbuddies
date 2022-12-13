@@ -1,6 +1,5 @@
-// const { getUser } = require("../../../db/users");
+const socket = io();
 
-// var socket = io.connect('http://localhost:3000/joinSession');
 
 //holds list of displayed players
 var players = [];
@@ -19,27 +18,33 @@ for (let i = 1; i < 6; i++) {
 const cards = document.querySelectorAll('.card');
 cards.forEach((card, index) => {
     card.children[0].innerText = `Session ${index + 1}`;
-
+    
 });
 
 //gives each button an individual id and updates list of players when clicked
 const buttons = document.querySelectorAll('.join');
 buttons.forEach((button, index) => {
-    button.children[0].id = `join${index + 1}`;
+    let roomId = `join${index + 1}`;
+    button.children[0].id = roomId;
 
     button.addEventListener('click', (event) => {
 
-        fetch("/session/1", {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ join: event.target.value })
-        }).then(() => {
-            
-        }).catch(error => console.log(error));
-        
+        // fetch(`/session/${roomId}`, {
+        //     method: "post",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: gameFile
+        // }).catch(error => console.log(error));
+
+        socket.emit('join', roomId);
+       
         updatePlayerList();
     });
 });
+
+
+
+
+
 
 function addPlayer() {
     let playerNames = players.map((player) => player.innerText);

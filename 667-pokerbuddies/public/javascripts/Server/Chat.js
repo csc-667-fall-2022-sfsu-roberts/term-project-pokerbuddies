@@ -6,6 +6,8 @@ const socket = io();
 //text box is not empty then we will make a fetch request to our backend.
 //
 //This script will be imported to game.pug for use.
+let LOBBY_ID = 1;
+
 document.querySelector("#message").addEventListener("keypress", (event) => {
     if (window.event.keyCode === 13 && event.target.value !== "") {
         //We will send a fetch request on success. It will go the backend
@@ -13,7 +15,7 @@ document.querySelector("#message").addEventListener("keypress", (event) => {
         //sent by the fetch request. In this case the extension is /0. On
         //success we will empty the text box. We can make the extension
         //dynamic for when we do session of games.
-        fetch("/chat/0", {
+        fetch(`/chat/${LOBBY_ID}`, {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ message: event.target.value })
@@ -28,12 +30,10 @@ document.querySelector("#message").addEventListener("keypress", (event) => {
 document.querySelector("#chat-button").addEventListener("click", (event) => {
 
     console.log("User pressed enter key initiating fetch request.");
-    console.log(document.querySelector("#message").value);
-
-    fetch("/chat/0", {
+    fetch(`/chat/${LOBBY_ID}`, {
         method: "post",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: document.querySelector("#message").value })
+        body: JSON.stringify({ message: event.target.value })
     }).then(() => {
         console.log("Fetch request successful? Emptying text box.");
         document.querySelector("#message").value = "";
@@ -45,7 +45,8 @@ const messages = document.querySelector("#messages");
 
 //Our socket listener that will listen for any chat:0 emmissions
 //This will append html/css according to id/class name
-socket.on("chat:0", ({ sender, message, timeStamp }) => {
+
+socket.on(`chat:${LOBBY_ID}`, ({ sender, message, timeStamp }) => {
     console.log("Listening for events with 'chat:0', if this prints it means success.")
     console.log({ sender, message, timeStamp });
 
