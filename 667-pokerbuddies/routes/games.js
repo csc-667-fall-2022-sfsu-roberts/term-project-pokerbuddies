@@ -219,8 +219,9 @@ router.post("/check/:id",(req, res)=>{
   res.sendStatus(200);
 });
 
-router.post("/dead/:id", (req,res)=>{
-
+router.post("/deal/:id", (req,res)=>{
+  const id = req.params;
+  
 });
 
 
