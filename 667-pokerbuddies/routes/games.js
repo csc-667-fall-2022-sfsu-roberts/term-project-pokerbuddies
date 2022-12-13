@@ -4,12 +4,14 @@ var router = express.Router();
 var path = require('path');
 const Games = require('../db/games');
 const GameLogic = require('../public/javascripts/Server/gameLogic/index');
+const Player = require("../public/javascripts/Server/Player");
 //  let game = require('../../public/javascripts/Server/Games');
 const io =require('socket.io');
 const { error } = require('console');
 
 let reqPath = path.join(__dirname, '../');
 
+let playerList = [];
 
 
 
@@ -72,6 +74,7 @@ router.get('/', function(req, res, next) {
 
 });
 
+// debugger;
 router.post('/', function(req,res){
   const {bet, call, fold, raise} = req.body;
   
@@ -164,6 +167,9 @@ router.post("/check/:id",(req, res)=>{
   res.sendStatus(200);
 });
 
+router.post("/dead/:id", (req,res)=>{
+
+});
 
 
 
@@ -172,6 +178,7 @@ router.get("/:id", (request, response) => {
 
   Promise.all([Games.userCount(id), Games.info(id)])
     .then(([{ count }, { title }]) => {
+      
       response.render("protected/game", {
         id,
         title,
@@ -189,13 +196,15 @@ router.get("/:id", (request, response) => {
 router.post("/:id/join", (request, response) => {
   const { userId } = request.session;
   const { id } = request.params;
-
-  Games.addUser(userId, id)
+  const player = new Player(username,req.app.io,userId);
+  playerList.push(player);
+  Games.addUser(Player, id)
     .then(() => Games.userCount(id))
     .then(({ count }) => {
       request.app.io.emit(`game:${id}:player-joined`, {
         count: parseInt(count),
         required_count: 2,
+        player: player
       });
 
       if (parseInt(count) === 2) {

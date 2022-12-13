@@ -27,7 +27,7 @@ buttons.forEach((button, index) => {
     let inLobby = false;
     button.addEventListener('click', () => {
     
-    }
+    })
     
 });
 
