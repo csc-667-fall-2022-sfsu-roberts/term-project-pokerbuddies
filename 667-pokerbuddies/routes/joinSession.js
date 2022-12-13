@@ -9,8 +9,8 @@ router.get('/', function(req, res, next) {
 
 });
 //routes to games page
-router.get('/games', function(req, res) {
-  res.render("protected/game");
+router.get('/games/:id', function(req, res) {
+  res.render("protected/game/:id");
 
 });
 //routes to home page

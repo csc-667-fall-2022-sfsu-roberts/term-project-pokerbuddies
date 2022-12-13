@@ -11,6 +11,7 @@
 const socket = io();
 
 const gameInfo = null;
+let count = 1;
 
 socket.on("startGame", function (data) {
   const size = data.player.length;
@@ -294,10 +295,34 @@ document.querySelector("#bet-button").addEventListener("click", (event) => {
 fetch(window.location.pathname, { method: "post" })
   .then((r) => r.json())
   .then(({ game_id }) => {
-    socket.on(`game:${game_id}:player-joined`, ({ count, required_count }) => {
+    socket.on(`game:${game_id}:player-joined`, ({ count, required_count,playerInfo }) => {
       document.querySelector("#pot").innerHTML = count;
-      
-      if (count === required_count) {
+        if (count == 1){
+          document.querySelector(".top-cards").classList.toggle('seen');
+          document.querySelector("#player-1-name").innerText = playerInfo.getName();
+          document.querySelector("#player-1-chips").innerText = playerInfo.getChips();
+          document.querySelector("#player-1-moce").innerText = "Joined"
+        } 
+        if (count == 2){
+          document.querySelector(".left-cards").classList.toggle('seen');
+          document.querySelector("#player-2-name").innerText = playerInfo.name;
+          document.querySelector("#player-2-chips").innerText = playerInfo.total;
+          document.querySelector("#player-2-moce").innerText = "Joined"
+        } 
+        if (count == 3){
+           document.querySelector("right-cards").classList.toggle('seen');
+           document.querySelector("#player-3-name").innerText = playerInfo.name;
+          document.querySelector("#player-3-chips").innerText = playerInfo.total;
+          document.querySelector("#player-3-moce").innerText = "Joined"
+        }
+        if (count == 4){
+          document.querySelector(".bottom-cards").classList.toggle('seen');
+          document.querySelector("#player-4-name").innerText = playerInfo.name;
+          document.querySelector("#player-4-chips").innerText = playerInfo.total;
+          document.querySelector("#player-4-moce").innerText = "Joined"
+        } 
+
+      if (count === 2) {
         // document.querySelector("p#waiting").classList.add("hidden");
         // document.querySelector("#game-table").classList.remove("hidden");
         // document
