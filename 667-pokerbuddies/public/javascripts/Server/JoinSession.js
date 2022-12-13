@@ -1,7 +1,8 @@
-const socket = io.connect('http://localhost:3000/joinSession');
+const socket = io();
+
 
 //holds list of displayed players
-const players = [];
+var players = [];
 
 //creates 6 cards and gives them individual ids
 for (let i = 1; i < 6; i++) {
@@ -17,19 +18,33 @@ for (let i = 1; i < 6; i++) {
 const cards = document.querySelectorAll('.card');
 cards.forEach((card, index) => {
     card.children[0].innerText = `Session ${index + 1}`;
-
+    
 });
 
 //gives each button an individual id and updates list of players when clicked
 const buttons = document.querySelectorAll('.join');
 buttons.forEach((button, index) => {
-    button.children[0].id = `join${index + 1}`;
-    let inLobby = false;
-    button.addEventListener('click', () => {
-    
-    })
-    
+    let roomId = `join${index + 1}`;
+    button.children[0].id = roomId;
+
+    button.addEventListener('click', (event) => {
+
+        // fetch(`/session/${roomId}`, {
+        //     method: "post",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: gameFile
+        // }).catch(error => console.log(error));
+
+        socket.emit('join', roomId);
+       
+        updatePlayerList();
+    });
 });
+
+
+
+
+
 
 function addPlayer() {
     let playerNames = players.map((player) => player.innerText);
@@ -64,6 +79,8 @@ function openCloseFunction() {
     }
 }
 
+
+//Brendan's code for testing.
 
 
 

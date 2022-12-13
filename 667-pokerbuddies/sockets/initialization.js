@@ -2,10 +2,10 @@ const socketIO = require("socket.io");
 const sessionMiddleware = require("../app-config");
 const Server = socketIO.Server;
 
-const init = (httpserver, app) =>{
+const init = (httpserver, app) => {
     const io = new Server(httpserver);
 
-    const wrap = middleware => (socket, next)=>
+    const wrap = middleware => (socket, next) =>
         middleware(socket.request, {}, next);
     io.use(wrap(sessionMiddleware));
 

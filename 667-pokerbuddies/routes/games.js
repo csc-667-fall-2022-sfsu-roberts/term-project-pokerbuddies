@@ -109,7 +109,9 @@ router.get('/home', function(req, res) {
 
 });
 
-
+router.get('/games/:id'), (req,res) =>{
+  res.render(`protected/game/${req.params}`);
+}
 
 router.post("/:id",(req,res) =>{
   const{id:game_id} = req.params;
