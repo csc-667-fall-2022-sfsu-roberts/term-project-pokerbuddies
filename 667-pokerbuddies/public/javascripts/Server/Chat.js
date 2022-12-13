@@ -33,7 +33,7 @@ document.querySelector("#chat-button").addEventListener("click", (event) => {
     fetch(`/chat/${LOBBY_ID}`, {
         method: "post",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: event.target.value })
+        body: JSON.stringify({ message: document.querySelector("#message").value })
     }).then(() => {
         console.log("Fetch request successful? Emptying text box.");
         document.querySelector("#message").value = "";
