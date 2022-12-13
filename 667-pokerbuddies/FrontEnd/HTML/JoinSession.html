@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../CSS/JoinSession.css">
-    <link rel="stylesheet" href="../CSS/SessionNavbar.css">
+    <link rel="stylesheet" href="./CSS/JoinSession.css">
+    <link rel="stylesheet" href="./CSS/SessionNavbar.css">
 
     <title>Join Session</title>
 
@@ -32,27 +32,19 @@
             <h2>Session 1</h2>
             <div class="cardContent">
                 <hr />
-                <ol class="players">
-                    <li id="p1">-</li>
-                    <li id="p2">-</li>
-                    <li id="p3">-</li>
-                    <li id="p4">-</li>
-                </ol>
+                <ul id="players"></ul>
+                <form>
+                    <label for="playerName">Player name:</label>
+                    <input type="text" id="playerName" />
+                    <button type="submit" id="joinBtn1" class=".glow-on-hover joinButton">Join</button>
+                    <button type="button" id="leaveBtn1" class=".glow-on-hover joinButton" disabled>Leave</button>
+                </form>
             </div>
-            <div class="card-footer">
-                <div class="playerCount">
-                    <p id="pCount1">0/4</p>
-                </div>
-                <div class="join">
-                    <button type="button" class="glow-on-hover joinButton" id="join1">Join</button>
-                </div>
-            </div>
-        </div>
 
-    </div>
+        </div>
 </body>
 
 <script src="../JoinSession.js"></script>
-<script src="../FrontEnd.js"></script>
+<script src="../OpenNavbar.js"></script>
 
 </html>

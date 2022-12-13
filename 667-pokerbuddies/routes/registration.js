@@ -35,7 +35,8 @@ res.redirect('/joinSession');
 
 
  router.get('/joinSession', async function(req, res) {
-  res.sendFile(path.join(reqPath, '/FrontEnd/HTML/JoinSession.html'));
+  res.render("public/joinSession");
+
 });
 
 module.exports = router;

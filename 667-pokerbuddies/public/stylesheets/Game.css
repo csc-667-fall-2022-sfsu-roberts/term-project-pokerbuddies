@@ -363,6 +363,12 @@
   border: 1px solid white;
   
 }
+.player-move{
+  background-color: #111;
+  color: white;
+  border: 1px solid white;
+}
+
 .player-name{
   background-color: #111;
   color: white; 
@@ -390,14 +396,14 @@
   margin-left: 47%;
 }
 
-.right-cards{
+.player-2{
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-content: center;
   align-items: center;
 }
 
-.left-cards{
+.player-3{
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-content: center;
@@ -419,4 +425,16 @@
   margin-bottom: 5px;
 }
 
+.hide {
+  visibility: hidden;
+}
+
+.seen {
+  visibility: visible;
+}
+
+.seenFold{
+  visibility: visible;
+  opacity: 0.5;
+}
  

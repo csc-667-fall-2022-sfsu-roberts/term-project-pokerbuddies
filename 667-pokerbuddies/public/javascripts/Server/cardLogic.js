@@ -140,6 +140,8 @@ function checkStraight(river, hand) {
     if (condition1.length == 0) {
         return -1;
     }
+// 5 6 7 8 9 10 11
+//create a counter to check
 
     temp.sort(function (a, b) { return a - b });
     for (let i = 0; i < temp.length - 5; i++) {

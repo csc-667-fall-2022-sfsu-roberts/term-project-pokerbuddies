@@ -5,13 +5,26 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "msedge",
+            "name": "Attach by Process ID",
+            "request": "attach",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node",
+            "port": 3000
+        },
+        
+        {
+            "name": "Launch Program",
+            "program": "${file}",
             "request": "launch",
-            "runtimeArgs": ["run", "debug"],
-            "runtimeExecutable": "npm",
-            "name": "Launch Edge against localhost",
-            "url": "http://localhost:3000",
-            "webRoot": "${workspaceFolder}"
+            "cwd": "${workspaceRoot}",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
         }
+        
+        
     ]
 }

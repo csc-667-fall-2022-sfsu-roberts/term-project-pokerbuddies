@@ -1,47 +1,330 @@
-import Game from './Games.js';
-import Player from './Player.js';
+// import Game from '/javascripts/Server/Games.js';
 
-//testing for full game
-// let game = new Game();
-// game.startNewGame();
 
-const socket = 0;
-const gameNumber = 0;
-const gamelobys = new Map();
-function createNewGame(socket, roomNumber){
-    this.socket = socket;
-    this.gameNumber = roomNumber;
-    let game = new Game(socket, gameNumber);
-    gamelobys.set(gameNumber, game);
 
+    // document.querySelector('.player-1').classList.toggle('hide');
+    // document.querySelector('.player-2').classList.toggle('hide');
+    //  document.querySelector('.river-div').classList.toggle('hide');
+    // document.querySelector('.player-3').classList.toggle('hide');
+    // document.querySelector('.player-4').classList.toggle('hide');
+
+const socket = io();
+
+const gameInfo = null;
+let count = 1;
+let id = document.querySelector(".gameNumber").innerText;
+
+socket.on("startGame", function (data) {
+  const size = data.player.length;
+        if (size >= 1) document.querySelector(".top-cards").classList.toggle('seen');
+        if (size >= 2) document.querySelector(".left-cards").classList.toggle('seen');
+        if (size >= 3) document.querySelector("right-cards").classList.toggle('seen');
+        if (size == 4) document.querySelector(".bottom-cards").classList.toggle('seen');
+
+  if (data == undefined) {
+    alert("Error - invalid game.");
+  }
+});
+
+const fold = () => {
+  socket.emit("madeMove", {
+    move: "fold",
+    bet: "fold",
+  });
 };
 
-function joinGame(socket, roomNumber){
-    const player = new Player(socket);
-    if(gamelobys.has(roomNumber)){
-       let loby = this.gamelobys.get(roomNumber);
-       if(loby.getLobySize()< 4){
-        loby.addNewPlayer('ryan1',1);
-       }else{
-        alert("TO MANY PEOPLE");
-        return;
-       }
-        
-    }else{
-        createNewGame(socket,roomNumber);
+const bet = () => {
+  const val = parseInt(document.querySelector("#betField").value); // parseInt($("#betField").val());
+  if (val == 0) {
+    alert("You must bet more then 0");
+  } else {
+    socket.emit("moveMade", {
+      move: "bet",
+      bet: val,
+    });
+  }
+};
+
+const call = () => {
+  socket.emit("moveMade", {
+    move: "call",
+    bet: "call",
+  });
+};
+
+const check = () => {
+  socket.emit("moveMade", {
+    move: "check",
+    bet: "check",
+  });
+};
+
+const raise = () => {
+  const val = parseInt($("#betField").val());
+  socket.emit("moveMade", {
+    move: "raise",
+    bet: val,
+  });
+};
+
+socket.on("displayPossibleMoves", function (data) {
+
+    if (data.fold) {
+        document.querySelector("player-" + data.position).classList.toggle('hide');
+        document.querySelector("player-" + data.position + "-info").classList.toggle('seenFold');
+        document.querySelector("player-" + data.position + "-move").innerHTML = "Folded"
+        //    document.querySelector('.button-layout').css({ visibility: 'hidden' });
+    } else if (data.check) {
+        document.querySelector("player-" + data.position + "-move").innerHTML = "Checked"
+    } else if (data.bet) {
+        document.querySelector("player-" + data.position + "-move").innerHTML = "Bet";
+        // document.querySelector('player-' + data.position +'-bets' ).text('checked');
+    } else if (data.call) {
+        document.querySelector("player-" + data.position + "-move").innerHTML = "Calles";
+    } else if (data.raise) {
+        document.querySelector("player-" + data.position + "-move").innerHTML = "Raise";
     }
-}
+});
+
+socket.on("display", function (data) {
+
+    if(!data.inProgress){
+        // $('.top-cards').css({ visibility: 'hidden' });
+        // $('.left-cards').css({ visibility: 'hidden' });
+        // $('.river-div').css({ visibility: 'hidden' });
+        // $('.right-cards').css({ visibility: 'hidden' });
+        // $('.bottom-cards').css({ visibility: 'hidden' });
+        document.querySelector('.top-cards').classList.toggle('hide');
+        document.querySelector('.left-cards').classList.toggle('hide');
+        document.querySelector('.river-div').classList.toggle('hide');
+        document.querySelector('.right-cards').classList.toggle('hide');
+        document.querySelector('.bottom-cards').classList.toggle('hide');
+
+        //add to make names visible
+
+        return;
+    }
+
+  if (data.myBet != 0) {
+    // $("player-" + data.position + "-bets").text("bet: " + data.myBet);
+    document.querySelector("player-" + data.position + "-bets").innerHTML = "bet: " + data.myBet;
+  
+  }
+
+  //stores river cards so theyre the same
+  if (data.river != undefined) {
+    let count = 9;
+    for (const card of data.river) {
+      renderCard(card, count);
+      count++;
+    }
+  }
+
+  //stores player attributes
+  for (const p of data.players) {
+    renderPlayers({
+      name: p.userName,
+      status: p.status,
+      chips: p.chips,
+      bet: p.bet,
+      isChecked: p.isChecked,
+      position: p.position,
+    });
+  }
+});
+
+
+
+const renderCard = (card, num) => {
+//   $("#card-" + id).attr("src", "/images/Cards/" + card + ".png");
+    document.querySelector("#card-" + id).attr("src", "/images/Cards/" + card + ".png");
+};
+
+const renderPlayers = (bet,total_chips,spot,status,name) => {
+
+if (status == "fold") {
+    document.querySelector("player-" + spot).classList.toggle('hide');
+    document.querySelector("player-" + spot + "-info").classList.toggle('seenFold');
+    document.querySelector("player-" + spot + "-move").innerText = "Folded";
+    return;
+  }
+  document.querySelector("player-" + spot + "-info").classList.toggle('seen');
+  document.querySelector("player-" + spot + "-name").innerText = name;
+  document.querySelector("player-" + spot+ "-chips").innerText = total_chips;
+  document.querySelector("player-" + spot + "-bets").innerText = bet;
+  document.querySelector("player-" + spot + "-move").innerText = status;
+};
+
+
+socket.on('Done', function(data){
+    document.querySelector('.river-div').classList.toggle('hide');
+    document.querySelector('.top-cards').classList.toggle('hide');
+    document.querySelector('.left-cards').classList.toggle('hide');
+    document.querySelector('.river-div').classList.toggle('hide');
+    document.querySelector('.right-cards').classList.toggle('hide');
+    document.querySelector('.bottom-cards').classList.toggle('hide');
+
+    document.querySelector('.pot').innerHTML = "Winner Is "+ data.winner;
+    
+    // $('.river-div').css({ visibility: "hidden" });
+    // $('.top-cards').css({ visibility: 'hidden' });
+    // $('.left-cards').css({ visibility: 'hidden' });
+    // $('.river-div').css({ visibility: 'hidden' });
+    // $('.right-cards').css({ visibility: 'hidden' });
+    // $('.bottom-cards').css({ visibility: 'hidden' });
+
+    // $('.pot').text("Winner Is "+ data.winner);
+});
+
+socket.on('reveal', function(data){
+    if(data.winner == data.userName){
+        alert("You Won!!");
+    }
+    document.querySelector('.pot').innerHTML = "Winner Is "+ data.winner;
+    // $('.pot').text("Winner " + data.winner);
+    //flipp cards of those still in
+});
+
+socket.on('join',function(){
+    
+});
+
+socket.on(`fold:${id}`,(bet,total_chips,spot,status, name)=>{
+  console.log("Fold emit on front end");
+  renderPlayers(bet,total_chips,spot,status, name);
+})
+socket.on(`bet:${id}`,(bet,total_chips,spot,status, name)=>{
+  console.log("Bet emited ");
+  renderPlayers(bet,total_chips,spot,status, name);
+  
+})
+socket.on(`raise:${id}`,(bet,total_chips,spot,status, name)=>{
+  console.log("raise emit");
+  renderPlayers(bet,total_chips,spot,status, name);
+})
+socket.on(`call:${id}`,(bet,total_chips,spot,status, name)=>{
+  console.log("called emit");
+  renderPlayers(bet,total_chips,spot,status, name);
+})
+socket.on(`check:${id}`,(bet,total_chips,spot,status, name)=>{
+  console.log("check emit");
+  renderPlayers(bet,total_chips,spot,status, name);
+})
+
+document.querySelector("#fold-button").addEventListener("click", (event) => {
+  // debugger;
+  console.log("User pressed enter key initiating fetch request.");
  
+  fetch(`/games/fold/${id}`, {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: socket.id, Message: 'testing'})
+  }).then(() => {
+      console.log("Fetch request successful? Emptying text box.");
+      document.querySelector("#fold-button").value = "";
+  }).catch(error => console.log(error));
+
+});
+
+document.querySelector("#call-button").addEventListener("click", (event) => {
+
+  console.log("User pressed enter key initiating fetch request.");
+  fetch(`/games/call/${id}`, {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: socket.id})
+  }).then(() => {
+      console.log("Fetch request successful? Emptying text box.");
+      document.querySelector("#call-button").value = "";
+  }).catch(error => console.log(error));
+
+});
+
+document.querySelector("#check-button").addEventListener("click", (event) => {
+
+  console.log("User pressed enter key initiating fetch request.");
+  fetch(`/games/check/${id}`, {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: socket.id})
+  }).then(() => {
+      console.log("Fetch request successful? Emptying text box.");
+      document.querySelector("#check-button").value = "";
+  }).catch(error => console.log(error));
+
+});
+
+document.querySelector("#raise-button").addEventListener("click", (event) => {
+  const val = document.querySelector("#betField").value;
+  console.log("User pressed enter key initiating fetch request.");
+  fetch(`/games/raise/${id}`, {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: socket.id, value: val})
+  }).then(() => {
+      console.log("Fetch request successful? Emptying text box.");
+      document.querySelector("#betField").value = "";
+  }).catch(error => console.log(error));
+
+});
+
+document.querySelector("#bet-button").addEventListener("click", (event) => {
+  const val = document.querySelector("#betField").value;
+  console.log("User pressed enter key initiating fetch request.");
+  fetch(`/games/bet/${id}`, {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: socket.id, value: val})
+  }).then(() => {
+      console.log("Fetch request successful? Emptying text box.");
+      document.querySelector("#betField").value = "";
+  }).catch(error => console.log(error));
+
+});
 
 
+fetch(window.location.pathname, { method: "post" })
+  .then((r) => r.json())
+  .then(({ game_id }) => {
+    socket.on(`game:${game_id}:player-joined`, ({ count, required_count,playerInfo }) => {
+      document.querySelector("#pot").innerText = count;
+        if (count == 1){
+          document.querySelector(".top-cards").classList.toggle('seen');
+          document.querySelector("#player-1-name").innerText = playerInfo.getName();
+          document.querySelector("#player-1-chips").innerText = playerInfo.getChips();
+          document.querySelector("#player-1-moce").innerText = "Joined"
+        } 
+        if (count == 2){
+          document.querySelector(".left-cards").classList.toggle('seen');
+          document.querySelector("#player-2-name").innerText = playerInfo.name;
+          document.querySelector("#player-2-chips").innerText = playerInfo.total;
+          document.querySelector("#player-2-moce").innerText = "Joined"
+        } 
+        if (count == 3){
+           document.querySelector("right-cards").classList.toggle('seen');
+           document.querySelector("#player-3-name").innerText = playerInfo.name;
+          document.querySelector("#player-3-chips").innerText = playerInfo.total;
+          document.querySelector("#player-3-moce").innerText = "Joined"
+        }
+        if (count == 4){
+          document.querySelector(".bottom-cards").classList.toggle('seen');
+          document.querySelector("#player-4-name").innerText = playerInfo.name;
+          document.querySelector("#player-4-chips").innerText = playerInfo.total;
+          document.querySelector("#player-4-moce").innerText = "Joined"
+        } 
 
-let foldButton = document.getElementById('fold-button');
-let callButton = document.getElementById('call-button');
-let raiseButton = document.getElementById('raise-button');
-let checkButton = document.getElementById('check-button');
-let betButton = document.getElementById('bet-button');
+      if (count === 2) {
+        // document.querySelector("p#waiting").classList.add("hidden");
+        // document.querySelector("#game-table").classList.remove("hidden");
+        // document
+        //   .querySelector("#game-table")
+        //   .classList.add(`player-count-${count}`);
+        document.querySelector("#pot").innerHTML = '0000';
+      }
+    });
 
-foldButton.onclick = () =>{
-    game.fold();
-}
-
+    socket.on(`game:${game_id}:update`, updateGame);
+  })
+  // .then(() => {
+  //   fetch(`${window.location.pathname}/status`, { method: "post" });
+  // });

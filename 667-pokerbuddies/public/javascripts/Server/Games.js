@@ -1,11 +1,11 @@
-import Deck from "./Deck.js";
-// const Deck = require('./Deck');
-import Player from "./Player.js";
-// const Player = require('./Player');
+// import Deck from "./Deck.js";
+const Deck = require('./Deck.js');
+// import Player from "./Player.js";
+const Player = require('./Player.js');
 
 
- class Games {
-  constructor(id, name) {
+const Games = function() {
+  
     this.deck = new Deck();
     this.players = [];
     this.name = name;
@@ -18,6 +18,7 @@ import Player from "./Player.js";
     this.maxCurrBet = 0;
     this.autoBid = 25;
     this.roundInProgress = true;
+    this.lasMove = {move: '' , player: ''}
     this.roundNum = 0;
     this.roundInfo = {
       turn: "",
@@ -30,18 +31,25 @@ import Player from "./Player.js";
     this.pot = 0;
 
     this.disconnectedPlayers = [];
-  }
+  
+    const constructor = (function () {})(this);
 
-  startNewGame(){
+  this.startNewGame = () => {
     this.addNewPlayer('ryan1',1);
-    this.addNewPlayer('ryan2',2);
-    this.addNewPlayer('ryan3',3);
-    this.addNewPlayer('ryan4',4);
+    // this.addNewPlayer('ryan2',2);
+    // this.addNewPlayer('ryan3',3);
+    // this.addNewPlayer('ryan4',4);
+    this.emitPlayers('startGame',{
+      players: this.players.map((p) =>{
+        return p.userName;
+      } )
+    });
     this.startGame();
 
   }
 
-  startGame() {
+  this.startGame = () => {
+    this.lasMove = {move: '', player: ''};
     this.roundInProgress = true;
     this.river = [];
     this.pot = 0;
@@ -50,20 +58,29 @@ import Player from "./Player.js";
     this.dealCards();
     this.assignAutoBid();
     this.roundNum++;
+    this.display();
     this.flop();
     
     this.turnFlop();
     this.riverFlop();
-    // this.display();
+     this.display();
     
   }
 
-  getNumPlayers() {
+  
+
+  this.emitPlayers = (event, data) => {
+    for(const p of this.players){
+      p.emit(event, data);
+    }
+  }
+
+  this.getNumPlayers = () => {
     return this.currentNumPlayers;
   }
   
 //player 1 [1,2] player 2 [3,4] player 3 [5,6] player4 [7,8]
-  changePlayerCard(id, val) {
+  this.changePlayerCard = (id, val) => {
     let count = 0;
     for(const card of val){
       let v = id <2 ? 1+count : (id*2 -1)+ count;
@@ -76,7 +93,7 @@ import Player from "./Player.js";
     
   }
 
-   changeRiverCard(id,val){
+   this.changeRiverCard = (id,val) => {
     let riverCard = document.getElementById("card-"+id);
     riverCard.src = '/images/Cards/'+val+".png";
     
@@ -86,12 +103,12 @@ import Player from "./Player.js";
 
   }
 
-  flipCard(card){
+  this.flipCard = (card) => {
     let c = card.parentElement.parentElement;
     c.classList.add('flip-it');
   }
 
-  dealCards() {
+  this.dealCards = () =>{
     if (this.deck.length < 13) {
       this.deck.reset();
     }
@@ -100,6 +117,7 @@ import Player from "./Player.js";
     
     let count = 1;
     for (const p of this.players) {
+      p.newRound();
       this.players.cards = [];
       let cards = [];
       for (let j = 0; j < 2; j++) {
@@ -114,26 +132,26 @@ import Player from "./Player.js";
   
   }
 
-  setMaxBet(bet) {
+  this.setMaxBet=(bet)=> {
     if (bet > this.maxCurrBet) {
       this.maxCurrBet = bet;
     }
   }
 
-  fold(socket) {
+  this.fold= (socket)=> {
     const player = this.findPlayer(socket.id);
     player.setFold(true);
   }
 
   //TODO
-  call(socket) {
+  this.call=(socket)=> {
     const player = this.findPlayer(socket.id);
     player.setBet(this.maxCurrBet);
     this.pot += this.maxCurrBet;
     //add logic if max bet is to big so it will use all left over chips
   }
 
-  bet(player, bet) {
+  this.bet =(player, bet)=> {
     // const player = this.findPlayer(socket.id);
     player.setBet(bet);
     this.setMaxBet(bet);
@@ -145,19 +163,19 @@ import Player from "./Player.js";
     this.updatePot(this.pot);
   }
 
-  check(socket) {
+  this.check=(socket)=> {
     const player = this.findPlayer(socket.id);
     player.setIsChecked(true);
   }
 
   //possible change
-  raise(socket, bet) {
+  this.raise = (socket, bet)=> {
     this.bet(socket, bet + this.maxCurrBet);
   }
 
   //this is used to see if they folded and the cant make new moves untill the next round
   //used also for any other state where they shouldnt move any more
-  allowedMoves(socket) {
+  this.allowedMoves = (socket)=> {
     const player = this.findPlayer(socket.id);
     const playerBet = player.getBet;
     const moveList = {
@@ -187,21 +205,25 @@ import Player from "./Player.js";
     return moveList;
   }
 
-  getLobySize(){
+
+
+
+
+  this.getLobySize = () => {
     return this.players.length;
   }
 
-  addNewPlayer(playerName, socket) {
+  this.addNewPlayer = (playerName, socket)=> {
     const player = new Player(playerName, socket);
     this.players.push(player);
     this.currentNumPlayers++;
     player.setTurn(this.currentNumPlayers);
     player.setPlayerNumber(this.currentNumPlayers);
-    this.updatePlayerOnBoard(player);
+    // this.updatePlayerOnBoard(player);
     return player;
   }
 
-  updatePlayerOnBoard(player){
+  this.updatePlayerOnBoard= (player)=>{
     let number = player.getPlayerNumber();
     let playerNameDiv = document.getElementById("player-" + number +"-name");
     playerNameDiv.textContent = player.getName();
@@ -211,16 +233,16 @@ import Player from "./Player.js";
     playerBetDiv.textContent ="bet: "+ player.getBet();
   }
 
-  updatePot(val){
+  this.updatePot=(val)=>{
     let potDiv = document.getElementById("pot");
     potDiv.textContent = "Pot: " + this.getPot();
   }
 
   //this can be used as our database storeage function
-  storeData() {}
+  this.storeData=()=> {}
 
   //auto puts in an anty
-  assignAutoBid() {
+  this.assignAutoBid= ()=> {
     for (const p of this.players) {
       if (this.players.chipss > this.autoBid) {
         p.out = true;
@@ -232,7 +254,7 @@ import Player from "./Player.js";
   }
 
   //call this function to begin a new round
-  newRound() {
+  this.newRound = ()=> {
     for (const p of this.players) {
       p.newRound();
     }
@@ -244,7 +266,7 @@ import Player from "./Player.js";
   }
 
   //this is like flop, 4th card then 5th card
-  stages() {
+  this.stages =()=> {
     let roundDone = false;
     if (this.isStageComplete()) {
       //add all in logic
@@ -278,7 +300,7 @@ import Player from "./Player.js";
     }
   }
 
-  allFolded(name) {
+  this.allFolded=(name) =>{
     this.roundInProgress = false;
     let cardData = [];
     for (const p of this.players) {
@@ -302,7 +324,7 @@ import Player from "./Player.js";
     }
   }
 
-  getNonFoldedPlayers() {
+  this.getNonFoldedPlayers=()=> {
     let count = 0;
     let isOne = false;
     let player;
@@ -317,7 +339,7 @@ import Player from "./Player.js";
   }
 
   //river cards 9,10,11,12,13
-  flop() {
+  this.flop= ()=> {
     const first = this.deck.deal();
     this.river.push(first);
     const second = this.deck.deal();
@@ -343,7 +365,7 @@ import Player from "./Player.js";
   }
 
 
-  turnFlop() {
+  this.turnFlop = () =>{
     const turn = this.deck.deal();
     this.river.push(turn);
     setTimeout(() =>{
@@ -352,7 +374,7 @@ import Player from "./Player.js";
     
   }
 
-  riverFlop() {
+  this.riverFlop=()=> {
     const turn = this.deck.deal();
     this.river.push(turn);
     setTimeout(() =>{
@@ -361,7 +383,7 @@ import Player from "./Player.js";
     
   }
 
-  getCurrentStage() {
+  this.getCurrentStage= ()=> {
     if (this.roundInfo.bets.length == 1) {
       return "Start";
     } else if (this.roundInfo.bets.length == 2) {
@@ -376,7 +398,7 @@ import Player from "./Player.js";
   }
 
   // this is flipping cards and showing player info
-  display() {
+  this.display = ()=> {
     const playerData = [];
     for (const p of this.players) {
       playerData.push({
@@ -384,14 +406,18 @@ import Player from "./Player.js";
         playerStatus: p.getStatus(),
         chipTotal: p.getChips(),
         isChecked: p.getIsChecked(),
+        bet: p.getBet(),
+        possition: p.getPlayerNumber(),
       });
     }
 
     for (const p of this.players) {
       p.emit("display", {
+        inProgress: this.roundInProgress,
         topBet: this.maxCurrBet,
         bets: this.roundInfo.bets,
         userName: p.getName(),
+        possition: p.getTurn(),
         round: this.roundNum,
         river: this.river,
         stage: this.getCurrentStage(),
@@ -403,18 +429,18 @@ import Player from "./Player.js";
     }
   }
 
-  getPot() {
+  this.getPot = ()=> {
     return this.pot;
   }
 
-  getPlayerBet(player) {}
+  this.getPlayerBet = (player) =>{}
 
-  isPlayerChecked(player) {
+  this.isPlayerChecked=(player)=> {
     return p.getIsChecked();
   }
 
   //TODO
-  isStageComplete() {
+  this.isStageComplete=()=> {
     let numReady = 0;
     const currRound = this.getCurrentRound();
 
@@ -425,12 +451,12 @@ import Player from "./Player.js";
     }
   }
 
-  getCurrentRound() {
+  this.getCurrentRound=()=> {
     return this.roundInfo.bets[this.roundInfo.bets.length - 1];
   }
 
   //this desides which player can go first
-  getFirstTurnPlayer() {
+  this.getFirstTurnPlayer=()=> {
     for (const p of this.players.length) {
       if (p.getTurn == this.currentTurn) {
         if (this.currentTurn == this.currentNumPlayers) {
@@ -444,7 +470,7 @@ import Player from "./Player.js";
   }
 
   //this updates the stages such as flopp, 4th card and 5th card shown
-  updateStages() {
+  this.updateStages = () =>{
     for (let i = 0; i < this.players.length; i++) {
       if (
         i == this.getFirstTurnPlayer() &&
@@ -458,16 +484,16 @@ import Player from "./Player.js";
     this.roundInfo.bets.push([]);
   }
 
-  setStatus(stat) {
+  this.setStatus = (stat) => {
     this.status = stat;
   }
 
-  getStatus() {
+  this.getStatus = ()=> {
     return this.status;
   }
 
   //moves on to the next player after prev goes
-  nextPlayerTurn() {
+  this.nextPlayerTurn = () =>{
     for (const p of this.players) {
       if (p.turn == this.currentTurn) {
         if (this.currentTurn === this.currentNumPlayers) {
@@ -481,18 +507,47 @@ import Player from "./Player.js";
   }
 
   //TODO
-  getWinnings(socket) {
+  this.getWinnings = (socket)=> {
     const player = this.findPlayer(socket.id);
   }
 
   //this is the logic for the players cards to determine which hand won
-  checkHand(river, cards) {}
+  this.checkHand = (river, cards)=> {}
 
   //TODO
-  revealHands() {}
+  this.revealHands = (winner) => {
+    this.roundInProgress = false;
+    let cardData = [];
+    for(const p of this.players){
+      cardData.push(
+        {
+          userName: p.getName(),
+          cards: p.getCards(),
+          status: p.getStatus(),
+          folded : p.getStatus == 'fold',
+          chips: p.getChips(),
+          winnings: '',
+        }
+      );
+    }
+
+    for(const p of this.players){
+      p.emit('reveal',{
+        userName: p.getName(),
+        chips: p.getChips(),
+        cards: cardData,
+        bets: this.roundInfo.bets,
+        winner:winner.getName(),
+        status: p.getStatus,
+      });
+    }
 
 
-  findPlayer(socketID) {
+
+  }
+
+
+  this.findPlayer = (socketID)=> {
     for (const element of this.players) {
       if (element.socket.id === socketID) {
         return element;
@@ -500,7 +555,17 @@ import Player from "./Player.js";
     }
     return { socket: { id: 0 } };
   }
+
+
+  this.initialize = (game_id) => {
+    return Games.initDeck(game_id)
+      .then(() => Games.getPlayers(game_id))
+      .then(setSeats(game_id))
+      .then(drawInitialCards(game_id))
+      .then(assignCards(game_id));
+  };
+
 }
 
-export default Games;
-// module.exports = Games;
+// export default Games;
+module.exports = Games;

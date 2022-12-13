@@ -1,4 +1,4 @@
-const Player = function (name = "name", socket) {
+const Player = function (name = "name", socket, session) {
   this.userName = name;
   this.cards = [];
   this.socket = socket;
@@ -110,5 +110,5 @@ const Player = function (name = "name", socket) {
   };
 };
 
-export default Player;
-// module.exports = Player;
+// export default Player;
+module.exports = Player;
