@@ -9,9 +9,23 @@ const init = (httpserver, app) =>{
         middleware(socket.request, {}, next);
     io.use(wrap(sessionMiddleware));
 
+    io.use((socket,next)=>{
+        const session = socket.request.session;
+        // if(session !== undefined && session.authenticated === true){
+        //     next();
+        // }else{
+        //     next(new Error("unathenticated"))
+        // }
+    });
+
     io.on("connection", (socket) =>{
-        console.log("Connection happened")
+        
+        console.log({
+            message: "Connection happened",
+            session: socket.request.session,
+        })
     })
+    app.io = io;
 }
 
 module.exports = init;

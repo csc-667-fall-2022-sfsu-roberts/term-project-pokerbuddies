@@ -12,6 +12,7 @@ const socket = io();
 
 const gameInfo = null;
 let count = 1;
+let id = document.querySelector(".gameNumber").innerText;
 
 socket.on("startGame", function (data) {
   const size = data.player.length;
@@ -67,25 +68,7 @@ const raise = () => {
 };
 
 socket.on("displayPossibleMoves", function (data) {
-  //hides cards and dulls the player info
-//   if (data.fold) {
-//     $("player-" + data.position).css({ visibility: "hidden" });
-//     $("player-" + data.position + "-info").css({
-//       visibility: "visible",
-//       opacity: 0.5,
-//     });
-//     $("player-" + data.position + "-move").text("Folded");
-//     //    $('.button-layout').css({ visibility: 'hidden' });
-//   } else if (data.check) {
-//     $("player-" + data.position + "-move").text("checked");
-//   } else if (data.bet) {
-//     $("player-" + data.position + "-move").text("bet");
-//     // $('player-' + data.position +'-bets' ).text('checked');
-//   } else if (data.call) {
-//     $("player-" + data.position + "-move").text("called");
-//   } else if (data.raise) {
-//     $("player-" + data.position + "-move").text("raise");
-//   }
+
     if (data.fold) {
         document.querySelector("player-" + data.position).classList.toggle('hide');
         document.querySelector("player-" + data.position + "-info").classList.toggle('seenFold');
@@ -157,30 +140,19 @@ const renderCard = (card, num) => {
     document.querySelector("#card-" + id).attr("src", "/images/Cards/" + card + ".png");
 };
 
-const renderPlayers = (player) => {
-//   if (player.status == "fold") {
-//     $("player-" + player.position).css({ visibility: "hidden" });
-//     $("player-" + player.position + "-info").css({
-//       visibility: "visible",
-//       opacity: 0.5,
-//     });
-//     $("player-" + player.position + "-move").text("Folded");
-//     return;
-//   }
-//   $("player-" + player.position + "-name").text(p.name);
-//   $("player-" + player.position + "-chips").text(p.chips);
-//   $("player-" + player.position + "-bets").text(p.bet);
-//   $("player-" + player.position + "-move").text(p.status);
-if (player.status == "fold") {
-    document.querySelector("player-" + player.position).classList.toggle('hide');
-    document.querySelector("player-" + player.position + "-info").classList.toggle('seenFold');
-    document.querySelector("player-" + player.position + "-move").innerHTML = "Folded";
+const renderPlayers = (bet,total_chips,spot,status,name) => {
+
+if (status == "fold") {
+    document.querySelector("player-" + spot).classList.toggle('hide');
+    document.querySelector("player-" + spot + "-info").classList.toggle('seenFold');
+    document.querySelector("player-" + spot + "-move").innerText = "Folded";
     return;
   }
-  document.querySelector("player-" + player.position + "-name").innerHTML = p.name;
-  document.querySelector("player-" + player.position + "-chips").innerHTML = p.chips;
-  document.querySelector("player-" + player.position + "-bets").innerHTML = p.bet;
-  document.querySelector("player-" + player.position + "-move").innerHTML = p.status;
+  document.querySelector("player-" + spot + "-info").classList.toggle('seen');
+  document.querySelector("player-" + spot + "-name").innerText = name;
+  document.querySelector("player-" + spot+ "-chips").innerText = total_chips;
+  document.querySelector("player-" + spot + "-bets").innerText = bet;
+  document.querySelector("player-" + spot + "-move").innerText = status;
 };
 
 
@@ -217,14 +189,33 @@ socket.on('join',function(){
     
 });
 
-socket.on("fold:0",function(){
-  console.log("HI");
+socket.on(`fold:${id}`,(bet,total_chips,spot,status, name)=>{
+  console.log("Fold emit on front end");
+  renderPlayers(bet,total_chips,spot,status, name);
+})
+socket.on(`bet:${id}`,(bet,total_chips,spot,status, name)=>{
+  console.log("Bet emited ");
+  renderPlayers(bet,total_chips,spot,status, name);
+  
+})
+socket.on(`raise:${id}`,(bet,total_chips,spot,status, name)=>{
+  console.log("raise emit");
+  renderPlayers(bet,total_chips,spot,status, name);
+})
+socket.on(`call:${id}`,(bet,total_chips,spot,status, name)=>{
+  console.log("called emit");
+  renderPlayers(bet,total_chips,spot,status, name);
+})
+socket.on(`check:${id}`,(bet,total_chips,spot,status, name)=>{
+  console.log("check emit");
+  renderPlayers(bet,total_chips,spot,status, name);
 })
 
 document.querySelector("#fold-button").addEventListener("click", (event) => {
-
+  // debugger;
   console.log("User pressed enter key initiating fetch request.");
-  fetch("/games/fold/:id", {
+ 
+  fetch(`/games/fold/${id}`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: socket.id, Message: 'testing'})
@@ -238,7 +229,7 @@ document.querySelector("#fold-button").addEventListener("click", (event) => {
 document.querySelector("#call-button").addEventListener("click", (event) => {
 
   console.log("User pressed enter key initiating fetch request.");
-  fetch("/games/call/:id", {
+  fetch(`/games/call/${id}`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: socket.id})
@@ -252,7 +243,7 @@ document.querySelector("#call-button").addEventListener("click", (event) => {
 document.querySelector("#check-button").addEventListener("click", (event) => {
 
   console.log("User pressed enter key initiating fetch request.");
-  fetch("/games/check/:id", {
+  fetch(`/games/check/${id}`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: socket.id})
@@ -266,7 +257,7 @@ document.querySelector("#check-button").addEventListener("click", (event) => {
 document.querySelector("#raise-button").addEventListener("click", (event) => {
   const val = document.querySelector("#betField").value;
   console.log("User pressed enter key initiating fetch request.");
-  fetch("/games/raise/:id", {
+  fetch(`/games/raise/${id}`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: socket.id, value: val})
@@ -280,7 +271,7 @@ document.querySelector("#raise-button").addEventListener("click", (event) => {
 document.querySelector("#bet-button").addEventListener("click", (event) => {
   const val = document.querySelector("#betField").value;
   console.log("User pressed enter key initiating fetch request.");
-  fetch("/games/bet/:id", {
+  fetch(`/games/bet/${id}`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id: socket.id, value: val})
@@ -296,7 +287,7 @@ fetch(window.location.pathname, { method: "post" })
   .then((r) => r.json())
   .then(({ game_id }) => {
     socket.on(`game:${game_id}:player-joined`, ({ count, required_count,playerInfo }) => {
-      document.querySelector("#pot").innerHTML = count;
+      document.querySelector("#pot").innerText = count;
         if (count == 1){
           document.querySelector(".top-cards").classList.toggle('seen');
           document.querySelector("#player-1-name").innerText = playerInfo.getName();
@@ -334,6 +325,6 @@ fetch(window.location.pathname, { method: "post" })
 
     socket.on(`game:${game_id}:update`, updateGame);
   })
-  .then(() => {
-    fetch(`${window.location.pathname}/status`, { method: "post" });
-  });
+  // .then(() => {
+  //   fetch(`${window.location.pathname}/status`, { method: "post" });
+  // });
