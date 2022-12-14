@@ -24,7 +24,7 @@ cards.forEach((card, index) => {
 //gives each button an individual id and updates list of players when clicked
 const buttons = document.querySelectorAll('.join');
 buttons.forEach((button, index) => {
-    let roomId = `join${index + 1}`;
+    let roomId = index + 1;
     button.children[0].id = roomId;
 
     console.log(roomId);
@@ -47,19 +47,22 @@ buttons.forEach((button, index) => {
 
     
     button.addEventListener('click', (event) => {
+        // debugger;
+        fetch(`/games/join/${roomId}`, {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id: socket.id})
+        }).then(() => {
+            console.log("Fetch request successful? Emptying text box.");
+            
+        }).catch(error => console.log(error));
 
-        // fetch(`/session/${roomId}`, {
-        //     method: "post",
-        //     headers: { "Content-Type": "application/json" },
-        //     body: gameFile
-        // }).catch(error => console.log(error));
-
-        socket.emit('join', roomId);
+        // socket.emit('join', roomId);
        
-        updatePlayerList(event);
+        // updatePlayerList();
     });
-    
-});
+}
+);
 
 
 
