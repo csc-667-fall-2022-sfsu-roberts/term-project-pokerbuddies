@@ -265,8 +265,8 @@ router.get("/:id", (request, response) => {
 });
 
 router.get("/join/:id",(req,res)=>{
-  
-  res.render('/protect/games')
+  console.log("HERE");
+  res.render ('/protect/games')
 });
 
 router.post("/join/:id", (request, response) => {

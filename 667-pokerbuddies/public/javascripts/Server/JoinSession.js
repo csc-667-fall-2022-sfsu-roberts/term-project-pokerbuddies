@@ -30,7 +30,7 @@ buttons.forEach((button, index) => {
     button.addEventListener('click', (event) => {
         // debugger;
         fetch(`/games/join/${roomId}`, {
-            method: "get",
+            method: "post",
             headers: { "Content-Type": "application/json" },
             
         }).then(() => {
