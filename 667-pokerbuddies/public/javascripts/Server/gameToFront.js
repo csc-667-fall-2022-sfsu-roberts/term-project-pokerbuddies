@@ -213,7 +213,7 @@ socket.on(`check:${id}`,(bet,total_chips,spot,status, name)=>{
 
 document.querySelector("#fold-button").addEventListener("click", (event) => {
   // debugger;
-  console.log("User pressed enter key initiating fetch request.");
+
  
   fetch(`/games/fold/${id}`, {
       method: "post",
@@ -228,7 +228,7 @@ document.querySelector("#fold-button").addEventListener("click", (event) => {
 
 document.querySelector("#call-button").addEventListener("click", (event) => {
 
-  console.log("User pressed enter key initiating fetch request.");
+
   fetch(`/games/call/${id}`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -242,7 +242,7 @@ document.querySelector("#call-button").addEventListener("click", (event) => {
 
 document.querySelector("#check-button").addEventListener("click", (event) => {
 
-  console.log("User pressed enter key initiating fetch request.");
+
   fetch(`/games/check/${id}`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -256,7 +256,7 @@ document.querySelector("#check-button").addEventListener("click", (event) => {
 
 document.querySelector("#raise-button").addEventListener("click", (event) => {
   const val = document.querySelector("#betField").value;
-  console.log("User pressed enter key initiating fetch request.");
+
   fetch(`/games/raise/${id}`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -270,7 +270,7 @@ document.querySelector("#raise-button").addEventListener("click", (event) => {
 
 document.querySelector("#bet-button").addEventListener("click", (event) => {
   const val = document.querySelector("#betField").value;
-  console.log("User pressed enter key initiating fetch request.");
+
   fetch(`/games/bet/${id}`, {
       method: "post",
       headers: { "Content-Type": "application/json" },

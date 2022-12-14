@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-
+const io =require('socket.io');
+const { error } = require('console');
 
 let reqPath = path.join(__dirname, '../');
 router.get('/', function(req, res, next) {
@@ -18,9 +19,12 @@ router.get('/home', function(req, res) {
   res.render("public/home");
 
 });
+
 //routes to account page
 router.get('/account', function(req, res) {
   res.render("public/account");
 
 });
+
+
 module.exports = router;
