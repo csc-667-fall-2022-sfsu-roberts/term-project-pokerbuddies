@@ -32,7 +32,7 @@ buttons.forEach((button, index) => {
         fetch(`/games/join/${roomId}`, {
             method: "post",
             headers: { "Content-Type": "application/json" },
-            
+            body: JSON.stringify({ id: socket.id})
         }).then(() => {
             console.log("Fetch request successful? Emptying text box.");
             
