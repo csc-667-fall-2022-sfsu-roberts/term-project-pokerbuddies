@@ -5,6 +5,7 @@ var path = require('path');
 const Games = require('../db/games');
 const GameLogic = require('../public/javascripts/Server/gameLogic/index');
 const Player = require("../public/javascripts/Server/Player");
+const GameInst = require('../public/javascripts/Server/Games');
 //  let game = require('../../public/javascripts/Server/Games');
 const io =require('socket.io');
 const { error } = require('console');
@@ -12,6 +13,7 @@ const { error } = require('console');
 let reqPath = path.join(__dirname, '../');
 const gameCount = 1;
 let playerList = [];
+let rooms = new Map();
 const player = new Player('bob',1,1);
 
 const player1 = new Player('carl',2,2);
@@ -110,7 +112,14 @@ router.get('/home', function(req, res) {
 });
 
 router.get('/games/:id'), (req,res) =>{
-  res.render(`protected/game/${req.params}`);
+  debugger;
+  if(rooms.has(req.params)){
+    res.render(`protected/game/${req.params}`);
+  }else{
+    const game = new GameInst();
+    rooms.set(req.params, game);
+  }
+  
 }
 
 router.post("/:id",(req,res) =>{
@@ -204,6 +213,7 @@ router.post("/bet/:id",(req, res)=>{
 
 
 router.post("/check/:id",(req, res)=>{
+  debugger;
   console.log(req.params);
   const id = req.params;
   console.log(req.params);
@@ -228,25 +238,40 @@ router.post("/deal/:id", (req,res)=>{
 
 router.get("/:id", (request, response) => {
   const { id } = request.params;
-
-  Promise.all([Games.userCount(id), Games.info(id)])
-    .then(([{ count }, { title }]) => {
+  console.log(request.params);
+  debugger;
+  if(rooms.has(req.params)){
+    response.render(`protected/game/${request.params}`);
+  }else{
+    const game = new GameInst();
+    rooms.set(request.params, game);
+    response.render(`protected/game/${request.params}`);
+  }
+  // Promise.all([Games.userCount(id), Games.info(id)])
+  //   .then(([{ count }, { title }]) => {
       
-      response.render("protected/game", {
-        id,
-        title,
-        count,
-        required_count: 2,
-        ready: parseInt(count) === 2,
-      });
-    })
-    .catch((error) => {
-      console.log(error);
-      response.status(500).send();
-    });
+  //     response.render("protected/game", {
+  //       id,
+  //       title,
+  //       count,
+  //       required_count: 2,
+  //       ready: parseInt(count) === 2,
+  //     });
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //     response.status(500).send();
+  //   });
 });
 
-router.post("/:id/join", (request, response) => {
+router.get("/join/:id",(req,res)=>{
+  
+  res.render('/protect/games')
+});
+
+router.post("/join/:id", (request, response) => {
+  debugger;
+  console.log("HERE");
   const { userId } = request.session;
   const { id } = request.params;
   const player = new Player(username,req.app.io,userId);
@@ -267,12 +292,15 @@ router.post("/:id/join", (request, response) => {
         );
       }
 
-      response.redirect(`/games/${id}`);
+      
     })
     .catch((error) => {
       console.log({ error });
     });
+    response.redirect(`/games`);
 });
+
+
 
 
 router.post("/:id/play",(req,res)=>{
@@ -337,7 +365,6 @@ const findPlayerByName = (name)=> {
 
 
 
-let rooms = [];
 
 
 // io.on('connection',(socket)=>{
