@@ -13,6 +13,9 @@ var playerCount = 0;
 //keep track of number of players in each lobby
 //route the user to an individual games page with people in the same lobby
 
+// router.get(`/:id`, (req,res) => {
+
+// });
 io.on('connection', function (socket) {
     console.log('A user connected to the socket.io server');
 
@@ -28,10 +31,10 @@ io.on('connection', function (socket) {
             playerCount++;
             // emit to the socket to route to the new room
             //socket.emit('enterGame', roomId);
-            fetch(`/games/${roomID}`, {
-                method: "post",
-                headers: { "Content-Type": "application/json" },
-            }).catch(error => console.log(error));
+            // fetch(`/games/${roomID}`, {
+            //     method: "post",
+            //     headers: { "Content-Type": "application/json" },
+            // }).catch(error => console.log(error));
         }
         else {
             console.log("Lobby is full");

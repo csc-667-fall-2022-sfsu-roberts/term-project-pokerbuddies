@@ -5,6 +5,7 @@ head
   meta(name='viewport' content='width=device-width, initial-scale=1.0')
   link(rel="stylesheet" href="/stylesheets/JoinSession.css")
   link(rel="stylesheet" href="/stylesheets/SessionNavbar.css")
+  script(src="/socket.io/socket.io.js")
 
   title Join Session
 .menubutton
@@ -35,7 +36,8 @@ head
       .playerCount
         p#pCount1 0/4
       .join
-        button#join1.glow-on-hover.joinButton(type='button') Join
+        a(id='jart' data-roomID='0' href='/games/'+data-roomID)
+          button#join1.glow-on-hover.joinButton(type='button') Join
         
 script(type="module" src='/javascripts/Server/JoinSession.js')
 script(type="module" src='/javascripts/Server/OpenNavbar.js')
