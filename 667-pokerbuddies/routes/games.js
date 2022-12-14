@@ -112,7 +112,7 @@ router.get('/home', function(req, res) {
 });
 
 router.get('/games/:id'), (req,res) =>{
-  debugger;
+  // debugger;
   if(rooms.has(req.params)){
     res.render(`protected/game/${req.params}`);
   }else{
@@ -213,7 +213,7 @@ router.post("/bet/:id",(req, res)=>{
 
 
 router.post("/check/:id",(req, res)=>{
-  debugger;
+  // debugger;
   console.log(req.params);
   const id = req.params;
   console.log(req.params);
@@ -239,7 +239,7 @@ router.post("/deal/:id", (req,res)=>{
 router.get("/:id", (request, response) => {
   const { id } = request.params;
   console.log(request.params);
-  debugger;
+  // debugger;
   if(rooms.has(req.params)){
     response.render(`protected/game/${request.params}`);
   }else{
@@ -270,7 +270,7 @@ router.get("/join/:id",(req,res)=>{
 });
 
 router.post("/join/:id", (request, response) => {
-  debugger;
+  // debugger;
   console.log("HERE");
   const { userId } = request.session;
   const { id } = request.params;
