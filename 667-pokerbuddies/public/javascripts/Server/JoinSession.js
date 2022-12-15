@@ -30,20 +30,8 @@ buttons.forEach((button, index) => {
     console.log(roomId);
     //button.dataset.roomId = roomId
     
-    console.log(button.dataset.roomId);
-    console.log(document.querySelector("#jart").dataset.roomId);
-
-    button.addEventListener('click', (event) => {
-
-        // fetch(`/session/${roomId}`, {
-        //     method: "post",
-        //     headers: { "Content-Type": "application/json" },
-        //     body: gameFile
-        // }).catch(error => console.log(error));
-        socket.emit('join', roomId);
-       
-        updatePlayerList(event);
-    });
+    // console.log(button.dataset.roomId);
+    // console.log(document.querySelector("#jart").dataset.roomId);
 
     
     button.addEventListener('click', (event) => {
@@ -59,7 +47,7 @@ buttons.forEach((button, index) => {
 
         // socket.emit('join', roomId);
        
-        // updatePlayerList();
+        updatePlayerList(event);
     });
 }
 );
