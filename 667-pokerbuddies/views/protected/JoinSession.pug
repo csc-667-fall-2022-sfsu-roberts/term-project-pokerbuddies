@@ -6,6 +6,7 @@ head
   script(src="/socket.io/socket.io.js")
   link(rel="stylesheet" href="/stylesheets/JoinSession.css")
   link(rel="stylesheet" href="/stylesheets/SessionNavbar.css")
+  script(src="/socket.io/socket.io.js")
 
   title Join Session
 .menubutton
@@ -36,7 +37,8 @@ head
       .playerCount
         p#pCount1 0/4
       .join
-        button#join1.glow-on-hover.joinButton(type='button') Join
+        a(href="./games")
+          button#join1.glow-on-hover.joinButton(type='button') Join
         
 script(type="module" src='/javascripts/Server/JoinSession.js')
 script(type="module" src='/javascripts/Server/OpenNavbar.js')

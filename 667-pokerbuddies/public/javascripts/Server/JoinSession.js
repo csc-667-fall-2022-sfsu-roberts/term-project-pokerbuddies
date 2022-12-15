@@ -27,6 +27,13 @@ buttons.forEach((button, index) => {
     let roomId = index + 1;
     button.children[0].id = roomId;
 
+    console.log(roomId);
+    //button.dataset.roomId = roomId
+    
+    // console.log(button.dataset.roomId);
+    // console.log(document.querySelector("#jart").dataset.roomId);
+
+    
     button.addEventListener('click', (event) => {
         // debugger;
         fetch(`/games`, {//`/games/join/${roomId}`
@@ -41,7 +48,7 @@ buttons.forEach((button, index) => {
 
         // socket.emit('join', roomId);
        
-        // updatePlayerList();
+        updatePlayerList(event);
     });
 }
 );
