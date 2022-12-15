@@ -35,10 +35,10 @@ class HandStrength {
 function checkWinner(players) {
     const maxPrio = 0;
     for (let i = 0; i < players.length; i++) {
-        if (players[i].comboPrio > maxPrio){
+        if (players[i].comboPrio > maxPrio) {
             maxPrio = players[i].comboPrio;
         }
-}
+    }
 
 }
 
@@ -134,29 +134,17 @@ function checkTriple(river, hand) {
 
 //check all cards for 3 cards of same value
 function checkStraight(river, hand) {
-    let temp = hand.concat(river)
-    let counter = 0;
-    const condition1 = temp.filter(element => element == '5' || element == '10');
-    if (condition1.length == 0) {
-        return -1;
-    }
-// 5 6 7 8 9 10 11
-//create a counter to check
-
-    temp.sort(function (a, b) { return a - b });
-    for (let i = 0; i < temp.length - 5; i++) {
-
-        if (temp[i] + 1 == temp[i + 1] && temp[i] + 2 == temp[i + 2] && temp[i] + 3 == temp[i + 3] && temp[i] + 4 == temp[i + 4]) {
-            if (temp[i] + 5 == temp[i + 5]) {
-                continue;
-            } else {
-                break;
-            }
+    let cards = hand.concat(river)
+    let sortedHand = cards.sort(function (a, b) { return a - b });
+    for (let i = 0; i < sortedHand.length - 1; i++) {
+        if (sortedHand[i + 1] - sortedHand[i] !== 1) {
+            // if the difference between two consecutive cards is not 1, then it's not a straight
         }
     }
-    const value = temp[i]; //supposed to return highest value in straight, Not Done!
-    return new HandStrength(6, value);
 }
+
+const value = temp[i]; //supposed to return highest value in straight, Not Done!
+return new HandStrength(6, value);
 //check all cards for values
 function checkFlush(river, hand) {
 
@@ -164,7 +152,7 @@ function checkFlush(river, hand) {
 //check all cards for 5 cards of same suit
 function checkFullHouse(river, hand) {
     const triple = checkTriple(river, hand);
-    if (triple == -1){
+    if (triple == -1) {
         return -1
     }
     let tripleValue = triple.comboValue; // 7
@@ -188,7 +176,7 @@ function checkFourOfAKind(river, hand) {
         return -1;
     } else if (filter == 3) {
         value = hand[0];
-    } else if (filter2 == 3){
+    } else if (filter2 == 3) {
         value = hand[1];
     }
 

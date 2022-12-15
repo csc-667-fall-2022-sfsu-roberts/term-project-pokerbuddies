@@ -15,12 +15,12 @@ const gameCount = 1;
 let playerList = [];
 let rooms = new Map();
 
-const player = new Player('bob',1,1);
+const curPlayer = '';
 
-const player1 = new Player('carl',2,2);
-const player2 = new Player('dog',3,3);
-const player3 = new Player('me',4,4);
-playerList.push(player,player1,player2,player3);
+// const player1 = new Player('carl',2,2);
+// const player2 = new Player('dog',3,3);
+// const player3 = new Player('me',4,4);
+// playerList.push(player,player1,player2,player3);
 
 
 router.get('/', function(req, res, next) {
@@ -84,7 +84,9 @@ router.get('/', function(req, res, next) {
 
 });
 
-
+const setPlayer = (player) =>{
+  this.curPlayer = player;
+}
 
 
 
@@ -106,26 +108,14 @@ router.get('/joinSession', function(req, res) {
   res.render("public/joinSession");
 
 });
-//routes to home page
-router.get('/home', function(req, res) {
-  res.render("public/home");
 
-});
 
-router.get('/games/:id'), (req,res) =>{
-  // debugger;
-  if(rooms.has(req.params)){
-    res.render(`protected/game/${req.params}`);
-  }else{
-    const game = new GameInst();
-    rooms.set(req.params, game);
-  }
-  
-}
 
 router.post("/:id",(req,res) =>{
+  debugger;
   const{id:game_id} = req.params;
   const{userId} = req.session;
+  
   res.json({game_id, userId:userId});
 });
 
@@ -238,11 +228,42 @@ router.post("/deal/:id", (req,res)=>{
 
 
 router.get("/:id", (request, response) => {
+  
   const { id } = request.params;
+  const pInfo = request.body.player;
+  console.log(pInfo);
   console.log(request.params);
-  // debugger;
- 
-  response.render(`protected/game/${request.params}`);
+  debugger;
+  const spot = this.curPlayer.getPlayerNumber();
+  if(spot == 1){
+    response.render(`/games/${id}`,{
+    player_1_name: this.curPlayer.getName(),
+    player_1_total: this.curPlayer,
+    player_1_bet: 0,
+
+  });
+  }else if (spot ==2){
+    response.render(`/games/${id}`,{
+      player_2_name: this.curPlayer.getName(),
+      player_2_total: this.curPlayer,
+      player_2_bet: 0,
+    });
+  }else if (spot ==3){
+    response.render(`/games/${id}`,{
+      player_3_name: this.curPlayer.getName(),
+      player_3_total: this.curPlayer,
+      player_3_bet: 0,
+  
+    });
+  }else{
+    response.render(`/games/${id}`,{
+      player_4_name: this.curPlayer.getName(),
+      player_4_total: this.curPlayer,
+      player_4_bet: 0
+  
+    });
+  }
+  
   
   // Promise.all([Games.userCount(id), Games.info(id)])
   //   .then(([{ count }, { title }]) => {
@@ -267,19 +288,27 @@ router.get("/join/:id",(req,res)=>{
 });
 
 router.post("/join/:id", (request, response) => {
- 
+
   console.log("HERE");
   const  userId  = request.session.id;
   const { id } = request.params;
+  const username = request.body.name;
   if(!rooms.has(id)){
     rooms.set(id,{game: new GameInst(), count: 1});
+  }else{
+    let count = rooms.get(id).count + 1;
+    let game = rooms.get(id).game;
+    rooms.set(id, {game:game, count:count});
   }
   // debugger;
   let count = rooms.get(id).count;
   const sock = request.app.io;
-  const player = new Player("bob"+count,sock,userId);
+  const player = new Player(username,sock,userId);
+  player.setPlayerNumber(count);
+
+  setPlayer(player);
   playerList.push(player);
-  rooms.set(id,{game:rooms.get(id).game, count: count++});
+  // rooms.set(id,{game:rooms.get(id).game, count: count++});
   // Games.addUser(Player, id)
   //   .then(() => Games.userCount(id))
   //   .then(({ count }) => {
@@ -314,7 +343,7 @@ router.post("/join/:id", (request, response) => {
   //   }
   // });
     
-      response.redirect(`/games/${id}`);
+    response.redirect(`/games/${id}`);
     // }catch(error)  {
     //   console.log({ error });
     // }

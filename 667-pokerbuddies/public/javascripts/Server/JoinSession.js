@@ -1,6 +1,7 @@
 const socket = io();
 
 
+
 //holds list of displayed players
 var players = [];
 
@@ -26,8 +27,8 @@ const buttons = document.querySelectorAll('.join');
 buttons.forEach((button, index) => {
     let roomId = index + 1;
     button.children[0].id = roomId;
-
-    console.log(roomId);
+  
+    // console.log(roomId);
     //button.dataset.roomId = roomId
     
     // console.log(button.dataset.roomId);
@@ -36,26 +37,39 @@ buttons.forEach((button, index) => {
     
     button.addEventListener('click', (event) => {
         // debugger;
+        
+        const path = window.location.pathname.split('/');
+        
+        let namePlayer = path[2];
+        console.log(namePlayer);
+
         fetch(`/games/join/${roomId}`, {//`/games/join/${roomId}`
-            method: "get", 
+            method: "post", 
             headers: { "Content-Type": "application/json" },
-            // body: JSON.stringify({ id: socket.id})
+            body: JSON.stringify({ id: socket.id, name: namePlayer})
         })
         // .then(() => {
         //     console.log("Fetch request successful? Emptying text box.");
             
         // }).catch(error => console.log(error));
 
-        // socket.emit('join', roomId);
+        socket.emit('join', roomId);
        
         updatePlayerList(event);
     });
 }
 );
 
+let username = '';
+let socketID = '';
+
+socket.on('player-added-login', (name) =>{
+    console.log("EHEEHEHE");
+    debugger;
+    username = name;
 
 
-
+});
 
 
 function addPlayer() {
