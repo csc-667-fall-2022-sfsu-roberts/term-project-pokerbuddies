@@ -23,8 +23,8 @@ const gameRouter = require('./routes/games');
 const accountRouter = require('./routes/Accounts');
 const joinSessionRouter = require('./routes/joinSession');
 const userDoesntExistRouter = require('./routes/userDoesntExist');
-const chatRouter = require("./routes/chat");
-const joinSocket = require("./socket/JoinSessionSocket");
+const chatRouter = require("./routes/api/chat");
+const joinSocket = require("./routes/api/JoinSessionSocket");
 
 
 const registrationRouter = require('./routes/registration');
