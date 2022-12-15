@@ -103,7 +103,6 @@ router.post("/fold/:id", (req, res) => {
   console.log(req.body);
   const { userId } = req.session;
   console.log(userId);
-  // const num = Games.getPlayerTurn;
   const player = findPlayer(req.body.id);
   req.app.io.emit(`fold:${id}`, {
     bet: req.body.value,
@@ -118,7 +117,6 @@ router.post("/fold/:id", (req, res) => {
 router.post("/call/:id", (req, res) => {
   console.log("hu");
   const id = req.params;
-  // debugger;
   const player = findPlayer(req.body.id);
   console.log(player.getName());
   player.setBet(req.body.value);
@@ -162,7 +160,6 @@ router.post("/bet/:id", (req, res) => {
     status: "bet: " + req.body.value,
     name: player.getName(),
   });
-  //setnext player
 
   res.sendStatus(200);
 });
@@ -202,7 +199,6 @@ router.post("/join/:id", (request, response) => {
   } else {
     rooms.set(id, 1);
   }
-  // debugger;
   let count = rooms.get(id);
   const sock = request.app.io;
   const player = new Player(username, sock, userId);
