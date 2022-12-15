@@ -12,6 +12,8 @@ const insertPlayerChips = (playerid, chips) => db.one('UPDATE player_table SET c
  
 
 //return single values 
+//testtt
+const getUserSocketDb = (userid) => db.one('SELECT socket FROM user_table WHERE userid=${userid}',{userid})
 const getUserIdDb = (username) => db.one('SELECT userid FROM user_table WHERE username=${username}',{username})
 const  getPlayerIdDb = (userid) =>  db.one('SELECT playerid FROM player_table WHERE userid=${userid}',{userid})
  const  getPlayerChipsDb = (playerid) => db.one('SELECT chips FROM player_table WHERE playerid=${playerid}',{playerid})
@@ -51,6 +53,7 @@ const updatePlayerWonChipsDb = (playerid,chipswon) => {
                                    }                                        
 
 module.exports = {
+    getUserSocketDb ,
     deletePlayerUserIdDb,
     deletePlayerPlayerIdDb,
     getPlayerChipsWonDb ,

@@ -5,9 +5,9 @@ var users = require('../db/users');
 
 let reqPath = path.join(__dirname, '../');
 router.get('/', async function(req, res, next) {
-  const userRow = await users.getUserID(1);
+  const userRow = await users.getUserID(2);
   const userArr = Object.values(userRow);
-  const playerRow = await users.getPlayer(1); //hard coded
+  const playerRow = await users.getPlayer(2); //hard coded
  const playerArr = Object.values(playerRow);
  
   res.render('public/account',{totalChips: playerArr[1], chipsWon: playerArr[2], userName: userArr[1]})
@@ -18,7 +18,7 @@ router.get('/', async function(req, res, next) {
  router.post('/updateChips',async function(req, res, next) {
   var chipInput = req.body.updateChips;
 
- const playerRow = await users.getPlayer(1);
+ const playerRow = await users.getPlayer(2);
  const playerArr = Object.values(playerRow);
 var totalChips = parseInt(chipInput) + parseInt(playerArr[1]);
 await users.insertPlayerChips(1,totalChips).catch(err => {

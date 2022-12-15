@@ -4,6 +4,13 @@ module.exports = {
     return queryInterface.createTable(
       'playerhand_table',
       {
+        custombet: {
+          type:Sequelize.INTEGER,
+          defaultValue: 0
+        },
+        lobbyid: { //pk
+          type: Sequelize.INTEGER,
+        },
         playerid: { 
           type: Sequelize.INTEGER,
           allowNull: false
