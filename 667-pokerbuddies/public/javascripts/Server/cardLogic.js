@@ -134,17 +134,21 @@ function checkTriple(river, hand) {
 
 //check all cards for 3 cards of same value
 function checkStraight(river, hand) {
-    let cards = hand.concat(river)
+    let cards = hand.concat(river);
     let sortedHand = cards.sort(function (a, b) { return a - b });
+    let value = 0;
     for (let i = 0; i < sortedHand.length - 1; i++) {
         if (sortedHand[i + 1] - sortedHand[i] !== 1) {
             // if the difference between two consecutive cards is not 1, then it's not a straight
+            value += sortedHand[i];
+        }
+        else {
+            return -1
         }
     }
+    return new HandStrength(6, value);
 }
 
-const value = temp[i]; //supposed to return highest value in straight, Not Done!
-return new HandStrength(6, value);
 //check all cards for values
 function checkFlush(river, hand) {
 
@@ -183,10 +187,6 @@ function checkFourOfAKind(river, hand) {
     return new HandStrength(9, value);
 }
 
-
-
-
-//check all cards for 4 cards of the same value
 function checkStraightFlush(river, hand) {
 
 }
@@ -195,10 +195,6 @@ function checkRoyalFlush(river, hand) {
 
 }
 //check all cards for a value of 10,11,12,13,14 and the same suit
-
-//create a checkRiver to check how many total cards are in play
-//pass in player hand
-//compare all combination options
 
 
 function getDetails(river, hand) {
@@ -251,7 +247,6 @@ function getDetails(river, hand) {
 
     x = checkHighestCard()
     if (x !== -1) {
-        //1 is a place holder boolean check. Look in else condition for more details
         return 1;
     } else {
         checkSecondHighestCard()

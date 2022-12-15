@@ -1,6 +1,7 @@
 const socket = io();
-import { writeFile } from 'fs';
-import { compileFile } from 'pug';
+const fs = require('fs');
+
+const pug = require('pug');
 
 
 
@@ -33,15 +34,11 @@ buttons.forEach((button, index) => {
     console.log(roomId);
     button.addEventListener('click', (event) => {
         // debugger;
-        fetch(`/games/join/${roomId}`, {//`/games/join/${roomId}`
+        fetch(`/games/join/${roomId}`, {
             method: "get", 
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id: socket.id, name: namePlayer})
         })
-        // .then(() => {
-        //     console.log("Fetch request successful? Emptying text box.");
-            
-        // }).catch(error => console.log(error));
 
         // socket.emit('join', roomId);
        
@@ -85,26 +82,7 @@ const updatePlayerList = (e) => {
     addPlayer();
 }
 
-function createGameLobbies(lobbyNum) {
-    if (lobbyNum < 1) {
-        return -1;
-    }
-    for (let i = 0; i < lobbyNum; i++) {
-        const newFileName = `games${lobbyNum}.pug`;
-        compileFile('games.pug', (err, originalHTML) => {
-            if (err) {
-                console.error(err);
-                return;
-            }
-            writeFile(newFileName, originalHTML, (err) => {
-                if (err) {
-                    // Handle the error if there is one
-                    console.error(err);
-                    return;
-                }
-            });
-        });
-    }
+
 
     function openCloseFunction() {
         var x = document.getElementById("sidebar");
