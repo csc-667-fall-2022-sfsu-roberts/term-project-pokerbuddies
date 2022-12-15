@@ -219,7 +219,6 @@ const Games = function() {
     this.currentNumPlayers++;
     player.setTurn(this.currentNumPlayers);
     player.setPlayerNumber(this.currentNumPlayers);
-    // this.updatePlayerOnBoard(player);
     return player;
   }
 
@@ -247,7 +246,7 @@ const Games = function() {
       if (this.players.chipss > this.autoBid) {
         p.out = true;
       } else {
-        // p.chips -= this.autoBid;
+   
         this.bet(p,this.autoBid);
       }
     }

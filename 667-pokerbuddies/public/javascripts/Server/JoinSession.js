@@ -1,6 +1,6 @@
 const socket = io();
-import { writeFile } from 'fs';
-import { compileFile } from 'pug';
+// import { writeFile } from 'fs';
+// import { compileFile } from 'pug';
 
 
 
@@ -22,7 +22,7 @@ for (let i = 1; i < 6; i++) {
 const cards = document.querySelectorAll('.card');
 cards.forEach((card, index) => {
     card.children[0].innerText = `Session ${index + 1}`;
-    createGameLobbies(index + 1);
+    // createGameLobbies(index + 1);
 });
 
 //gives each button an individual id and updates list of players when clicked
@@ -33,17 +33,12 @@ buttons.forEach((button, index) => {
     console.log(roomId);
     button.addEventListener('click', (event) => {
         // debugger;
-        fetch(`/games/join/${roomId}`, {//`/games/join/${roomId}`
+        fetch(`/games/join/${roomId}`, {
             method: "get", 
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id: socket.id, name: namePlayer})
         })
-        // .then(() => {
-        //     console.log("Fetch request successful? Emptying text box.");
-            
-        // }).catch(error => console.log(error));
-
-        // socket.emit('join', roomId);
+        
        
         updatePlayerList(event);
     });
@@ -105,6 +100,7 @@ function createGameLobbies(lobbyNum) {
             });
         });
     }
+}
 
     function openCloseFunction() {
         var x = document.getElementById("sidebar");
@@ -128,3 +124,4 @@ function createGameLobbies(lobbyNum) {
 
 
 
+    
