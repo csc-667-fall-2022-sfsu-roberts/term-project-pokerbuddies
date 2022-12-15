@@ -5,6 +5,11 @@ const io =require('socket.io');
 const { error } = require('console');
 
 let reqPath = path.join(__dirname, '../');
+router.get('/', function(req, res, next) {
+  res.render("protected/JoinSession");
+
+
+});
 router.get('/:name', function(req, res, next) {
   const name = req.params;
   console.log(name);
