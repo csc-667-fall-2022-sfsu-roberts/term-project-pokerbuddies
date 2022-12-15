@@ -12,68 +12,66 @@ const { error } = require("console");
 let reqPath = path.join(__dirname, "../");
 const gameCount = 1;
 let playerList = [];
-let rooms = new Map();
+var rooms = new Map();
 
 const curPlayer = "";
+const curSpot = 0;
 
-router.get("/", function (req, res, next) {
+const setPlayer = (player, count) => {
+  this.curPlayer = player;
+  this.curSpot = count;
+};
+const getPlayer = () =>{
+  return this.curPlayer;
+}
+const getSpot = () =>{
+  return this.curSpot;
+}
 
-  let player_1_Info = {
-    id: 1,
-    name: "name_1",
-    total_chips: 100,
-    bet: 0,
-  };
+router.get("/", function (req, response, next) {
 
-  let player_2_Info = {
-    id: 1,
-    name: "name_2",
-    total_chips: 100,
-    bet: 0,
-  };
-
-  let player_3_Info = {
-    id: 1,
-    name: "name_3",
-    total_chips: 100,
-    bet: 0,
-  };
-
-  let player_4_Info = {
-    id: 1,
-    name: "name_4",
-    total_chips: 100,
-    bet: 0,
-  };
-
-  res.render("protected/game", {
-    pot: "0000",
-
-    player_1_name: player_1_Info.name,
-    player_1_total: player_1_Info.total_chips,
-    player_1_bet: player_1_Info.bet,
-
-    player_2_name: player_2_Info.name,
-    player_2_total: player_2_Info.total_chips,
-    player_2_bet: player_2_Info.bet,
-
-    player_3_name: player_3_Info.name,
-    player_3_total: player_3_Info.total_chips,
-    player_3_bet: player_3_Info.bet,
-
-    player_4_name: player_4_Info.name,
-    player_4_total: player_4_Info.total_chips,
-    player_4_bet: player_4_Info.bet,
-    gameNumber: gameCount,
-  });
+  const id = getSpot()
+  const player = getPlayer();
+  const name = player.getName();
+  const spot = player.getPlayerNumber();
+  const chips = player.getChips();
+  
+  if (spot == 1) {
+    try {
+      response.render(`protected/game`, {
+        player_1_name: name,
+        player_1_total: chips,
+        player_1_bet: 0,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  } else if (spot == 2) {
+    response.render(`protected/game`, {
+      player_2_name: name,
+      player_2_total: chips,
+      player_2_bet: 0,
+    });
+  } else if (spot == 3) {
+    response.render(`protected/game`, {
+      player_3_name: name,
+      player_3_total: chips,
+      player_3_bet: 0,
+    });
+  } else {
+    response.render(`protected/game`, {
+      player_4_name:name,
+      player_4_total: chips,
+      player_4_bet: 0,
+    });
+  }
+  
   // gameCount++;
 
   req.app.io.emit(`join`, {});
 });
 
-const setPlayer = (player) => {
-  this.curPlayer = player;
-};
+
 
 // debugger;
 router.post("/", function (req, res) {
@@ -88,7 +86,7 @@ router.get("/joinSession", function (req, res) {
 });
 
 router.post("/:id", (req, res) => {
-  debugger;
+
   const { id: game_id } = req.params;
   const { userId } = req.session;
 
@@ -194,102 +192,49 @@ router.post("/deal/:id", (req, res) => {
   const id = req.params;
 });
 
-router.get("/:id", (request, response) => {
-  const { id } = request.params;
-  const pInfo = request.body.player;
-  console.log(pInfo);
-  console.log(request.params);
-  debugger;
-  const pName = this.curPlayer.getName();
+// router.get("/:id", (request, response) => {
+//   const { id } = request.params;
+//   const pInfo = request.body.player;
+//   console.log(pInfo);
+//   console.log(request.params);
 
-  const spot = this.curPlayer.getPlayerNumber();
-  const chips = this.curPlayer.getChips();
-  if (spot == 1) {
-    try {
-      response.render(`/protected/game/${id}`, {
-        player_1_name: pName,
-        player_1_total: chips,
-        player_1_bet: 0,
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  } else if (spot == 2) {
-    response.render(`/game`, {
-      player_2_name: this.curPlayer.getName(),
-      player_2_total: this.curPlayer.getChips(),
-      player_2_bet: 0,
-    });
-  } else if (spot == 3) {
-    response.render(`/game`, {
-      player_3_name: this.curPlayer.getName(),
-      player_3_total: this.curPlayer.getChips(),
-      player_3_bet: 0,
-    });
-  } else {
-    response.render(`/game`, {
-      player_4_name: this.curPlayer.getName(),
-      player_4_total: this.curPlayer,
-      player_4_bet: 0,
-    });
-  }
-});
+//   const pName = this.curPlayer.getName();
+
+//   const spot = this.curPlayer.getPlayerNumber();
+//   const chips = this.curPlayer.getChips();
+//    request.redirect('/',{
+//     name: pName,
+//     spot: spot,
+//     chips: chips,
+//     id: id,
+//    })
+// });
 
 router.post("/join/:id", (request, response) => {
   console.log("HERE");
   const userId = request.session.id;
-  const id = request.params;
+
+  const {id} = request.params;
   const username = request.body.name;
-  if (!rooms.has(id)) {
-    rooms.set(id, { game: new GameInst(), count: 1 });
-  } else {
-    let count = rooms.get(id).count + 1;
+  if (rooms.has(id)) {
+    let count = rooms.get(id)+ 1;
     let game = rooms.get(id).game;
-    rooms.set(id, { game: game, count: count });
+    rooms.set(id, count);
+  } else {
+    rooms.set(id, 1);
   }
   // debugger;
-  let count = rooms.get(id).count;
+  let count = rooms.get(id);
   const sock = request.app.io;
   const player = new Player(username, sock, userId);
   player.setPlayerNumber(count);
 
-  setPlayer(player);
+  setPlayer(player,count);
   playerList.push(player);
 
-  debugger;
-  const pName = this.curPlayer.getName();
-
-  const spot = this.curPlayer.getPlayerNumber();
-  const chips = this.curPlayer.getChips();
-  if (spot == 1) {
-    try {
-      response.render(`game/${id}`, {
-        player_1_name: pName,
-        player_1_total: chips,
-        player_1_bet: 0,
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  } else if (spot == 2) {
-    response.render(`/game/${id}`, {
-      player_2_name: this.curPlayer.getName(),
-      player_2_total: this.curPlayer.getChips(),
-      player_2_bet: 0,
-    });
-  } else if (spot == 3) {
-    response.render(`/game/${id}`, {
-      player_3_name: this.curPlayer.getName(),
-      player_3_total: this.curPlayer.getChips(),
-      player_3_bet: 0,
-    });
-  } else {
-    response.render(`/game/${id}`, {
-      player_4_name: this.curPlayer.getName(),
-      player_4_total: this.curPlayer,
-      player_4_bet: 0,
-    });
-  }
+  res.render(`games/${id}`,{
+      name: username,
+  });
 });
 
 router.post("/:id/play", (req, res) => {
