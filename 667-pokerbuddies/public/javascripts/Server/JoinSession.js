@@ -37,7 +37,6 @@ buttons.forEach((button, index) => {
     
     button.addEventListener('click', (event) => {
         // debugger;
-<<<<<<< HEAD
         
         const path = window.location.pathname.split('/');
         
@@ -46,10 +45,6 @@ buttons.forEach((button, index) => {
 
         fetch(`/games/join/${roomId}`, {//`/games/join/${roomId}`
             method: "post", 
-=======
-        fetch(`/games${roomId}`, {//`/games/join/${roomId}`
-            method: "get", 
->>>>>>> 5230632df55ec3f9a3768520535ae147da102b70
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id: socket.id, name: namePlayer})
         })
