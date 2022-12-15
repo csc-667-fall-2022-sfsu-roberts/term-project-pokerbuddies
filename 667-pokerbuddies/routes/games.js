@@ -14,6 +14,7 @@ let reqPath = path.join(__dirname, '../');
 const gameCount = 1;
 let playerList = [];
 let rooms = new Map();
+
 const player = new Player('bob',1,1);
 
 const player1 = new Player('carl',2,2);
@@ -50,31 +51,31 @@ router.get('/', function(req, res, next) {
     total_chips: 100,
     bet: 0
   };
-
+  
   res.render("protected/game",{
 
-    pot: '0000',
+    // pot: '0000',
 
-    player_1_name: player_1_Info.name,
-    player_1_total: player_1_Info.total_chips,
-    player_1_bet: player_1_Info.bet,
+    // player_1_name: player_1_Info.name,
+    // player_1_total: player_1_Info.total_chips,
+    // player_1_bet: player_1_Info.bet,
 
-    player_2_name: player_2_Info.name,
-    player_2_total: player_2_Info.total_chips,
-    player_2_bet: player_2_Info.bet,
+    // player_2_name: player_2_Info.name,
+    // player_2_total: player_2_Info.total_chips,
+    // player_2_bet: player_2_Info.bet,
 
-    player_3_name: player_3_Info.name,
-    player_3_total: player_3_Info.total_chips,
-    player_3_bet: player_3_Info.bet,
+    // player_3_name: player_3_Info.name,
+    // player_3_total: player_3_Info.total_chips,
+    // player_3_bet: player_3_Info.bet,
 
-    player_4_name: player_4_Info.name,
-    player_4_total: player_4_Info.total_chips,
-    player_4_bet: player_4_Info.bet,
-    gameNumber: gameCount,
+    // player_4_name: player_4_Info.name,
+    // player_4_total: player_4_Info.total_chips,
+    // player_4_bet: player_4_Info.bet,
+    // gameNumber: gameCount,
 
 
   });
-  gameCount++;
+  // gameCount++;
 
   req.app.io.emit(`join`, {
 
@@ -240,13 +241,9 @@ router.get("/:id", (request, response) => {
   const { id } = request.params;
   console.log(request.params);
   // debugger;
-  if(rooms.has(req.params)){
-    response.render(`protected/game/${request.params}`);
-  }else{
-    const game = new GameInst();
-    rooms.set(request.params, game);
-    response.render(`protected/game/${request.params}`);
-  }
+ 
+  response.render(`protected/game/${request.params}`);
+  
   // Promise.all([Games.userCount(id), Games.info(id)])
   //   .then(([{ count }, { title }]) => {
       
@@ -270,34 +267,58 @@ router.get("/join/:id",(req,res)=>{
 });
 
 router.post("/join/:id", (request, response) => {
-  // debugger;
+ 
   console.log("HERE");
-  const { userId } = request.session;
+  const  userId  = request.session.id;
   const { id } = request.params;
-  const player = new Player(username,req.app.io,userId);
+  if(!rooms.has(id)){
+    rooms.set(id,{game: new GameInst(), count: 1});
+  }
+  // debugger;
+  let count = rooms.get(id).count;
+  const sock = request.app.io;
+  const player = new Player("bob"+count,sock,userId);
   playerList.push(player);
-  Games.addUser(Player, id)
-    .then(() => Games.userCount(id))
-    .then(({ count }) => {
-      player.setPlayerNumber(count);
-      request.app.io.emit(`game:${id}:player-joined`, {
-        count: parseInt(count),
-        required_count: 2,
-        player: player
-      });
+  rooms.set(id,{game:rooms.get(id).game, count: count++});
+  // Games.addUser(Player, id)
+  //   .then(() => Games.userCount(id))
+  //   .then(({ count }) => {
+  //     player.setPlayerNumber(count);
+  //     request.app.io.emit(`game:${id}:player-joined`, {
+  //       count: parseInt(count),
+  //       required_count: 2,
+  //       player: player
+  //     });
+      
 
-      if (parseInt(count) === 2) {
-        GameLogic.init(id).then(() =>
-          GameLogic.status(id, request.app.io)
-        );
-      }
+  //     if (parseInt(count) === 2) {
+  //       GameLogic.init(id).then(() =>
+  //         GameLogic.status(id, request.app.io)
+  //       );
+  //     }
 
       
-    })
-    .catch((error) => {
-      console.log({ error });
-    });
-    response.redirect(`/games`);
+  //   })
+  //   .catch((error) => {
+  //     console.log({ error });
+  //   });
+// try{
+  // request.app.io.emit(`game:${id}:player-joined`, {
+  //   count: parseInt(count),
+  //   player: {
+  //     name: player.getName(),
+  //     total_chips:player.getChips(),
+  //     status: 'joined',
+  //     pos: count,
+
+  //   }
+  // });
+    
+      response.redirect(`/games/${id}`);
+    // }catch(error)  {
+    //   console.log({ error });
+    // }
+    
 });
 
 
@@ -364,102 +385,6 @@ const findPlayerByName = (name)=> {
 }
 
 
-
-
-
-// io.on('connection',(socket)=>{
-//     console.log("new connection ", socket.id);
-//     socket.on('Host', (data)=>{
-//       if(data.username == '' || data.username.length > 12){
-//         socket.emit('hostRoom', undefined);
-//       }else{
-//         let code;
-//         do{
-//           code = '' + Math.floor(Math.random() * 10) +
-//           Math.floor(Math.random() * 10) +
-//           Math.floor(Math.random() * 10) +
-//           Math.floor(Math.random() * 10);
-//         }while(rooms.length != 0 && rooms.some((r) => r.getCode() === code ));
-        
-//         const game = new Game(code, data.username);
-//         rooms.push(game);
-//         game.addPlayer(data.username, socket);
-//         game.emitPlayers('hostRoom',{
-//           code: code,
-//           players: game.getPlayersArray(),
-//         });
-  
-//       }
-//     });
-//   });
-  
-  // io.on('join', (data) => {
-  //   const game = rooms.find((r) => r.getCode() === data.code);
-  //   if (
-  //     game == undefined ||
-  //     game.getPlayersArray().some((p) => p == data.username) ||
-  //     data.username == undefined ||
-  //     data.username.length > 12
-  //   ) {
-  //     socket.emit('joinRoom', undefined);
-  //   } else {
-  //     game.addPlayer(data.username, socket);
-  //     rooms = rooms.map((r) => (r.getCode() === data.code ? game : r));
-  //     game.emitPlayers('joinRoom', {
-  //       host: game.getHostName(),
-  //       players: game.getPlayersArray(),
-  //     });
-  //     game.emitPlayers('hostRoom', {
-  //       code: data.code,
-  //       players: game.getPlayersArray(),
-  //     });
-  //   }
-  // });
-  
-//   io.on('startGame', (data) => {
-//     const game = rooms.find((r) => r.getCode() == data.code);
-//     if (game == undefined) {
-//       socket.emit('gameBegin', undefined);
-//     } else {
-//       game.emitPlayers('gameBegin', { code: data.code });
-//       game.startGame();
-//     }
-//   });
-  
-//   io.on('evaluatePossibleMoves', () => {
-//     const game = rooms.find(
-//       (r) => r.findPlayer(socket.id).socket.id === socket.id
-//     );
-//     if (game.roundInProgress) {
-//       const possibleMoves = game.getPossibleMoves(socket);
-//       socket.emit('displayPossibleMoves', possibleMoves);
-//     }
-//   });
-  
-//   io.on('raiseModalData', () => {
-//     const game = rooms.find(
-//       (r) => r.findPlayer(socket.id).socket.id === socket.id
-//     );
-//     if (game != undefined) {
-//       socket.emit('updateRaiseModal', {
-//         topBet: game.getCurrentTopBet(),
-//         usernameMoney:
-//           game.getPlayerBetInStage(game.findPlayer(socket.id)) +
-//           game.findPlayer(socket.id).getMoney(),
-//       });
-//     }
-//   });
-  
-//   io.on('startNextRound', () => {
-//     const game = rooms.find(
-//       (r) => r.findPlayer(socket.id).socket.id === socket.id
-//     );
-//     if (game != undefined) {
-//       if (game.roundInProgress === false) {
-//         game.startNewRound();
-//       }
-//     }
-//   });
 
 module.exports = router;
 /**DONE */
