@@ -66,14 +66,14 @@ router.get("/", function (req, response, next) {
     });
   }
   
-  // gameCount++;
+
 
   req.app.io.emit(`join`, {});
 });
 
 
 
-// debugger;
+
 router.post("/", function (req, res) {
   const { bet, call, fold, raise } = req.body;
 
@@ -107,7 +107,6 @@ router.post("/fold/:id", (req, res) => {
   console.log(req.body);
   const { userId } = req.session;
   console.log(userId);
-  // const num = Games.getPlayerTurn;
   const player = findPlayer(req.body.id);
   req.app.io.emit(`fold:${id}`, {
     bet: req.body.value,
@@ -122,7 +121,6 @@ router.post("/fold/:id", (req, res) => {
 router.post("/call/:id", (req, res) => {
   console.log("hu");
   const id = req.params;
-  // debugger;
   const player = findPlayer(req.body.id);
   console.log(player.getName());
   player.setBet(req.body.value);
@@ -166,13 +164,11 @@ router.post("/bet/:id", (req, res) => {
     status: "bet: " + req.body.value,
     name: player.getName(),
   });
-  //setnext player
 
   res.sendStatus(200);
 });
 
 router.post("/check/:id", (req, res) => {
-  // debugger;
   console.log(req.params);
   const id = req.params;
   console.log(req.params);
@@ -192,23 +188,7 @@ router.post("/deal/:id", (req, res) => {
   const id = req.params;
 });
 
-// router.get("/:id", (request, response) => {
-//   const { id } = request.params;
-//   const pInfo = request.body.player;
-//   console.log(pInfo);
-//   console.log(request.params);
 
-//   const pName = this.curPlayer.getName();
-
-//   const spot = this.curPlayer.getPlayerNumber();
-//   const chips = this.curPlayer.getChips();
-//    request.redirect('/',{
-//     name: pName,
-//     spot: spot,
-//     chips: chips,
-//     id: id,
-//    })
-// });
 
 router.post("/join/:id", (request, response) => {
   console.log("HERE");
@@ -223,7 +203,6 @@ router.post("/join/:id", (request, response) => {
   } else {
     rooms.set(id, 1);
   }
-  // debugger;
   let count = rooms.get(id);
   const sock = request.app.io;
   const player = new Player(username, sock, userId);
