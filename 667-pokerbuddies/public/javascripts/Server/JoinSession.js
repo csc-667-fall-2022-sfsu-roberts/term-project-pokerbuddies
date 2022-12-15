@@ -1,7 +1,6 @@
 const socket = io();
-const fs = require('fs');
-
-const pug = require('pug');
+// import { writeFile } from 'fs';
+// import { compileFile } from 'pug';
 
 
 
@@ -23,7 +22,7 @@ for (let i = 1; i < 6; i++) {
 const cards = document.querySelectorAll('.card');
 cards.forEach((card, index) => {
     card.children[0].innerText = `Session ${index + 1}`;
-    createGameLobbies(index + 1);
+    // createGameLobbies(index + 1);
 });
 
 //gives each button an individual id and updates list of players when clicked
@@ -34,8 +33,10 @@ buttons.forEach((button, index) => {
     console.log(roomId);
     button.addEventListener('click', (event) => {
         // debugger;
+        const path=  window.location.pathname.split('/')
+        const namePlayer = path[2];
         fetch(`/games/join/${roomId}`, {
-            method: "get", 
+            method: "post", 
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id: socket.id, name: namePlayer})
         })
@@ -82,7 +83,27 @@ const updatePlayerList = (e) => {
     addPlayer();
 }
 
-
+function createGameLobbies(lobbyNum) {
+    if (lobbyNum < 1) {
+        return -1;
+    }
+    for (let i = 0; i < lobbyNum; i++) {
+        const newFileName = `games${lobbyNum}.pug`;
+        compileFile('games.pug', (err, originalHTML) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            writeFile(newFileName, originalHTML, (err) => {
+                if (err) {
+                    // Handle the error if there is one
+                    console.error(err);
+                    return;
+                }
+            });
+        });
+    }
+}
 
     function openCloseFunction() {
         var x = document.getElementById("sidebar");
@@ -106,3 +127,4 @@ const updatePlayerList = (e) => {
 
 
 
+    
