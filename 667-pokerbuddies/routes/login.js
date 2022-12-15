@@ -25,6 +25,7 @@ router.get("/", (_request, response) => {
   });
   
   router.post('/doesUserExist',async function(req, res, next) {
+    debugger;
     var login_username = req.body.login_username; 
     var login_password = req.body.login_password;
     if(login_username == '' || login_password == ''){
