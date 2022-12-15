@@ -5,15 +5,17 @@ const io =require('socket.io');
 const { error } = require('console');
 
 let reqPath = path.join(__dirname, '../');
-router.get('/', function(req, res, next) {
-  res.render("protected/JoinSession");
+router.get('/:name', function(req, res, next) {
+  const name = req.params;
+  console.log(name);
+  res.render("protected/JoinSession",{username: name});
 
 });
 //routes to games page
-router.get('/games/:id', function(req, res) {
-  res.render("protected/game/:id");
+// router.get('/games/:id', function(req, res) {
+//   res.render("protected/game/:id");
 
-});
+// });
 //routes to home page
 router.get('/home', function(req, res) {
   res.render("public/home");

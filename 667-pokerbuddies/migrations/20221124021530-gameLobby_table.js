@@ -6,18 +6,18 @@ module.exports = {
       {
         lobbyid: { //pk
           type: Sequelize.INTEGER,
-          primaryKey: true,
-          autoIncrement: true
         },
        playercount: {
           type: Sequelize.INTEGER,
           defaultValue: 0
         },
        turnorder: {
-          type:Sequelize.INTEGER
+          type:Sequelize.INTEGER,
+          defaultValue: 0
         },
         pot: {
-          type:Sequelize.INTEGER
+          type:Sequelize.INTEGER,
+          defaultValue: 0
         },
         deckid: { //fk
           type:Sequelize.INTEGER,
@@ -26,13 +26,6 @@ module.exports = {
         riverid: {
           type:Sequelize.INTEGER,
           allowNull:false
-        },
-        custombet: {
-          type:Sequelize.INTEGER,
-          defaultValue: 0
-        },
-        playerhandid: {
-          type:Sequelize.INTEGER
         }
       }
     );

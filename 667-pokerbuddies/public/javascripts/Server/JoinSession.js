@@ -4,6 +4,7 @@ import { compileFile } from 'pug';
 
 
 
+
 //holds list of displayed players
 var players = [];
 
@@ -31,20 +32,34 @@ buttons.forEach((button, index) => {
     button.children[0].id = roomId;
     console.log(roomId);
     button.addEventListener('click', (event) => {
-        fetch(`/games${roomId}`, {
-            method: "get",
+        // debugger;
+        fetch(`/games/join/${roomId}`, {//`/games/join/${roomId}`
+            method: "get", 
             headers: { "Content-Type": "application/json" },
-            // body: JSON.stringify({ id: socket.id})
+            body: JSON.stringify({ id: socket.id, name: namePlayer})
         })
+        // .then(() => {
+        //     console.log("Fetch request successful? Emptying text box.");
+            
+        // }).catch(error => console.log(error));
+
         // socket.emit('join', roomId);
+       
         updatePlayerList(event);
     });
 }
 );
 
+let username = '';
+let socketID = '';
+
+socket.on('player-added-login', (name) =>{
+    console.log("EHEEHEHE");
+    debugger;
+    username = name;
 
 
-
+});
 
 
 function addPlayer() {
