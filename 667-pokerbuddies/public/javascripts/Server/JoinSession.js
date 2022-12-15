@@ -36,7 +36,7 @@ buttons.forEach((button, index) => {
     
     button.addEventListener('click', (event) => {
         // debugger;
-        fetch(`/games`, {//`/games/join/${roomId}`
+        fetch(`/games/join/${roomId}`, {//`/games/join/${roomId}`
             method: "get", 
             headers: { "Content-Type": "application/json" },
             // body: JSON.stringify({ id: socket.id})
