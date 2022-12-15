@@ -36,14 +36,15 @@ buttons.forEach((button, index) => {
     
     button.addEventListener('click', (event) => {
         // debugger;
-        fetch(`/games/join/${roomId}`, {
-            method: "post",
+        fetch(`/games`, {//`/games/join/${roomId}`
+            method: "get", 
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id: socket.id})
-        }).then(() => {
-            console.log("Fetch request successful? Emptying text box.");
+            // body: JSON.stringify({ id: socket.id})
+        })
+        // .then(() => {
+        //     console.log("Fetch request successful? Emptying text box.");
             
-        }).catch(error => console.log(error));
+        // }).catch(error => console.log(error));
 
         // socket.emit('join', roomId);
        

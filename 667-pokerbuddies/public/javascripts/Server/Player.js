@@ -1,4 +1,4 @@
-const Player = function (name = "name", socket, session) {
+const Player = function (name, socket, session) {
   this.userName = name;
   this.cards = [];
   this.socket = socket;

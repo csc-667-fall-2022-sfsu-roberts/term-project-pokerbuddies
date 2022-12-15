@@ -8,7 +8,7 @@ const Games = function() {
   
     this.deck = new Deck();
     this.players = [];
-    this.name = name;
+    // this.name = name;
     this.status = 0;
     this.maxCards = 2;
     this.inPlay = 0;
@@ -32,7 +32,7 @@ const Games = function() {
 
     this.disconnectedPlayers = [];
   
-    const constructor = (function () {})(this);
+    // const constructor = (function () {})(this);
 
   this.startNewGame = () => {
     this.addNewPlayer('ryan1',1);

@@ -286,7 +286,9 @@ document.querySelector("#bet-button").addEventListener("click", (event) => {
 fetch(window.location.pathname, { method: "post" })
   .then((r) => r.json())
   .then(({ game_id }) => {
-    socket.on(`game:${game_id}:player-joined`, ({ count, required_count,playerInfo }) => {
+    
+    socket.on(`game:${game_id}:player-joined`, ({ count,playerInfo }) => {
+      debugger;
       document.querySelector("#pot").innerText = count;
         if (count == 1){
           document.querySelector(".top-cards").classList.toggle('seen');
