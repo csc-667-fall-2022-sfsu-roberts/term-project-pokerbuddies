@@ -10,19 +10,22 @@ head
 
   title Join Session
 .menubutton
-  button.glow-on-hover(type='button' onclick='openCloseFunction()' style='width:fit-content;') =
-#sidebar.navbar(style='display:none')
-  button.glow-on-hover.navbutton(onclick='openCloseFunction()' style='width: fit-content; height: fit-content; float: right; top: 0;') x
-  img.profileimg(src='' style='width:100px')
-  button.glow-on-hover.navbutton(type='button') Account
-  br
-  button.glow-on-hover.navbutton(type='button') Chat
-  br
-  button.glow-on-hover.navbutton(type='button') Total Chips
-  br
-  button.glow-on-hover.signoutbutton.navbutton(type='button' style='width: 225px; height: 10%;')
-    | Sign
-    | Out
+    button.glow-on-hover(onclick="openCloseFunction()" style="width:fit-content;") =
+
+.navbar(style="display:none" id="sidebar")
+    button.glow-on-hover.navbutton(onclick="openCloseFunction()" style="width: fit-content; height: fit-content; float: right; top: 0;") x
+    img.profileimg(src="" style="width:100px")
+
+    .username#username l
+
+    button.glow-on-hover.navbutton(type="button") Account
+    br
+    button.glow-on-hover.navbutton(type="button") Chat
+    br
+    button.glow-on-hover.navbutton(type="button") Total Chips
+    br
+    button.glow-on-hover.signoutbutton.navbutton(type="button" style="width: 225px; height: 10%;") Sign Out
+
 .container
   #card1.card
     h2 Session 1
@@ -37,7 +40,7 @@ head
       .playerCount
         p#pCount1 0/4
       .join
-        a(href="/games")
+        a(href="./games")
           button#join1.glow-on-hover.joinButton(type='button') Join
         
 script(type="module" src='/javascripts/Server/JoinSession.js')
