@@ -12,7 +12,6 @@ let reqPath = path.join(__dirname, '../');
 
 router.get("/", (_request, response) => {
   response.render("public/login");
-  // response.sendFile(path.join(reqPath, '/FrontEnd/HTML/Login.html'));
 });
 
 
@@ -37,8 +36,6 @@ router.post("/doesUserExist", async function (req, res, next) {
       const userInfo = Object.values(getUser);
       bcrypt.compare(login_password, userInfo[2], function (err, result) {
         if (result == true) {
-
-          // req.app.io.emit("player-added-login", login_username);
           res.redirect(`/joinSession/${login_username}`);
         } else {
           res.redirect("/login");

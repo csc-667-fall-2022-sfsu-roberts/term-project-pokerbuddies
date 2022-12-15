@@ -23,7 +23,7 @@ const fold = () => {
 };
 
 const bet = () => {
-  const val = parseInt(document.querySelector("#betField").value); // parseInt($("#betField").val());
+  const val = parseInt(document.querySelector("#betField").value); 
   if (val == 0) {
     alert("You must bet more then 0");
   } else {
@@ -154,8 +154,6 @@ socket.on('reveal', function (data) {
     alert("You Won!!");
   }
   document.querySelector('.pot').innerHTML = "Winner Is " + data.winner;
-  // $('.pot').text("Winner " + data.winner);
-  //flipp cards of those still in
 });
 
 socket.on('join', function () {

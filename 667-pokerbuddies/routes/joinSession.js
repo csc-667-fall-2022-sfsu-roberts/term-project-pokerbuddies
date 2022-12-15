@@ -16,11 +16,7 @@ router.get('/:name', function(req, res, next) {
   res.render("protected/JoinSession",{username: name});
 
 });
-//routes to games page
-// router.get('/games/:id', function(req, res) {
-//   res.render("protected/game/:id");
 
-// });
 //routes to home page
 router.get('/home', function(req, res) {
   res.render("public/home");

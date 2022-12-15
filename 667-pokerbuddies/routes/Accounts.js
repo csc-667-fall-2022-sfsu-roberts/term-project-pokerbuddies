@@ -11,7 +11,6 @@ router.get('/', async function(req, res, next) {
  const playerArr = Object.values(playerRow);
  
   res.render('public/account',{totalChips: playerArr[1], chipsWon: playerArr[2], userName: userArr[1]})
-  //res.render("public/account");
 
     
   });

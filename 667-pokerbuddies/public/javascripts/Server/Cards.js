@@ -14,24 +14,15 @@ class Card {
 
     flip(){
         if (this.flipped) {
-            //this.placeHolder.style.backgroundPosition = "0px";
             this.flipped=false;
           } else {
-            //this.placeHolder.style.backgroundPosition = -150*this.position + "px";
             this.flipped=true;  
           }
     }
 
     display(place, flipped= true){
-      //  this.place = document.getElementById(place);
       this.place.classList.add("card");
       this.flipped = flipped;
-      if(flipped){
-        //this.place.style.bacgroundPositon = some thing with card stuff
-      }
-      else{
-        //this.place.style.backgroundPosition = some thing where back of card
-      }
     }
 
 
