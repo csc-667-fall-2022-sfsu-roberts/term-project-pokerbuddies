@@ -17,6 +17,7 @@ let rooms = new Map();
 const curPlayer = "";
 
 router.get("/", function (req, res, next) {
+
   let player_1_Info = {
     id: 1,
     name: "name_1",
@@ -262,7 +263,7 @@ router.post("/join/:id", (request, response) => {
   const chips = this.curPlayer.getChips();
   if (spot == 1) {
     try {
-      response.render(`protected/game`, {
+      response.render(`game/${id}`, {
         player_1_name: pName,
         player_1_total: chips,
         player_1_bet: 0,
@@ -271,19 +272,19 @@ router.post("/join/:id", (request, response) => {
       console.log(e);
     }
   } else if (spot == 2) {
-    response.render(`/game`, {
+    response.render(`/game/${id}`, {
       player_2_name: this.curPlayer.getName(),
       player_2_total: this.curPlayer.getChips(),
       player_2_bet: 0,
     });
   } else if (spot == 3) {
-    response.render(`/game`, {
+    response.render(`/game/${id}`, {
       player_3_name: this.curPlayer.getName(),
       player_3_total: this.curPlayer.getChips(),
       player_3_bet: 0,
     });
   } else {
-    response.render(`/game`, {
+    response.render(`/game/${id}`, {
       player_4_name: this.curPlayer.getName(),
       player_4_total: this.curPlayer,
       player_4_bet: 0,
