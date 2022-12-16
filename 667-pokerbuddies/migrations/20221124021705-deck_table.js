@@ -8,9 +8,7 @@ module.exports = {
           type: Sequelize.INTEGER
         },
         deckid: {
-          type: Sequelize.INTEGER,
-          primaryKey: true,
-          autoIncrement: true
+          type: Sequelize.INTEGER
 
         }
       }

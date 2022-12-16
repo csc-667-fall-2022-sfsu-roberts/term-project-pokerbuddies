@@ -16,7 +16,11 @@ module.exports = {
         password: {
           type:Sequelize.STRING(100), //STRING(100) IN SEQUELIZE IS THE SAME AS VARCHAR(100) IN POSTGRESQL
           allowNull: false
+        },
+        socket:{
+          type:Sequelize.STRING
         }
+
       }
     );
   },

@@ -5,11 +5,10 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sessionInstance = require("./app-config/session");
 
-// const sessionInstance = require("./app-config/session");
-// const protect = require("./app-config/protect");
+
 const socket = require('socket.io');
 const http = require('http');
-// const sessionInstance = require('./app-config/session');
+
 
 if(process.env.NODE_ENV === 'development') {
   require("dotenv").config();
@@ -23,13 +22,13 @@ const gameRouter = require('./routes/games');
 const accountRouter = require('./routes/Accounts');
 const joinSessionRouter = require('./routes/joinSession');
 const userDoesntExistRouter = require('./routes/userDoesntExist');
-const chatRouter = require("./routes/chat");
-const joinSocket = require("./socket/JoinSessionSocket");
+const chatRouter = require("./routes/api/chat");
+const joinSocket = require("./routes/api/JoinSessionSocket");
 
 
 const registrationRouter = require('./routes/registration');
 const joinSession = require('./routes/session');
-// const Games  = require('./public/javascripts/Server/Games');
+
 
 const app = express();
 
@@ -45,21 +44,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(sessionInstance);
-// app.use(sessionInstance);
-// app.use(sessionInstance);
 
 
 const server = http.createServer(app);
 
 const io = socket(server);
-
-// console.log(io);
-
-
-
-// server.on('error',(err) => {
-//   console.log(err);
-// });
 
 function getAppInfo() {
   return[server,io,app];

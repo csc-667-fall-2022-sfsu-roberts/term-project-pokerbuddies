@@ -1,6 +1,9 @@
 const socket = io();
 
 
+
+
+
 //holds list of displayed players
 var players = [];
 
@@ -14,11 +17,11 @@ for (let i = 1; i < 6; i++) {
 }
 
 
-//Displays each individual session
+//Displays each individual session and game pages for each session
 const cards = document.querySelectorAll('.card');
 cards.forEach((card, index) => {
     card.children[0].innerText = `Session ${index + 1}`;
-    
+    // createGameLobbies(index + 1);
 });
 
 //gives each button an individual id and updates list of players when clicked
@@ -26,28 +29,34 @@ const buttons = document.querySelectorAll('.join');
 buttons.forEach((button, index) => {
     let roomId = index + 1;
     button.children[0].id = roomId;
-
+    console.log(roomId);
     button.addEventListener('click', (event) => {
         // debugger;
+        const path=  window.location.pathname.split('/')
+        const namePlayer = path[2];
         fetch(`/games/join/${roomId}`, {
-            method: "post",
+            method: "post", 
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id: socket.id})
-        }).then(() => {
-            console.log("Fetch request successful? Emptying text box.");
-            
-        }).catch(error => console.log(error));
+            body: JSON.stringify({ id: socket.id, name: namePlayer})
+        })
 
         // socket.emit('join', roomId);
        
-        // updatePlayerList();
+        updatePlayerList(event);
     });
 }
 );
 
+let username = '';
+let socketID = '';
+
+socket.on('player-added-login', (name) =>{
+    console.log("EHEEHEHE");
+    debugger;
+    username = name;
 
 
-
+});
 
 
 function addPlayer() {
@@ -73,28 +82,48 @@ const updatePlayerList = (e) => {
     addPlayer();
 }
 
-
-function openCloseFunction() {
-    var x = document.getElementById("sidebar");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
+function createGameLobbies(lobbyNum) {
+    if (lobbyNum < 1) {
+        return -1;
+    }
+    for (let i = 0; i < lobbyNum; i++) {
+        const newFileName = `games${lobbyNum}.pug`;
+        compileFile('games.pug', (err, originalHTML) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            writeFile(newFileName, originalHTML, (err) => {
+                if (err) {
+                    // Handle the error if there is one
+                    console.error(err);
+                    return;
+                }
+            });
+        });
     }
 }
 
-
-//Brendan's code for testing.
-
-
-
-
-
-
-
-
+    function openCloseFunction() {
+        var x = document.getElementById("sidebar");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+    

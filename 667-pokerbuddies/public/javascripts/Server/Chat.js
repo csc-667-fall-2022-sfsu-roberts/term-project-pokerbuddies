@@ -47,7 +47,7 @@ const messages = document.querySelector("#messages");
 //This will append html/css according to id/class name
 
 socket.on(`chat:${LOBBY_ID}`, ({ sender, message, timeStamp }) => {
-    console.log("Listening for events with 'chat:0', if this prints it means success.")
+    console.log("Listening for events with 'chat:1', if this prints it means success.")
     console.log({ sender, message, timeStamp });
 
     const template = document.querySelector("#message-content");
