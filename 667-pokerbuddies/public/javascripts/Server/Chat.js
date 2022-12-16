@@ -28,16 +28,18 @@ document.querySelector("#message").addEventListener("keypress", (event) => {
 
 //This is the code to make it so that the send button works as well.
 document.querySelector("#chat-button").addEventListener("click", (event) => {
+    if (event.target.value !== "") {
+        console.log("User pressed enter key initiating fetch request.");
+        fetch(`/chat/${LOBBY_ID}`, {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: document.querySelector("#message").value })
+        }).then(() => {
+            console.log("Fetch request successful? Emptying text box.");
+            document.querySelector("#message").value = "";
+        }).catch(error => console.log(error));
+    }
 
-    console.log("User pressed enter key initiating fetch request.");
-    fetch(`/chat/${LOBBY_ID}`, {
-        method: "post",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: document.querySelector("#message").value })
-    }).then(() => {
-        console.log("Fetch request successful? Emptying text box.");
-        document.querySelector("#message").value = "";
-    }).catch(error => console.log(error));
 
 });
 
