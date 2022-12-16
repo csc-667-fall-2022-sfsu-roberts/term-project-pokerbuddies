@@ -21,10 +21,10 @@ const setPlayer = (player, count) => {
   this.curPlayer = player;
   this.curSpot = count;
 };
-const getPlayer = () =>{
+const getPlayer = () => {
   return this.curPlayer;
 }
-const getSpot = () =>{
+const getSpot = () => {
   return this.curSpot;
 }
 
@@ -35,7 +35,7 @@ router.get("/", function (req, response, next) {
   const name = player.getName();
   const spot = player.getPlayerNumber();
   const chips = player.getChips();
-  
+
   if (spot == 1) {
     try {
       response.render(`protected/game`, {
@@ -60,18 +60,14 @@ router.get("/", function (req, response, next) {
     });
   } else {
     response.render(`protected/game`, {
-      player_4_name:name,
+      player_4_name: name,
       player_4_total: chips,
       player_4_bet: 0,
     });
   }
-  
-
 
   req.app.io.emit(`join`, {});
 });
-
-
 
 
 router.post("/", function (req, res) {
@@ -194,10 +190,10 @@ router.post("/join/:id", (request, response) => {
   console.log("HERE");
   const userId = request.session.id;
 
-  const {id} = request.params;
+  const { id } = request.params;
   const username = request.body.name;
   if (rooms.has(id)) {
-    let count = rooms.get(id)+ 1;
+    let count = rooms.get(id) + 1;
     let game = rooms.get(id).game;
     rooms.set(id, count);
   } else {
@@ -208,11 +204,11 @@ router.post("/join/:id", (request, response) => {
   const player = new Player(username, sock, userId);
   player.setPlayerNumber(count);
 
-  setPlayer(player,count);
+  setPlayer(player, count);
   playerList.push(player);
 
-  res.render(`games/${id}`,{
-      name: username,
+  res.render(`games/${id}`, {
+    name: username,
   });
 });
 

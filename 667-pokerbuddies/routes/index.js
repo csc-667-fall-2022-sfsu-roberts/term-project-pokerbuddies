@@ -6,8 +6,8 @@ var path = require('path');
 let reqPath = path.join(__dirname, '../');
 
 router.get('/', function(req, res, next) {
-  const { sessionID } = req; //Reminder: if this line causes conflicts remove will be revised if needed
-  const { username } = req.session; //Reminder: if this line causes conflicts remove will be revised if needed
+  const { sessionID } = req; 
+  const { username } = req.session; 
   res.render("public/home");
 
 });

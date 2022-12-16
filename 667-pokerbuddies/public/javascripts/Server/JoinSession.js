@@ -1,6 +1,5 @@
 const socket = io();
-// import { writeFile } from 'fs';
-// import { compileFile } from 'pug';
+
 
 
 
@@ -40,7 +39,8 @@ buttons.forEach((button, index) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id: socket.id, name: namePlayer})
         })
-        
+
+        // socket.emit('join', roomId);
        
         updatePlayerList(event);
     });

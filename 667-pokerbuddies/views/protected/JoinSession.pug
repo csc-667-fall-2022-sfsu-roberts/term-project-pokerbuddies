@@ -42,7 +42,16 @@ head
       .join
         a(href="/games")
           button#join1.glow-on-hover.joinButton(type='button') Join
-        
+        script.
+script.
+  function openCloseFunction() {
+  var x = document.getElementById("sidebar");
+  if (x.style.display === "none") {
+  x.style.display = "block";
+  } else {
+  x.style.display = "none";
+  }
+  }
 script(type="module" src='/javascripts/Server/JoinSession.js')
 script(type="module" src='/javascripts/Server/OpenNavbar.js')
 script(type="module" src="/socket.io/socket.io.js")
